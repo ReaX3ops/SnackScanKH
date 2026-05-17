@@ -15,7 +15,27 @@ st.set_page_config(
 )
 
 # ─────────────────────────────
-# LIGHT APPLE UI
+# SESSION STATE
+# ─────────────────────────────
+
+for k, v in {
+    "lang": "en",
+    "result": None,
+    "image": None
+}.items():
+
+    if k not in st.session_state:
+        st.session_state[k] = v
+
+# ─────────────────────────────
+# TRANSLATION
+# ─────────────────────────────
+
+def t(en, km):
+    return km if st.session_state.lang == "km" else en
+
+# ─────────────────────────────
+# CSS
 # ─────────────────────────────
 
 st.markdown("""
@@ -36,6 +56,7 @@ st.markdown("""
     --border:rgba(120,120,180,0.12);
 
     --text:#111827;
+
     --sub:#6b7280;
 }
 
@@ -44,15 +65,19 @@ st.markdown("""
     box-sizing:border-box;
 }
 
+html, body, [class*="css"]{
+    color:var(--text);
+}
+
 .stApp{
 
     background:
     radial-gradient(circle at top left,
-    rgba(124,58,237,0.10),
+    rgba(124,58,237,0.08),
     transparent 30%),
 
     radial-gradient(circle at bottom right,
-    rgba(59,130,246,0.10),
+    rgba(59,130,246,0.08),
     transparent 30%),
 
     linear-gradient(
@@ -80,35 +105,75 @@ header{
 
     text-align:center;
 
-    padding:2.5rem;
+    padding:2.8rem 2rem;
 
-    border-radius:32px;
+    border-radius:34px;
 
-    background:rgba(255,255,255,0.72);
+    background:rgba(255,255,255,0.78);
 
     border:1px solid var(--border);
 
-    backdrop-filter:blur(24px);
+    backdrop-filter:blur(28px);
 
     box-shadow:
     0 10px 40px rgba(0,0,0,0.06);
 
-    margin-bottom:1.5rem;
-
     overflow:hidden;
+
+    margin-bottom:1.5rem;
+}
+
+.hero-wrap::before{
+
+    content:'';
+
+    position:absolute;
+
+    width:300px;
+    height:300px;
+
+    background:
+    radial-gradient(circle,
+    rgba(124,58,237,0.10),
+    transparent 70%);
+
+    top:-140px;
+    left:-140px;
+}
+
+.hero-wrap::after{
+
+    content:'';
+
+    position:absolute;
+
+    width:250px;
+    height:250px;
+
+    background:
+    radial-gradient(circle,
+    rgba(59,130,246,0.10),
+    transparent 70%);
+
+    bottom:-120px;
+    right:-120px;
 }
 
 .hero-title{
 
-    font-size:3rem;
+    position:relative;
+
+    z-index:2;
+
+    font-size:3.2rem;
 
     font-weight:800;
 
     line-height:1;
 
-    margin-bottom:0.5rem;
-
     letter-spacing:-2px;
+
+    margin-bottom:0.7rem;
 
     background:
     linear-gradient(
@@ -123,11 +188,15 @@ header{
 
 .hero-sub{
 
+    position:relative;
+
+    z-index:2;
+
     color:var(--sub);
 
     font-size:1rem;
 
-    font-weight:400;
+    font-weight:500;
 }
 
 .g-card{
@@ -136,13 +205,13 @@ header{
 
     border:1px solid var(--border);
 
-    border-radius:28px;
+    border-radius:30px;
 
-    padding:1.5rem;
+    padding:1.6rem;
 
     margin-bottom:1rem;
 
-    backdrop-filter:blur(24px);
+    backdrop-filter:blur(28px);
 
     box-shadow:
     0 10px 30px rgba(0,0,0,0.05);
@@ -155,7 +224,22 @@ header{
     transform:translateY(-2px);
 
     box-shadow:
-    0 18px 40px rgba(124,58,237,0.10);
+    0 16px 40px rgba(124,58,237,0.10);
+}
+
+.label{
+
+    font-size:0.75rem;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    color:var(--sub);
+
+    font-weight:700;
+
+    margin-bottom:0.6rem;
 }
 
 .food-name{
@@ -184,21 +268,6 @@ header{
     -webkit-text-fill-color:transparent;
 }
 
-.label{
-
-    font-size:0.75rem;
-
-    letter-spacing:2px;
-
-    text-transform:uppercase;
-
-    color:var(--sub);
-
-    font-weight:600;
-
-    margin-bottom:0.6rem;
-}
-
 .ingredients{
 
     display:flex;
@@ -216,7 +285,7 @@ header{
     rgba(124,58,237,0.08);
 
     border:
-    1px solid rgba(124,58,237,0.14);
+    1px solid rgba(124,58,237,0.15);
 
     color:var(--accent);
 
@@ -226,7 +295,7 @@ header{
 
     font-size:0.85rem;
 
-    font-weight:500;
+    font-weight:600;
 }
 
 .stButton > button{
@@ -235,7 +304,7 @@ header{
 
     border:none !important;
 
-    border-radius:18px !important;
+    border-radius:20px !important;
 
     background:
     linear-gradient(
@@ -248,63 +317,73 @@ header{
 
     font-weight:700 !important;
 
-    padding:0.9rem 1rem !important;
+    padding:0.95rem 1rem !important;
 
     font-size:1rem !important;
 
-    box-shadow:
-    0 10px 30px rgba(124,58,237,0.20);
+    transition:0.25s !important;
 
-    transition:0.25s;
+    box-shadow:
+    0 10px 30px rgba(124,58,237,0.18);
 }
 
 .stButton > button:hover{
 
-    transform:translateY(-2px) scale(1.01);
+    transform:translateY(-2px);
 }
 
 .stTextInput input{
 
-    background:rgba(255,255,255,0.8) !important;
+    background:
+    rgba(255,255,255,0.85) !important;
 
-    border:1px solid var(--border) !important;
+    border:
+    1px solid var(--border) !important;
 
-    border-radius:16px !important;
+    border-radius:18px !important;
 
     color:var(--text) !important;
 }
 
 [data-testid="stFileUploadDropzone"]{
 
-    background:rgba(255,255,255,0.55);
+    background:
+    rgba(255,255,255,0.65);
 
-    border:2px dashed rgba(124,58,237,0.18);
+    border:
+    2px dashed rgba(124,58,237,0.15);
 
-    border-radius:24px;
+    border-radius:28px;
 
     padding:2rem;
 }
 
 [data-testid="stImage"] img{
 
-    border-radius:28px;
+    border-radius:30px;
 
-    border:1px solid rgba(255,255,255,0.8);
+    border:
+    1px solid rgba(255,255,255,0.8);
 
     box-shadow:
-    0 15px 45px rgba(0,0,0,0.10);
+    0 16px 40px rgba(0,0,0,0.08);
 }
 
-.accent-picker{
+.stProgress > div > div{
 
-    margin-bottom:1rem;
+    background:
+    linear-gradient(
+    90deg,
+    var(--accent),
+    var(--accent2)
+    ) !important;
 }
 
 .about{
 
     text-align:center;
 
-    padding:2rem;
+    padding:2rem 0;
 
     color:var(--sub);
 
@@ -313,26 +392,6 @@ header{
 
 </style>
 """, unsafe_allow_html=True)
-
-# ─────────────────────────────
-# SESSION
-# ─────────────────────────────
-
-for k, v in {
-    "lang":"en",
-    "result":None,
-    "image":None
-}.items():
-
-    if k not in st.session_state:
-        st.session_state[k] = v
-
-# ─────────────────────────────
-# TRANSLATE
-# ─────────────────────────────
-
-def t(en, km):
-    return km if st.session_state.lang == "km" else en
 
 # ─────────────────────────────
 # ACCENT PICKER
@@ -389,14 +448,18 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # ─────────────────────────────
-# LANGUAGE
+# LANGUAGE BUTTON
 # ─────────────────────────────
 
 col1, col2 = st.columns([6,1])
 
 with col2:
 
-    if st.button("🇰🇭 KM" if st.session_state.lang == "en" else "🇬🇧 EN"):
+    if st.button(
+        "🇰🇭 KM"
+        if st.session_state.lang == "en"
+        else "🇬🇧 EN"
+    ):
 
         st.session_state.lang = (
             "km"
@@ -405,11 +468,12 @@ with col2:
         )
 
 # ─────────────────────────────
-# GEMINI
+# GEMINI CLIENT
 # ─────────────────────────────
 
 @st.cache_resource
 def get_client():
+
     return genai.Client(
         api_key=st.secrets["GEMINI_API_KEY"]
     )
@@ -436,7 +500,7 @@ hint = st.text_input(
 )
 
 # ─────────────────────────────
-# IMAGE
+# SCAN
 # ─────────────────────────────
 
 if uploaded_file:
@@ -518,6 +582,7 @@ if st.session_state.result:
         "food_km"
         if lang == "km"
         else "food_en",
+
         "មិនដឹង"
         if lang == "km"
         else "Unknown"
