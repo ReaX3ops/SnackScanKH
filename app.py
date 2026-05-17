@@ -51,14 +51,6 @@ st.markdown("""
     background: radial-gradient(circle, rgba(0,180,255,0.15) 0%, transparent 70%);
     pointer-events: none;
 }
-.hero-logo {
-    width: 72px; height: 72px;
-    border-radius: 18px;
-    margin: 0 auto 0.8rem;
-    display: block;
-    box-shadow: 0 4px 20px rgba(130,60,255,0.4);
-    border: 1px solid rgba(255,255,255,0.15);
-}
 .hero-badge {
     display: inline-block;
     background: rgba(130,60,255,0.2);
@@ -89,7 +81,6 @@ st.markdown("""
     color: rgba(255,255,255,0.4);
     margin: 0;
 }
-
 .g-card {
     position: relative;
     background: rgba(255,255,255,0.045);
@@ -110,7 +101,6 @@ st.markdown("""
 }
 .g-card-accent { border-color: rgba(130,60,255,0.35); }
 .g-card-green  { border-color: rgba(50,210,120,0.35); }
-
 .chip-label {
     display: inline-flex;
     align-items: center;
@@ -123,7 +113,6 @@ st.markdown("""
     margin-bottom: 0.5rem;
 }
 .chip-label-green { color: rgba(50,210,120,0.75); }
-
 .food-name {
     font-size: 2rem;
     font-weight: 700;
@@ -148,7 +137,6 @@ st.markdown("""
     margin-left: 6px;
     vertical-align: middle;
 }
-
 .nut-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -168,20 +156,8 @@ st.markdown("""
     border-color: rgba(130,60,255,0.25);
 }
 .nut-icon { font-size: 1.5rem; line-height: 1; }
-.nut-val {
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: #f0ecff;
-    margin: 4px 0 2px;
-}
-.nut-name {
-    font-size: 0.65rem;
-    font-weight: 500;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.35);
-}
-
+.nut-val { font-size: 1.15rem; font-weight: 700; color: #f0ecff; margin: 4px 0 2px; }
+.nut-name { font-size: 0.65rem; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(255,255,255,0.35); }
 .tag-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 0.7rem; }
 .tag {
     background: rgba(130,60,255,0.12);
@@ -191,8 +167,6 @@ st.markdown("""
     font-size: 0.85rem;
     color: rgba(210,190,255,0.9);
 }
-
-/* Donut chart */
 .donut-wrap {
     display: flex;
     align-items: center;
@@ -203,25 +177,9 @@ st.markdown("""
 }
 .donut-svg { filter: drop-shadow(0 0 12px rgba(130,60,255,0.3)); }
 .donut-legend { display: flex; flex-direction: column; gap: 10px; }
-.legend-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.85rem;
-    color: rgba(255,255,255,0.75);
-}
-.legend-dot {
-    width: 12px; height: 12px;
-    border-radius: 50%;
-    flex-shrink: 0;
-}
-.legend-pct {
-    font-weight: 700;
-    color: #f0ecff;
-    margin-left: auto;
-    padding-left: 12px;
-}
-
+.legend-item { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: rgba(255,255,255,0.75); }
+.legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+.legend-pct { font-weight: 700; color: #f0ecff; margin-left: auto; padding-left: 12px; }
 [data-testid="stFileUploadDropzone"] {
     background: rgba(130,60,255,0.04) !important;
     border: 2px dashed rgba(130,60,255,0.3) !important;
@@ -232,13 +190,11 @@ st.markdown("""
     background: rgba(130,60,255,0.08) !important;
 }
 [data-testid="stFileUploadDropzone"] p { color: rgba(255,255,255,0.35) !important; }
-
 [data-testid="stImage"] img {
     border-radius: 22px !important;
     border: 1px solid rgba(255,255,255,0.12) !important;
     box-shadow: 0 16px 48px rgba(0,0,0,0.5) !important;
 }
-
 .stTextInput > div > div > input {
     background: rgba(255,255,255,0.05) !important;
     border: 1px solid rgba(130,60,255,0.25) !important;
@@ -258,7 +214,6 @@ st.markdown("""
     letter-spacing: 1.8px !important;
     text-transform: uppercase !important;
 }
-
 .stButton > button {
     background: rgba(130,60,255,0.15) !important;
     border: 1px solid rgba(130,60,255,0.35) !important;
@@ -267,10 +222,7 @@ st.markdown("""
     font-family: 'Outfit', sans-serif !important;
     font-weight: 500 !important;
 }
-.stButton > button:hover {
-    background: rgba(130,60,255,0.28) !important;
-}
-
+.stButton > button:hover { background: rgba(130,60,255,0.28) !important; }
 div.scan-btn > div > button {
     background: linear-gradient(135deg, #7c3aed 0%, #4338ca 100%) !important;
     border: none !important;
@@ -281,7 +233,6 @@ div.scan-btn > div > button {
     width: 100% !important;
     box-shadow: 0 6px 28px rgba(124,58,237,0.45), inset 0 1px 0 rgba(255,255,255,0.15) !important;
 }
-
 .stProgress > div > div {
     background: linear-gradient(90deg, #7c3aed, #a78bfa, #7af0ff) !important;
     border-radius: 99px !important;
@@ -291,15 +242,12 @@ div.scan-btn > div > button {
     border-radius: 99px !important;
     height: 6px !important;
 }
-
 .stAlert {
     background: rgba(239,68,68,0.08) !important;
     border: 1px solid rgba(239,68,68,0.25) !important;
     border-radius: 14px !important;
     color: #fca5a5 !important;
 }
-
-/* About */
 .about-wrap {
     position: relative;
     margin-top: 3rem;
@@ -329,22 +277,19 @@ div.scan-btn > div > button {
     100% { transform: translateX(33.33%); }
 }
 .about-orb1 {
-    position: absolute; width: 200px; height: 200px;
-    border-radius: 50%;
+    position: absolute; width: 200px; height: 200px; border-radius: 50%;
     background: radial-gradient(circle, rgba(130,60,255,0.12) 0%, transparent 70%);
     top: -60px; left: -60px;
     animation: float1 6s ease-in-out infinite; pointer-events: none;
 }
 .about-orb2 {
-    position: absolute; width: 160px; height: 160px;
-    border-radius: 50%;
+    position: absolute; width: 160px; height: 160px; border-radius: 50%;
     background: radial-gradient(circle, rgba(0,180,255,0.1) 0%, transparent 70%);
     bottom: -40px; right: -40px;
     animation: float2 7s ease-in-out infinite; pointer-events: none;
 }
 @keyframes float1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(15px,20px)} }
 @keyframes float2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-12px,-18px)} }
-
 .avatar-ring {
     width: 88px; height: 88px; border-radius: 50%;
     margin: 0 auto 1.2rem;
@@ -363,11 +308,7 @@ div.scan-btn > div > button {
 }
 .about-name { font-size: 1.35rem; font-weight: 700; color: #f0ecff; margin: 0 0 0.3rem; }
 .about-bio { font-size: 0.9rem; font-weight: 300; color: rgba(255,255,255,0.45); margin: 0 0 1.4rem; line-height: 1.6; }
-.about-stats {
-    display: flex; justify-content: center; gap: 2rem;
-    margin-bottom: 1.6rem; padding-bottom: 1.4rem;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-}
+.about-stats { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.6rem; padding-bottom: 1.4rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
 .stat-item { text-align: center; }
 .stat-val {
     font-size: 1.2rem; font-weight: 700;
@@ -376,12 +317,10 @@ div.scan-btn > div > button {
     background-clip: text; display: block;
 }
 .stat-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.2px; color: rgba(255,255,255,0.3); font-weight: 500; }
-
 .color-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 1.4rem; flex-wrap: wrap; }
 .color-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.3); font-weight: 500; width: 100%; text-align: center; margin-bottom: 4px; }
 .color-dot { width: 26px; height: 26px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.15); transition: transform 0.2s, border-color 0.2s; display: inline-block; }
 .color-dot:hover { transform: scale(1.25); border-color: rgba(255,255,255,0.5); }
-
 .gh-link {
     display: inline-flex; align-items: center; gap: 8px;
     background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
@@ -402,7 +341,7 @@ for k, v in {"lang": "en", "result": None, "image": None, "last_hint": ""}.items
 def t(en, km):
     return km if st.session_state.lang == "km" else en
 
-# ── Hero with logo ──
+# ── Hero ──
 col_l, col_c, col_r = st.columns([1, 3, 1])
 with col_c:
     try:
@@ -457,11 +396,11 @@ if uploaded_file:
         st.session_state.result = None
         bar = st.progress(0, text=t("Waking up the AI...", "កំពុងភ្ញាក់ AI..."))
         steps = [
-            (15, t("Reading your photo...",       "កំពុងអានរូបភាព...")),
-            (35, t("Identifying the food...",     "កំពុងកំណត់ម្ហូប...")),
-            (58, t("Calculating calories...",     "កំពុងគណនាកាឡូរី...")),
-            (78, t("Breaking down nutrition...",  "កំពុងវិភាគជីវជាតិ...")),
-            (92, t("Wrapping up results...",      "កំពុងបញ្ចប់លទ្ធផល...")),
+            (15, t("Reading your photo...",      "កំពុងអានរូបភាព...")),
+            (35, t("Identifying the food...",    "កំពុងកំណត់ម្ហូប...")),
+            (58, t("Calculating calories...",    "កំពុងគណនាកាឡូរី...")),
+            (78, t("Breaking down nutrition...", "កំពុងវិភាគជីវជាតិ...")),
+            (92, t("Wrapping up results...",     "កំពុងបញ្ចប់លទ្ធផល...")),
         ]
         for pct, msg in steps:
             time.sleep(0.35)
@@ -514,21 +453,18 @@ if st.session_state.result and st.session_state.image:
     ignore      = ["bun", "bread", "beef patty"]
     ingredients = [i for i in data.get(ing_key, []) if i.lower() not in ignore]
 
-    # Food name
     st.markdown(f"""
     <div class="g-card g-card-accent">
         <div class="chip-label">🍽 {t("Detected Food", "ម្ហូបដែលបានរកឃើញ")}</div>
         <div class="food-name">{food}</div>
     </div>""", unsafe_allow_html=True)
 
-    # Calories
     st.markdown(f"""
     <div class="g-card g-card-green">
         <div class="chip-label chip-label-green">🔥 {t("Estimated Calories", "កាឡូរីដែលប៉ាន់ស្មាន")}</div>
         <div><span class="cal-number">{calories}</span><span class="cal-unit">kcal</span></div>
     </div>""", unsafe_allow_html=True)
 
-    # Nutrition grid
     if nutrition:
         items = [
             ("💪", t("Protein", "ប្រូតេអ៊ីន"),  nutrition.get("protein", "–")),
@@ -543,14 +479,12 @@ if st.session_state.result and st.session_state.image:
             <div class="nut-val">{val}</div>
             <div class="nut-name">{name}</div>
         </div>""" for icon, name, val in items)
-
         st.markdown(f"""
         <div class="g-card">
             <div class="chip-label">🧬 {t("Nutrition Breakdown", "តម្លៃអាហារូបត្ថម្ភ")}</div>
             <div class="nut-grid">{cells}</div>
         </div>""", unsafe_allow_html=True)
 
-    # ── Donut chart for macros ──
     if nutrition:
         def parse_g(val):
             try:
@@ -558,39 +492,27 @@ if st.session_state.result and st.session_state.image:
             except:
                 return 0.0
 
-        protein_g = parse_g(nutrition.get("protein", "0"))
-        carbs_g   = parse_g(nutrition.get("carbs",   "0"))
-        fat_g     = parse_g(nutrition.get("fat",     "0"))
-        fiber_g   = parse_g(nutrition.get("fiber",   "0"))
-        sugar_g   = parse_g(nutrition.get("sugar",   "0"))
-
-        # Calories from macros
         macro_cals = {
-            t("Protein","ប្រូតេអ៊ីន"):  protein_g * 4,
-            t("Carbs","កាបូអ៊ីដ្រាត"):  carbs_g   * 4,
-            t("Fat","ខ្លាញ់"):           fat_g     * 9,
-            t("Fiber","ជាតិសរសៃ"):       fiber_g   * 2,
-            t("Sugar","ស្ករ"):           sugar_g   * 4,
+            t("Protein", "ប្រូតេអ៊ីន"):  parse_g(nutrition.get("protein", "0")) * 4,
+            t("Carbs",   "កាបូអ៊ីដ្រាត"): parse_g(nutrition.get("carbs",   "0")) * 4,
+            t("Fat",     "ខ្លាញ់"):        parse_g(nutrition.get("fat",     "0")) * 9,
+            t("Fiber",   "ជាតិសរសៃ"):      parse_g(nutrition.get("fiber",   "0")) * 2,
+            t("Sugar",   "ស្ករ"):          parse_g(nutrition.get("sugar",   "0")) * 4,
         }
         total_cal = sum(macro_cals.values()) or 1
         colors = ["#a78bfa", "#34d399", "#f97316", "#60a5fa", "#f472b6"]
-
-        # Build SVG donut
-        cx, cy, r, stroke = 90, 90, 70, 28
-        circumference = 2 * 3.14159 * r
-        segments = []
-        offset = 0
         slices = [(name, cal, colors[i]) for i, (name, cal) in enumerate(macro_cals.items()) if cal > 0]
 
+        cx, cy, r, stroke = 90, 90, 70, 28
+        circumference = 2 * 3.14159 * r
+        segments, offset = [], 0
         for name, cal, color in slices:
-            pct = cal / total_cal
-            dash = pct * circumference
+            dash = (cal / total_cal) * circumference
             gap  = circumference - dash
             segments.append(
                 f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{color}" '
                 f'stroke-width="{stroke}" stroke-dasharray="{dash:.2f} {gap:.2f}" '
-                f'stroke-dashoffset="{-offset:.2f}" transform="rotate(-90 {cx} {cy})" '
-                f'style="transition: stroke-dashoffset 0.5s ease;"/>'
+                f'stroke-dashoffset="{-offset:.2f}" transform="rotate(-90 {cx} {cy})"/>'
             )
             offset += dash
 
@@ -601,23 +523,17 @@ if st.session_state.result and st.session_state.image:
             <text x="{cx}" y="{cy+12}" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="10" font-family="Outfit">{t("breakdown","ចំណែក")}</text>
         </svg>"""
 
-        legend_items = "".join(
-            f'<div class="legend-item"><div class="legend-dot" style="background:{color}"></div>'
-            f'<span>{name}</span>'
-            f'<span class="legend-pct">{(cal/total_cal*100):.0f}%</span></div>'
-            for name, cal, color in slices
+        legend = "".join(
+            f'<div class="legend-item"><div class="legend-dot" style="background:{c}"></div>'
+            f'<span>{n}</span><span class="legend-pct">{cal/total_cal*100:.0f}%</span></div>'
+            for n, cal, c in slices
         )
-
         st.markdown(f"""
         <div class="g-card">
             <div class="chip-label">🥧 {t("Macro Wheel", "កង់ម៉ាក្រូ")}</div>
-            <div class="donut-wrap">
-                {svg}
-                <div class="donut-legend">{legend_items}</div>
-            </div>
+            <div class="donut-wrap">{svg}<div class="donut-legend">{legend}</div></div>
         </div>""", unsafe_allow_html=True)
 
-    # Ingredients
     if ingredients:
         tags = "".join(f'<span class="tag">{i}</span>' for i in ingredients)
         st.markdown(f"""
@@ -638,27 +554,18 @@ st.markdown("""
         <span style="color:rgba(160,120,255,0.6);font-size:0.82rem;">Building things with AI, one scan at a time.</span>
     </div>
     <div class="about-stats">
-        <div class="stat-item">
-            <span class="stat-val">Gemini</span>
-            <span class="stat-label">AI Model</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-val">2</span>
-            <span class="stat-label">Languages</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-val">6</span>
-            <span class="stat-label">Nutrients</span>
-        </div>
+        <div class="stat-item"><span class="stat-val">Gemini</span><span class="stat-label">AI Model</span></div>
+        <div class="stat-item"><span class="stat-val">2</span><span class="stat-label">Languages</span></div>
+        <div class="stat-item"><span class="stat-val">6</span><span class="stat-label">Nutrients</span></div>
     </div>
     <div class="color-row">
         <div class="color-label">✦ Accent Colors</div>
-        <div class="color-dot" style="background:linear-gradient(135deg,#7c3aed,#4338ca);" title="Purple"></div>
-        <div class="color-dot" style="background:linear-gradient(135deg,#0ea5e9,#06b6d4);" title="Cyan"></div>
-        <div class="color-dot" style="background:linear-gradient(135deg,#f97316,#ef4444);" title="Sunset"></div>
-        <div class="color-dot" style="background:linear-gradient(135deg,#10b981,#34d399);" title="Emerald"></div>
-        <div class="color-dot" style="background:linear-gradient(135deg,#ec4899,#a855f7);" title="Pink"></div>
-        <div class="color-dot" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);" title="Gold"></div>
+        <div class="color-dot" style="background:linear-gradient(135deg,#7c3aed,#4338ca)"></div>
+        <div class="color-dot" style="background:linear-gradient(135deg,#0ea5e9,#06b6d4)"></div>
+        <div class="color-dot" style="background:linear-gradient(135deg,#f97316,#ef4444)"></div>
+        <div class="color-dot" style="background:linear-gradient(135deg,#10b981,#34d399)"></div>
+        <div class="color-dot" style="background:linear-gradient(135deg,#ec4899,#a855f7)"></div>
+        <div class="color-dot" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)"></div>
     </div>
     <a class="gh-link" href="https://github.com/ReaX3ops" target="_blank">⌥ github.com/ReaX3ops</a>
     <div class="about-footer">Made with ♥ in Phnom Penh · SnackScanKH © 2026</div>
