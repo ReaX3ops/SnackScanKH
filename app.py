@@ -17,8 +17,39 @@ st.markdown("""
 * { font-family: 'Outfit', sans-serif; box-sizing: border-box; }
 
 .stApp {
-    background: radial-gradient(ellipse at 20% 20%, #1a0533 0%, #0d0d1a 40%, #000510 100%);
-    min-height: 100vh;
+    :root{
+    --accent:#7c3aed;
+    --accent2:#8b5cf6;
+
+    --bg1:#f5f7ff;
+    --bg2:#eef2ff;
+
+    --card:rgba(255,255,255,0.72);
+
+    --border:rgba(120,120,180,0.12);
+
+    --text:#111827;
+    --sub:rgba(17,24,39,0.55);
+}
+
+.stApp{
+
+    background:
+    radial-gradient(circle at top left,
+    rgba(124,58,237,0.10),
+    transparent 30%),
+
+    radial-gradient(circle at bottom right,
+    rgba(59,130,246,0.10),
+    transparent 30%),
+
+    linear-gradient(
+    180deg,
+    var(--bg1),
+    var(--bg2));
+
+    min-height:100vh;
+}
 }
 
 #MainMenu, footer, header { visibility: hidden; }
@@ -78,29 +109,40 @@ st.markdown("""
 .hero-sub {
     font-size: 0.92rem;
     font-weight: 300;
-    color: rgba(255,255,255,0.4);
+    color: var(--sub);
     margin: 0;
 }
-.g-card {
-    position: relative;
-    background: rgba(255,255,255,0.045);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 22px;
-    padding: 1.4rem 1.8rem;
-    margin-bottom: 1rem;
-    backdrop-filter: blur(20px);
-    overflow: hidden;
+.g-card{
+
+    position:relative;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:28px;
+
+    padding:1.4rem 1.8rem;
+
+    margin-bottom:1rem;
+
+    backdrop-filter:blur(24px);
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.06);
+
+    overflow:hidden;
+
+    transition:0.25s;
 }
-.g-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 22px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 60%);
-    pointer-events: none;
+
+.g-card:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 18px 40px rgba(124,58,237,0.10);
 }
-.g-card-accent { border-color: rgba(130,60,255,0.35); }
-.g-card-green  { border-color: rgba(50,210,120,0.35); }
 .chip-label {
     display: inline-flex;
     align-items: center;
@@ -116,7 +158,7 @@ st.markdown("""
 .food-name {
     font-size: 2rem;
     font-weight: 700;
-    color: #f0ecff;
+    color: var(--text);
     line-height: 1.2;
     letter-spacing: -0.5px;
 }
@@ -144,7 +186,7 @@ st.markdown("""
     margin-top: 0.8rem;
 }
 .nut-cell {
-    background: rgba(255,255,255,0.04);
+    background: rgba(255,255,255,0.45);
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 16px;
     padding: 1rem 0.5rem 0.8rem;
@@ -156,7 +198,7 @@ st.markdown("""
     border-color: rgba(130,60,255,0.25);
 }
 .nut-icon { font-size: 1.5rem; line-height: 1; }
-.nut-val { font-size: 1.15rem; font-weight: 700; color: #f0ecff; margin: 4px 0 2px; }
+.nut-val { font-size: 1.15rem; font-weight: 700; color: var(--text); margin: 4px 0 2px; }
 .nut-name { font-size: 0.65rem; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(255,255,255,0.35); }
 .tag-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 0.7rem; }
 .tag {
@@ -179,7 +221,7 @@ st.markdown("""
 .donut-legend { display: flex; flex-direction: column; gap: 10px; }
 .legend-item { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: rgba(255,255,255,0.75); }
 .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
-.legend-pct { font-weight: 700; color: #f0ecff; margin-left: auto; padding-left: 12px; }
+.legend-pct { font-weight: 700; color: var(--text); margin-left: auto; padding-left: 12px; }
 [data-testid="stFileUploadDropzone"] {
     background: rgba(130,60,255,0.04) !important;
     border: 2px dashed rgba(130,60,255,0.3) !important;
@@ -306,7 +348,7 @@ div.scan-btn > div > button {
 @keyframes spin-gradient {
     0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%}
 }
-.about-name { font-size: 1.35rem; font-weight: 700; color: #f0ecff; margin: 0 0 0.3rem; }
+.about-name { font-size: 1.35rem; font-weight: 700; color: var(--text); margin: 0 0 0.3rem; }
 .about-bio { font-size: 0.9rem; font-weight: 300; color: rgba(255,255,255,0.45); margin: 0 0 1.4rem; line-height: 1.6; }
 .about-stats { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.6rem; padding-bottom: 1.4rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
 .stat-item { text-align: center; }
@@ -371,6 +413,40 @@ def get_client():
 client = get_client()
 
 # ── Upload ──
+# ── Accent Picker ──
+
+accent_map = {
+
+    "Purple": ("#7c3aed", "#8b5cf6"),
+
+    "Blue": ("#2563eb", "#3b82f6"),
+
+    "Pink": ("#db2777", "#ec4899"),
+
+    "Green": ("#059669", "#10b981"),
+
+    "Orange": ("#ea580c", "#f97316")
+}
+
+accent = st.selectbox(
+    "Accent",
+    list(accent_map.keys()),
+    label_visibility="collapsed"
+)
+
+primary, secondary = accent_map[accent]
+
+st.markdown(f"""
+<style>
+
+:root{{
+    --accent:{primary};
+    --accent2:{secondary};
+}}
+
+</style>
+""", unsafe_allow_html=True)
+
 uploaded_file = st.file_uploader(
     t("Drop your food photo here", "ទម្លាក់រូបភាពម្ហូបរបស់អ្នកនៅទីនេះ"),
     type=["jpg", "jpeg", "png", "webp"],
