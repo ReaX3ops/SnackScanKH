@@ -24,17 +24,13 @@ st.markdown("""
 #MainMenu, footer, header { visibility: hidden; }
 .block-container { padding-top: 2.5rem; max-width: 720px; }
 
-/* ── Hero ── */
 .hero-wrap {
     position: relative;
     text-align: center;
-    padding: 2.5rem 2rem 2rem;
+    padding: 2rem 2rem 1.8rem;
     margin-bottom: 1.5rem;
     border-radius: 28px;
-    background: linear-gradient(135deg,
-        rgba(120,60,255,0.18) 0%,
-        rgba(30,20,80,0.55) 50%,
-        rgba(0,180,255,0.10) 100%);
+    background: linear-gradient(135deg, rgba(120,60,255,0.18) 0%, rgba(30,20,80,0.55) 50%, rgba(0,180,255,0.10) 100%);
     border: 1px solid rgba(150,100,255,0.25);
     backdrop-filter: blur(24px);
     overflow: hidden;
@@ -55,6 +51,14 @@ st.markdown("""
     background: radial-gradient(circle, rgba(0,180,255,0.15) 0%, transparent 70%);
     pointer-events: none;
 }
+.hero-logo {
+    width: 72px; height: 72px;
+    border-radius: 18px;
+    margin: 0 auto 0.8rem;
+    display: block;
+    box-shadow: 0 4px 20px rgba(130,60,255,0.4);
+    border: 1px solid rgba(255,255,255,0.15);
+}
 .hero-badge {
     display: inline-block;
     background: rgba(130,60,255,0.2);
@@ -66,10 +70,10 @@ st.markdown("""
     letter-spacing: 2px;
     text-transform: uppercase;
     color: rgba(180,140,255,0.9);
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
 }
 .hero-title {
-    font-size: 3rem;
+    font-size: 2.8rem;
     font-weight: 800;
     letter-spacing: -1.5px;
     line-height: 1;
@@ -80,13 +84,12 @@ st.markdown("""
     background-clip: text;
 }
 .hero-sub {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     font-weight: 300;
     color: rgba(255,255,255,0.4);
     margin: 0;
 }
 
-/* ── Glass card ── */
 .g-card {
     position: relative;
     background: rgba(255,255,255,0.045);
@@ -96,7 +99,6 @@ st.markdown("""
     margin-bottom: 1rem;
     backdrop-filter: blur(20px);
     overflow: hidden;
-    transition: border-color 0.3s;
 }
 .g-card::before {
     content: '';
@@ -147,7 +149,6 @@ st.markdown("""
     vertical-align: middle;
 }
 
-/* ── Nutrition grid ── */
 .nut-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -172,7 +173,6 @@ st.markdown("""
     font-weight: 700;
     color: #f0ecff;
     margin: 4px 0 2px;
-    letter-spacing: -0.3px;
 }
 .nut-name {
     font-size: 0.65rem;
@@ -182,7 +182,6 @@ st.markdown("""
     color: rgba(255,255,255,0.35);
 }
 
-/* ── Ingredient tags ── */
 .tag-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 0.7rem; }
 .tag {
     background: rgba(130,60,255,0.12);
@@ -190,17 +189,43 @@ st.markdown("""
     border-radius: 99px;
     padding: 6px 18px;
     font-size: 0.85rem;
-    font-weight: 400;
     color: rgba(210,190,255,0.9);
-    letter-spacing: 0.2px;
 }
 
-/* ── Upload zone ── */
+/* Donut chart */
+.donut-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+.donut-svg { filter: drop-shadow(0 0 12px rgba(130,60,255,0.3)); }
+.donut-legend { display: flex; flex-direction: column; gap: 10px; }
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.75);
+}
+.legend-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.legend-pct {
+    font-weight: 700;
+    color: #f0ecff;
+    margin-left: auto;
+    padding-left: 12px;
+}
+
 [data-testid="stFileUploadDropzone"] {
     background: rgba(130,60,255,0.04) !important;
     border: 2px dashed rgba(130,60,255,0.3) !important;
     border-radius: 18px !important;
-    transition: border-color 0.2s, background 0.2s !important;
 }
 [data-testid="stFileUploadDropzone"]:hover {
     border-color: rgba(130,60,255,0.55) !important;
@@ -208,27 +233,23 @@ st.markdown("""
 }
 [data-testid="stFileUploadDropzone"] p { color: rgba(255,255,255,0.35) !important; }
 
-/* ── Image ── */
 [data-testid="stImage"] img {
     border-radius: 22px !important;
     border: 1px solid rgba(255,255,255,0.12) !important;
     box-shadow: 0 16px 48px rgba(0,0,0,0.5) !important;
 }
 
-/* ── Text input ── */
 .stTextInput > div > div > input {
     background: rgba(255,255,255,0.05) !important;
     border: 1px solid rgba(130,60,255,0.25) !important;
     border-radius: 14px !important;
     color: rgba(255,255,255,0.85) !important;
     font-family: 'Outfit', sans-serif !important;
-    font-size: 0.92rem !important;
 }
 .stTextInput > div > div > input::placeholder { color: rgba(255,255,255,0.2) !important; }
 .stTextInput > div > div > input:focus {
     border-color: rgba(130,60,255,0.6) !important;
     box-shadow: 0 0 0 3px rgba(130,60,255,0.12) !important;
-    background: rgba(255,255,255,0.07) !important;
 }
 .stTextInput label {
     color: rgba(160,120,255,0.7) !important;
@@ -238,42 +259,29 @@ st.markdown("""
     text-transform: uppercase !important;
 }
 
-/* ── Buttons ── */
 .stButton > button {
     background: rgba(130,60,255,0.15) !important;
     border: 1px solid rgba(130,60,255,0.35) !important;
     color: rgba(210,185,255,0.95) !important;
     border-radius: 99px !important;
     font-family: 'Outfit', sans-serif !important;
-    font-size: 0.85rem !important;
     font-weight: 500 !important;
-    transition: all 0.2s !important;
 }
 .stButton > button:hover {
     background: rgba(130,60,255,0.28) !important;
-    border-color: rgba(130,60,255,0.6) !important;
 }
 
-/* ── Scan button ── */
-div.scan-btn > div > button, div.scan-btn button {
+div.scan-btn > div > button {
     background: linear-gradient(135deg, #7c3aed 0%, #4338ca 100%) !important;
     border: none !important;
     border-radius: 18px !important;
     color: white !important;
     font-size: 1.05rem !important;
     font-weight: 700 !important;
-    letter-spacing: 0.5px !important;
-    padding: 0.8rem 2rem !important;
     width: 100% !important;
     box-shadow: 0 6px 28px rgba(124,58,237,0.45), inset 0 1px 0 rgba(255,255,255,0.15) !important;
-    transition: all 0.25s !important;
-}
-div.scan-btn > div > button:hover {
-    box-shadow: 0 8px 36px rgba(124,58,237,0.65) !important;
-    transform: translateY(-2px) !important;
 }
 
-/* ── Progress bar ── */
 .stProgress > div > div {
     background: linear-gradient(90deg, #7c3aed, #a78bfa, #7af0ff) !important;
     border-radius: 99px !important;
@@ -284,7 +292,6 @@ div.scan-btn > div > button:hover {
     height: 6px !important;
 }
 
-/* ── Alert ── */
 .stAlert {
     background: rgba(239,68,68,0.08) !important;
     border: 1px solid rgba(239,68,68,0.25) !important;
@@ -292,8 +299,98 @@ div.scan-btn > div > button:hover {
     color: #fca5a5 !important;
 }
 
-/* ── Divider ── */
-hr { border-color: rgba(255,255,255,0.06) !important; }
+/* About */
+.about-wrap {
+    position: relative;
+    margin-top: 3rem;
+    border-radius: 28px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(24px);
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+    animation: fadeUp 0.7s ease both;
+}
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.about-wrap::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 300%; height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(130,60,255,0.8) 30%, rgba(122,240,255,0.8) 50%, rgba(130,60,255,0.8) 70%, transparent 100%);
+    animation: shimmer-line 4s linear infinite;
+}
+@keyframes shimmer-line {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(33.33%); }
+}
+.about-orb1 {
+    position: absolute; width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(130,60,255,0.12) 0%, transparent 70%);
+    top: -60px; left: -60px;
+    animation: float1 6s ease-in-out infinite; pointer-events: none;
+}
+.about-orb2 {
+    position: absolute; width: 160px; height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,180,255,0.1) 0%, transparent 70%);
+    bottom: -40px; right: -40px;
+    animation: float2 7s ease-in-out infinite; pointer-events: none;
+}
+@keyframes float1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(15px,20px)} }
+@keyframes float2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-12px,-18px)} }
+
+.avatar-ring {
+    width: 88px; height: 88px; border-radius: 50%;
+    margin: 0 auto 1.2rem;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; font-size: 2.2rem;
+    background: rgba(130,60,255,0.12);
+}
+.avatar-ring::after {
+    content: ''; position: absolute; inset: -2px; border-radius: 50%;
+    background: linear-gradient(135deg, #7c3aed, #7af0ff, #7c3aed);
+    background-size: 200% 200%; z-index: -1;
+    animation: spin-gradient 4s linear infinite;
+}
+@keyframes spin-gradient {
+    0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%}
+}
+.about-name { font-size: 1.35rem; font-weight: 700; color: #f0ecff; margin: 0 0 0.3rem; }
+.about-bio { font-size: 0.9rem; font-weight: 300; color: rgba(255,255,255,0.45); margin: 0 0 1.4rem; line-height: 1.6; }
+.about-stats {
+    display: flex; justify-content: center; gap: 2rem;
+    margin-bottom: 1.6rem; padding-bottom: 1.4rem;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.stat-item { text-align: center; }
+.stat-val {
+    font-size: 1.2rem; font-weight: 700;
+    background: linear-gradient(135deg, #c4a8ff, #7af0ff);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; display: block;
+}
+.stat-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.2px; color: rgba(255,255,255,0.3); font-weight: 500; }
+
+.color-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 1.4rem; flex-wrap: wrap; }
+.color-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.3); font-weight: 500; width: 100%; text-align: center; margin-bottom: 4px; }
+.color-dot { width: 26px; height: 26px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.15); transition: transform 0.2s, border-color 0.2s; display: inline-block; }
+.color-dot:hover { transform: scale(1.25); border-color: rgba(255,255,255,0.5); }
+
+.gh-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 99px; padding: 8px 20px; font-size: 0.85rem; font-weight: 500;
+    color: rgba(255,255,255,0.7); text-decoration: none;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.gh-link:hover { background: rgba(130,60,255,0.18); border-color: rgba(130,60,255,0.45); color: rgba(210,185,255,0.95); text-decoration: none; }
+.about-footer { margin-top: 1.6rem; font-size: 0.7rem; color: rgba(255,255,255,0.18); letter-spacing: 0.5px; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -305,7 +402,14 @@ for k, v in {"lang": "en", "result": None, "image": None, "last_hint": ""}.items
 def t(en, km):
     return km if st.session_state.lang == "km" else en
 
-# ── Hero ──
+# ── Hero with logo ──
+col_l, col_c, col_r = st.columns([1, 3, 1])
+with col_c:
+    try:
+        st.image("SnackScan.jpg", width=80)
+    except:
+        pass
+
 st.markdown(f"""
 <div class="hero-wrap">
     <div class="hero-badge">✦ AI Powered · Cambodia</div>
@@ -346,23 +450,18 @@ if uploaded_file:
     st.image(img, use_container_width=True)
 
     st.markdown('<div class="scan-btn">', unsafe_allow_html=True)
-    scan_clicked = st.button(
-        t("🔍   Scan Food", "🔍   វិភាគម្ហូប"),
-        use_container_width=True
-    )
+    scan_clicked = st.button(t("🔍   Scan Food", "🔍   វិភាគម្ហូប"), use_container_width=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
     if scan_clicked:
         st.session_state.result = None
-        st.session_state.last_hint = hint
-
         bar = st.progress(0, text=t("Waking up the AI...", "កំពុងភ្ញាក់ AI..."))
         steps = [
-            (15, t("Reading your photo...",        "កំពុងអានរូបភាព...")),
-            (35, t("Identifying the food...",      "កំពុងកំណត់ម្ហូប...")),
-            (58, t("Calculating calories...",      "កំពុងគណនាកាឡូរី...")),
-            (78, t("Breaking down nutrition...",   "កំពុងវិភាគជីវជាតិ...")),
-            (92, t("Wrapping up results...",       "កំពុងបញ្ចប់លទ្ធផល...")),
+            (15, t("Reading your photo...",       "កំពុងអានរូបភាព...")),
+            (35, t("Identifying the food...",     "កំពុងកំណត់ម្ហូប...")),
+            (58, t("Calculating calories...",     "កំពុងគណនាកាឡូរី...")),
+            (78, t("Breaking down nutrition...",  "កំពុងវិភាគជីវជាតិ...")),
+            (92, t("Wrapping up results...",      "កំពុងបញ្ចប់លទ្ធផល...")),
         ]
         for pct, msg in steps:
             time.sleep(0.35)
@@ -415,26 +514,29 @@ if st.session_state.result and st.session_state.image:
     ignore      = ["bun", "bread", "beef patty"]
     ingredients = [i for i in data.get(ing_key, []) if i.lower() not in ignore]
 
+    # Food name
     st.markdown(f"""
     <div class="g-card g-card-accent">
         <div class="chip-label">🍽 {t("Detected Food", "ម្ហូបដែលបានរកឃើញ")}</div>
         <div class="food-name">{food}</div>
     </div>""", unsafe_allow_html=True)
 
+    # Calories
     st.markdown(f"""
     <div class="g-card g-card-green">
         <div class="chip-label chip-label-green">🔥 {t("Estimated Calories", "កាឡូរីដែលប៉ាន់ស្មាន")}</div>
         <div><span class="cal-number">{calories}</span><span class="cal-unit">kcal</span></div>
     </div>""", unsafe_allow_html=True)
 
+    # Nutrition grid
     if nutrition:
         items = [
-            ("💪", t("Protein", "ប្រូតេអ៊ីន"),   nutrition.get("protein", "–")),
-            ("🍞", t("Carbs",   "កាបូអ៊ីដ្រាត"),  nutrition.get("carbs",   "–")),
-            ("🧈", t("Fat",     "ខ្លាញ់"),         nutrition.get("fat",     "–")),
-            ("🌿", t("Fiber",   "ជាតិសរសៃ"),       nutrition.get("fiber",   "–")),
-            ("🍬", t("Sugar",   "ស្ករ"),           nutrition.get("sugar",   "–")),
-            ("🧂", t("Sodium",  "អំបិល"),          nutrition.get("sodium",  "–")),
+            ("💪", t("Protein", "ប្រូតេអ៊ីន"),  nutrition.get("protein", "–")),
+            ("🍞", t("Carbs",   "កាបូអ៊ីដ្រាត"), nutrition.get("carbs",   "–")),
+            ("🧈", t("Fat",     "ខ្លាញ់"),        nutrition.get("fat",     "–")),
+            ("🌿", t("Fiber",   "ជាតិសរសៃ"),      nutrition.get("fiber",   "–")),
+            ("🍬", t("Sugar",   "ស្ករ"),          nutrition.get("sugar",   "–")),
+            ("🧂", t("Sodium",  "អំបិល"),         nutrition.get("sodium",  "–")),
         ]
         cells = "".join(f"""<div class="nut-cell">
             <div class="nut-icon">{icon}</div>
@@ -448,6 +550,74 @@ if st.session_state.result and st.session_state.image:
             <div class="nut-grid">{cells}</div>
         </div>""", unsafe_allow_html=True)
 
+    # ── Donut chart for macros ──
+    if nutrition:
+        def parse_g(val):
+            try:
+                return float(''.join(c for c in str(val) if c.isdigit() or c == '.'))
+            except:
+                return 0.0
+
+        protein_g = parse_g(nutrition.get("protein", "0"))
+        carbs_g   = parse_g(nutrition.get("carbs",   "0"))
+        fat_g     = parse_g(nutrition.get("fat",     "0"))
+        fiber_g   = parse_g(nutrition.get("fiber",   "0"))
+        sugar_g   = parse_g(nutrition.get("sugar",   "0"))
+
+        # Calories from macros
+        macro_cals = {
+            t("Protein","ប្រូតេអ៊ីន"):  protein_g * 4,
+            t("Carbs","កាបូអ៊ីដ្រាត"):  carbs_g   * 4,
+            t("Fat","ខ្លាញ់"):           fat_g     * 9,
+            t("Fiber","ជាតិសរសៃ"):       fiber_g   * 2,
+            t("Sugar","ស្ករ"):           sugar_g   * 4,
+        }
+        total_cal = sum(macro_cals.values()) or 1
+        colors = ["#a78bfa", "#34d399", "#f97316", "#60a5fa", "#f472b6"]
+
+        # Build SVG donut
+        cx, cy, r, stroke = 90, 90, 70, 28
+        circumference = 2 * 3.14159 * r
+        segments = []
+        offset = 0
+        slices = [(name, cal, colors[i]) for i, (name, cal) in enumerate(macro_cals.items()) if cal > 0]
+
+        for name, cal, color in slices:
+            pct = cal / total_cal
+            dash = pct * circumference
+            gap  = circumference - dash
+            segments.append(
+                f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{color}" '
+                f'stroke-width="{stroke}" stroke-dasharray="{dash:.2f} {gap:.2f}" '
+                f'stroke-dashoffset="{-offset:.2f}" transform="rotate(-90 {cx} {cy})" '
+                f'style="transition: stroke-dashoffset 0.5s ease;"/>'
+            )
+            offset += dash
+
+        svg = f"""<svg width="180" height="180" viewBox="0 0 180 180" class="donut-svg">
+            <circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="{stroke}"/>
+            {''.join(segments)}
+            <text x="{cx}" y="{cy-8}" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="14" font-weight="700" font-family="Outfit">{t("Macros","ម៉ាក្រូ")}</text>
+            <text x="{cx}" y="{cy+12}" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="10" font-family="Outfit">{t("breakdown","ចំណែក")}</text>
+        </svg>"""
+
+        legend_items = "".join(
+            f'<div class="legend-item"><div class="legend-dot" style="background:{color}"></div>'
+            f'<span>{name}</span>'
+            f'<span class="legend-pct">{(cal/total_cal*100):.0f}%</span></div>'
+            for name, cal, color in slices
+        )
+
+        st.markdown(f"""
+        <div class="g-card">
+            <div class="chip-label">🥧 {t("Macro Wheel", "កង់ម៉ាក្រូ")}</div>
+            <div class="donut-wrap">
+                {svg}
+                <div class="donut-legend">{legend_items}</div>
+            </div>
+        </div>""", unsafe_allow_html=True)
+
+    # Ingredients
     if ingredients:
         tags = "".join(f'<span class="tag">{i}</span>' for i in ingredients)
         st.markdown(f"""
@@ -456,251 +626,17 @@ if st.session_state.result and st.session_state.image:
             <div class="tag-wrap">{tags}</div>
         </div>""", unsafe_allow_html=True)
 
-# ── About Section ──
+# ── About ──
 st.markdown("""
-<style>
-/* About card */
-.about-wrap {
-    position: relative;
-    margin-top: 3rem;
-    border-radius: 28px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.08);
-    background: rgba(255,255,255,0.03);
-    backdrop-filter: blur(24px);
-    padding: 2.5rem 2rem 2rem;
-    text-align: center;
-}
-
-/* Animated shimmer line at top */
-.about-wrap::before {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 300%;
-    height: 1px;
-    background: linear-gradient(90deg,
-        transparent 0%,
-        rgba(130,60,255,0.8) 30%,
-        rgba(122,240,255,0.8) 50%,
-        rgba(130,60,255,0.8) 70%,
-        transparent 100%);
-    animation: shimmer-line 4s linear infinite;
-}
-@keyframes shimmer-line {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(33.33%); }
-}
-
-/* Floating orbs */
-.about-orb1 {
-    position: absolute;
-    width: 200px; height: 200px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(130,60,255,0.12) 0%, transparent 70%);
-    top: -60px; left: -60px;
-    animation: float1 6s ease-in-out infinite;
-    pointer-events: none;
-}
-.about-orb2 {
-    position: absolute;
-    width: 160px; height: 160px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,180,255,0.1) 0%, transparent 70%);
-    bottom: -40px; right: -40px;
-    animation: float2 7s ease-in-out infinite;
-    pointer-events: none;
-}
-@keyframes float1 {
-    0%, 100% { transform: translate(0, 0); }
-    50%       { transform: translate(15px, 20px); }
-}
-@keyframes float2 {
-    0%, 100% { transform: translate(0, 0); }
-    50%       { transform: translate(-12px, -18px); }
-}
-
-/* Avatar ring */
-.avatar-ring {
-    width: 88px; height: 88px;
-    border-radius: 50%;
-    margin: 0 auto 1.2rem;
-    display: flex; align-items: center; justify-content: center;
-    position: relative;
-    font-size: 2.2rem;
-    background: rgba(130,60,255,0.12);
-    border: 2px solid transparent;
-    background-clip: padding-box;
-}
-.avatar-ring::after {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #7c3aed, #7af0ff, #7c3aed);
-    background-size: 200% 200%;
-    z-index: -1;
-    animation: spin-gradient 4s linear infinite;
-}
-@keyframes spin-gradient {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* Name */
-.about-name {
-    font-size: 1.35rem;
-    font-weight: 700;
-    letter-spacing: -0.3px;
-    color: #f0ecff;
-    margin: 0 0 0.3rem;
-}
-
-/* Bio */
-.about-bio {
-    font-size: 0.9rem;
-    font-weight: 300;
-    color: rgba(255,255,255,0.45);
-    margin: 0 0 1.4rem;
-    line-height: 1.6;
-}
-
-/* Stats row */
-.about-stats {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-bottom: 1.6rem;
-    padding-bottom: 1.4rem;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-}
-.stat-item { text-align: center; }
-.stat-val {
-    font-size: 1.2rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, #c4a8ff, #7af0ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    display: block;
-}
-.stat-label {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    color: rgba(255,255,255,0.3);
-    font-weight: 500;
-}
-
-/* Color picker row */
-.color-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 1.4rem;
-    flex-wrap: wrap;
-}
-.color-dot {
-    width: 26px; height: 26px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid rgba(255,255,255,0.15);
-    transition: transform 0.2s, border-color 0.2s;
-    display: inline-block;
-}
-.color-dot:hover { transform: scale(1.25); border-color: rgba(255,255,255,0.5); }
-.color-label {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: rgba(255,255,255,0.3);
-    font-weight: 500;
-    width: 100%;
-    text-align: center;
-    margin-bottom: 4px;
-}
-
-/* GitHub link */
-.gh-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 99px;
-    padding: 8px 20px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: rgba(255,255,255,0.7);
-    text-decoration: none;
-    transition: background 0.2s, border-color 0.2s, color 0.2s;
-    margin-top: 0.2rem;
-}
-.gh-link:hover {
-    background: rgba(130,60,255,0.18);
-    border-color: rgba(130,60,255,0.45);
-    color: rgba(210,185,255,0.95);
-    text-decoration: none;
-}
-
-/* Footer line */
-.about-footer {
-    margin-top: 1.6rem;
-    font-size: 0.7rem;
-    color: rgba(255,255,255,0.18);
-    letter-spacing: 0.5px;
-}
-
-/* Fade-in animation for the whole card */
-.about-wrap {
-    animation: fadeUp 0.7s ease both;
-}
-@keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Theme dot mode toggle */
-.mode-row {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 1rem;
-}
-.mode-pill {
-    font-size: 0.72rem;
-    padding: 4px 14px;
-    border-radius: 99px;
-    border: 1px solid rgba(255,255,255,0.15);
-    color: rgba(255,255,255,0.45);
-    background: rgba(255,255,255,0.04);
-    cursor: pointer;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-weight: 500;
-    transition: all 0.2s;
-}
-.mode-pill:hover {
-    background: rgba(130,60,255,0.2);
-    border-color: rgba(130,60,255,0.4);
-    color: rgba(210,185,255,0.9);
-}
-</style>
-
 <div class="about-wrap">
     <div class="about-orb1"></div>
     <div class="about-orb2"></div>
-
     <div class="avatar-ring">👨‍💻</div>
-
     <div class="about-name">Than Vireakseth</div>
     <div class="about-bio">
         A student developer from Cambodia 🇰🇭<br>
         <span style="color:rgba(160,120,255,0.6);font-size:0.82rem;">Building things with AI, one scan at a time.</span>
     </div>
-
     <div class="about-stats">
         <div class="stat-item">
             <span class="stat-val">Gemini</span>
@@ -715,7 +651,6 @@ st.markdown("""
             <span class="stat-label">Nutrients</span>
         </div>
     </div>
-
     <div class="color-row">
         <div class="color-label">✦ Accent Colors</div>
         <div class="color-dot" style="background:linear-gradient(135deg,#7c3aed,#4338ca);" title="Purple"></div>
@@ -725,13 +660,7 @@ st.markdown("""
         <div class="color-dot" style="background:linear-gradient(135deg,#ec4899,#a855f7);" title="Pink"></div>
         <div class="color-dot" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);" title="Gold"></div>
     </div>
-
-    <a class="gh-link" href="https://github.com/ReaX3ops" target="_blank">
-        ⌥ github.com/ReaX3ops
-    </a>
-
-    <div class="about-footer">
-        Made with ♥ in Phnom Penh · SnackScanKH © 2026
-    </div>
+    <a class="gh-link" href="https://github.com/ReaX3ops" target="_blank">⌥ github.com/ReaX3ops</a>
+    <div class="about-footer">Made with ♥ in Phnom Penh · SnackScanKH © 2026</div>
 </div>
 """, unsafe_allow_html=True)
