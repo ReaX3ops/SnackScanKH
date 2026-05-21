@@ -585,24 +585,7 @@ st.markdown("""
     <div class="color-label">✦ Choose Accent Color</div>
 </div>
 """, unsafe_allow_html=True)
-
-# ── Working accent color buttons ──
-accent_options = {
-    "🟣 Purple":  "#7c3aed",
-    "🔵 Cyan":    "#0ea5e9",
-    "🟠 Sunset":  "#f97316",
-    "🟢 Emerald": "#10b981",
-    "🩷 Pink":    "#ec4899",
-    "🟡 Gold":    "#f59e0b",
-}
-
-cols = st.columns(len(accent_options))
-for col, (name, hex_val) in zip(cols, accent_options.items()):
-    with col:
-        label = f"✓" if st.session_state.accent == hex_val else name.split()[0]
-        if st.button(label, key=f"acc_{hex_val}", help=name):
-            st.session_state.accent = hex_val
-            st.rerun()
+    
 
 st.markdown(f"""
 <div style="text-align:center; margin-top:1.5rem; padding-bottom:1rem;">
