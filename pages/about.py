@@ -2,146 +2,109 @@ import streamlit as st
 
 st.set_page_config(page_title="About · SnackScanKH", page_icon="👨‍💻", layout="centered")
 
-# ── Session state ──
 if "accent" not in st.session_state:
     st.session_state.accent = "#7c3aed"
 
 acc = st.session_state.accent
-acc_rgb = {
-    "#7c3aed": "124,58,237",
-    "#0ea5e9": "14,165,233",
-    "#f97316": "249,115,22",
-    "#10b981": "16,185,129",
-    "#ec4899": "236,72,153",
-    "#f59e0b": "245,158,11",
-}
-rgb = acc_rgb.get(acc, "124,58,237")
 
 st.markdown(f"""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
-
 * {{ font-family: 'Outfit', sans-serif; box-sizing: border-box; }}
-.stApp {{ background: linear-gradient(160deg, #f0f0ff 0%, #fafafa 40%, #f5f0ff 100%); min-height: 100vh; }}
+.stApp {{ background: #f7f7f7; min-height: 100vh; }}
 #MainMenu, footer, header {{ visibility: hidden; }}
-.block-container {{ padding-top: 2.5rem; max-width: 720px; }}
+.block-container {{ padding-top: 2.5rem; max-width: 600px; }}
 
-.about-wrap {{
-    position: relative;
-    border-radius: 28px;
-    overflow: hidden;
-    border: 1px solid rgba({rgb},0.15);
-    background: rgba(255,255,255,0.75);
-    backdrop-filter: blur(24px);
+.about-card {{
+    background: white;
+    border-radius: 24px;
     padding: 2.5rem 2rem 2rem;
     text-align: center;
-    box-shadow: 0 4px 32px rgba({rgb},0.08);
-    animation: fadeUp 0.6s ease both;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+    border: 1px solid #ebebeb;
+    margin-bottom: 1rem;
 }}
-@keyframes fadeUp {{
-    from {{ opacity: 0; transform: translateY(24px); }}
-    to   {{ opacity: 1; transform: translateY(0); }}
-}}
-.about-wrap::before {{
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 300%; height: 2px;
-    background: linear-gradient(90deg, transparent, {acc}, transparent);
-    animation: shimmer-line 4s linear infinite;
-}}
-@keyframes shimmer-line {{
-    0%   {{ transform: translateX(0); }}
-    100% {{ transform: translateX(33.33%); }}
-}}
-.about-orb1 {{
-    position: absolute; width: 200px; height: 200px; border-radius: 50%;
-    background: radial-gradient(circle, rgba({rgb},0.08) 0%, transparent 70%);
-    top: -60px; left: -60px;
-    animation: float1 6s ease-in-out infinite; pointer-events: none;
-}}
-.about-orb2 {{
-    position: absolute; width: 160px; height: 160px; border-radius: 50%;
-    background: radial-gradient(circle, rgba({rgb},0.06) 0%, transparent 70%);
-    bottom: -40px; right: -40px;
-    animation: float2 7s ease-in-out infinite; pointer-events: none;
-}}
-@keyframes float1 {{ 0%,100%{{transform:translate(0,0)}} 50%{{transform:translate(15px,20px)}} }}
-@keyframes float2 {{ 0%,100%{{transform:translate(0,0)}} 50%{{transform:translate(-12px,-18px)}} }}
 
 .avatar-ring {{
-    width: 88px; height: 88px; border-radius: 50%;
+    width: 90px; height: 90px; border-radius: 50%;
     margin: 0 auto 1.2rem;
     display: flex; align-items: center; justify-content: center;
-    position: relative; font-size: 2.2rem;
-    background: rgba({rgb},0.08);
-}}
-.avatar-ring::after {{
-    content: ''; position: absolute; inset: -2px; border-radius: 50%;
-    background: linear-gradient(135deg, {acc}, rgba({rgb},0.3), {acc});
-    background-size: 200% 200%; z-index: -1;
-    animation: spin-gradient 4s linear infinite;
-}}
-@keyframes spin-gradient {{
-    0%  {{ background-position: 0% 50%; }}
-    50% {{ background-position: 100% 50%; }}
-    100%{{ background-position: 0% 50%; }}
+    position: relative; font-size: 2.4rem;
+    background: #f5f5f5;
+    border: 3px solid {acc};
 }}
 
-.about-name {{ font-size: 1.35rem; font-weight: 700; color: #1a1a2e; margin: 0 0 0.3rem; }}
-.about-bio  {{ font-size: 0.9rem; font-weight: 400; color: rgba(0,0,0,0.45); margin: 0 0 1.4rem; line-height: 1.6; }}
+.about-name {{ font-size: 1.5rem; font-weight: 700; color: #111; margin: 0 0 0.4rem; }}
+.about-bio  {{ font-size: 0.92rem; color: #aaa; margin: 0 0 1.8rem; line-height: 1.7; }}
 
 .about-stats {{
-    display: flex; justify-content: center; gap: 2rem;
-    margin-bottom: 1.6rem; padding-bottom: 1.4rem;
-    border-bottom: 1px solid rgba({rgb},0.1);
+    display: flex; justify-content: center; gap: 2.5rem;
+    padding: 1.4rem 0;
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 1.8rem;
 }}
-.stat-item {{ text-align: center; }}
 .stat-val   {{ font-size: 1.2rem; font-weight: 700; color: {acc}; display: block; }}
-.stat-label {{ font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.2px; color: rgba(0,0,0,0.35); font-weight: 500; }}
+.stat-label {{ font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.2px; color: #bbb; }}
 
 .gh-link {{
     display: inline-flex; align-items: center; gap: 8px;
-    background: rgba({rgb},0.06); border: 1px solid rgba({rgb},0.2);
-    border-radius: 99px; padding: 8px 20px;
-    font-size: 0.85rem; font-weight: 500;
-    color: {acc}; text-decoration: none;
-    transition: background 0.2s, box-shadow 0.2s;
+    background: {acc};
+    border-radius: 99px; padding: 10px 24px;
+    font-size: 0.88rem; font-weight: 600;
+    color: white; text-decoration: none;
+    transition: opacity 0.2s;
 }}
-.gh-link:hover {{ background: rgba({rgb},0.12); box-shadow: 0 4px 12px rgba({rgb},0.15); color: {acc}; text-decoration: none; }}
+.gh-link:hover {{ opacity: 0.85; text-decoration: none; color: white; }}
+.about-footer {{ margin-top: 1.5rem; font-size: 0.72rem; color: #ccc; }}
 
-.about-footer {{ margin-top: 1.6rem; font-size: 0.7rem; color: rgba(0,0,0,0.25); letter-spacing: 0.5px; }}
+.color-card {{
+    background: white;
+    border-radius: 20px;
+    padding: 1.6rem 2rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+    border: 1px solid #ebebeb;
+    text-align: center;
+}}
+.section-label {{
+    font-size: 0.68rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 2px;
+    color: #bbb; margin-bottom: 1rem; display: block;
+}}
+.preview-bar {{
+    height: 6px;
+    border-radius: 99px;
+    background: {acc};
+    margin: 1rem auto 0;
+    max-width: 200px;
+    transition: background 0.3s;
+}}
 
-.color-label {{
-    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px;
-    color: rgba(0,0,0,0.35); font-weight: 500; text-align: center; margin-bottom: 0.8rem;
+/* Style the color picker */
+[data-testid="stColorPicker"] {{
+    display: flex;
+    justify-content: center;
 }}
-.stButton > button {{
-    background: rgba({rgb},0.08) !important;
-    border: 1px solid rgba({rgb},0.25) !important;
-    color: {acc} !important;
-    border-radius: 99px !important;
-    font-family: 'Outfit', sans-serif !important;
-    font-weight: 600 !important;
-    transition: all 0.2s !important;
-}}
-.stButton > button:hover {{
-    background: rgba({rgb},0.15) !important;
-    border-color: {acc} !important;
-    box-shadow: 0 4px 12px rgba({rgb},0.2) !important;
+[data-testid="stColorPicker"] > div {{
+    width: 56px !important;
+    height: 56px !important;
+    border-radius: 50% !important;
+    border: 3px solid #eee !important;
+    overflow: hidden !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+    cursor: pointer !important;
 }}
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown("""
-<div class="about-wrap">
-    <div class="about-orb1"></div>
-    <div class="about-orb2"></div>
+# ── About card ──
+st.markdown(f"""
+<div class="about-card">
     <div class="avatar-ring">👨‍💻</div>
     <div class="about-name">Than Vireakseth</div>
     <div class="about-bio">
         A student developer from Cambodia 🇰🇭<br>
-        <span style="font-size:0.82rem;opacity:0.6;">Building things with AI, one scan at a time.</span>
+        Building things with AI, one scan at a time.
     </div>
     <div class="about-stats">
         <div class="stat-item"><span class="stat-val">Gemini</span><span class="stat-label">AI Model</span></div>
@@ -153,22 +116,21 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ── Accent Picker ──
-st.markdown('<div class="color-label" style="margin-top:2rem;">✦ Choose Accent Color</div>', unsafe_allow_html=True)
+# ── Color picker card ──
+st.markdown("""
+<div class="color-card">
+    <span class="section-label">✦ Accent Color</span>
+</div>
+""", unsafe_allow_html=True)
 
-accent_options = {
-    "🟣 Purple":  "#7c3aed",
-    "🔵 Cyan":    "#0ea5e9",
-    "🟠 Sunset":  "#f97316",
-    "🟢 Emerald": "#10b981",
-    "🩷 Pink":    "#ec4899",
-    "🟡 Gold":    "#f59e0b",
-}
+picked = st.color_picker(
+    "Accent",
+    value=st.session_state.accent,
+    label_visibility="collapsed"
+)
 
-cols = st.columns(len(accent_options))
-for col, (name, hex_val) in zip(cols, accent_options.items()):
-    with col:
-        label = "✓" if st.session_state.accent == hex_val else name.split()[0]
-        if st.button(label, key=f"acc_{hex_val}", help=name):
-            st.session_state.accent = hex_val
-            st.rerun()
+st.markdown(f'<div class="preview-bar" style="background:{picked};"></div>', unsafe_allow_html=True)
+
+if picked != st.session_state.accent:
+    st.session_state.accent = picked
+    st.rerun()

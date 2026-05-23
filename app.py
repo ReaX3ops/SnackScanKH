@@ -10,8 +10,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# ── Session state ──
-for k, v in {"lang": "en", "result": None, "image": None, "last_hint": "", "accent": "#7c3aed"}.items():
+for k, v in {"lang": "en", "result": None, "image": None, "accent": "#7c3aed"}.items():
     if k not in st.session_state:
         st.session_state[k] = v
 
@@ -19,291 +18,191 @@ def t(en, km):
     return km if st.session_state.lang == "km" else en
 
 acc = st.session_state.accent
-acc_rgb = {
-    "#7c3aed": "124,58,237",
-    "#0ea5e9": "14,165,233",
-    "#f97316": "249,115,22",
-    "#10b981": "16,185,129",
-    "#ec4899": "236,72,153",
-    "#f59e0b": "245,158,11",
-}
-rgb = acc_rgb.get(acc, "124,58,237")
 
 st.markdown(f"""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
-
 * {{ font-family: 'Outfit', sans-serif; box-sizing: border-box; }}
-
-.stApp {{
-    background: linear-gradient(160deg, #f0f0ff 0%, #fafafa 40%, #f5f0ff 100%);
-    min-height: 100vh;
-}}
-
+.stApp {{ background: #f7f7f7; min-height: 100vh; }}
 #MainMenu, footer, header {{ visibility: hidden; }}
-.block-container {{ padding-top: 2.5rem; max-width: 720px; }}
+.block-container {{ padding-top: 2.5rem; max-width: 680px; }}
 
 .hero-wrap {{
-    position: relative;
+    background: white;
+    border-radius: 24px;
+    padding: 2.2rem 2rem 2rem;
+    margin-bottom: 1.2rem;
     text-align: center;
-    padding: 2rem 2rem 1.8rem;
-    margin-bottom: 1.5rem;
-    border-radius: 28px;
-    background: rgba(255,255,255,0.8);
-    border: 1px solid rgba({rgb},0.2);
-    backdrop-filter: blur(24px);
-    overflow: hidden;
-    box-shadow: 0 4px 32px rgba({rgb},0.1), 0 1px 0 rgba(255,255,255,0.9) inset;
-}}
-.hero-wrap::before {{
-    content: '';
-    position: absolute;
-    top: -60px; left: -60px;
-    width: 260px; height: 260px;
-    background: radial-gradient(circle, rgba({rgb},0.12) 0%, transparent 70%);
-    pointer-events: none;
-}}
-.hero-wrap::after {{
-    content: '';
-    position: absolute;
-    bottom: -80px; right: -40px;
-    width: 300px; height: 300px;
-    background: radial-gradient(circle, rgba({rgb},0.08) 0%, transparent 70%);
-    pointer-events: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+    border: 1px solid #ebebeb;
 }}
 .hero-badge {{
     display: inline-block;
-    background: rgba({rgb},0.1);
-    border: 1px solid rgba({rgb},0.25);
+    background: #f3f3f3;
     border-radius: 99px;
-    padding: 4px 16px;
-    font-size: 0.72rem;
+    padding: 3px 14px;
+    font-size: 0.68rem;
     font-weight: 600;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: {acc};
-    margin-bottom: 0.8rem;
+    color: #999;
+    margin-bottom: 0.6rem;
 }}
 .hero-title {{
-    font-size: 2.8rem;
+    font-size: 2.6rem;
     font-weight: 800;
     letter-spacing: -1.5px;
+    color: #111;
+    margin: 0 0 0.4rem;
     line-height: 1;
-    margin: 0 0 0.5rem;
-    color: #1a1a2e;
 }}
 .hero-title span {{ color: {acc}; }}
-.hero-sub {{
-    font-size: 0.92rem;
-    font-weight: 400;
-    color: rgba(0,0,0,0.4);
-    margin: 0;
-}}
+.hero-sub {{ font-size: 0.88rem; color: #aaa; font-weight: 400; margin: 0; }}
 
 .g-card {{
-    position: relative;
-    background: rgba(255,255,255,0.8);
-    border: 1px solid rgba({rgb},0.15);
-    border-radius: 22px;
+    background: white;
+    border-radius: 20px;
     padding: 1.4rem 1.8rem;
-    margin-bottom: 1rem;
-    backdrop-filter: blur(20px);
-    overflow: hidden;
-    box-shadow: 0 2px 16px rgba({rgb},0.07), 0 1px 0 rgba(255,255,255,0.9) inset;
+    margin-bottom: 0.8rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 2px 12px rgba(0,0,0,0.03);
+    border: 1px solid #ebebeb;
 }}
-.g-card::before {{
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 22px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, transparent 60%);
-    pointer-events: none;
-}}
-.g-card-accent {{ border-color: rgba({rgb},0.3); }}
-.g-card-green  {{ border-color: rgba(16,185,129,0.3); }}
+.g-card-accent {{ border-left: 3px solid {acc}; }}
+.g-card-green  {{ border-left: 3px solid #10b981; }}
 
 .chip-label {{
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.68rem;
-    font-weight: 600;
+    font-size: 0.67rem;
+    font-weight: 700;
     letter-spacing: 1.8px;
     text-transform: uppercase;
     color: {acc};
-    margin-bottom: 0.5rem;
-    opacity: 0.85;
+    margin-bottom: 0.4rem;
+    display: block;
+    opacity: 0.7;
 }}
 .chip-label-green {{ color: #10b981; opacity: 1; }}
 
-.food-name {{
-    font-size: 2rem;
-    font-weight: 700;
-    color: #1a1a2e;
-    line-height: 1.2;
-    letter-spacing: -0.5px;
-}}
-.cal-number {{
-    font-size: 3rem;
-    font-weight: 800;
-    letter-spacing: -2px;
-    color: #10b981;
-    line-height: 1;
-}}
-.cal-unit {{
-    font-size: 1rem;
-    color: rgba(0,0,0,0.3);
-    font-weight: 300;
-    margin-left: 6px;
-    vertical-align: middle;
-}}
+.food-name {{ font-size: 1.9rem; font-weight: 700; color: #111; letter-spacing: -0.5px; line-height: 1.2; }}
+.cal-number {{ font-size: 3rem; font-weight: 800; color: #10b981; letter-spacing: -2px; line-height: 1; }}
+.cal-unit {{ font-size: 0.95rem; color: #bbb; margin-left: 4px; font-weight: 300; }}
 
-.nut-grid {{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 0.8rem;
-}}
+.nut-grid {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 0.8rem; }}
 .nut-cell {{
-    background: rgba({rgb},0.04);
-    border: 1px solid rgba({rgb},0.1);
-    border-radius: 16px;
-    padding: 1rem 0.5rem 0.8rem;
+    background: #fafafa;
+    border: 1px solid #f0f0f0;
+    border-radius: 14px;
+    padding: 0.9rem 0.4rem;
     text-align: center;
-    transition: background 0.2s, border-color 0.2s;
+    transition: border-color 0.2s;
 }}
-.nut-cell:hover {{
-    background: rgba({rgb},0.1);
-    border-color: rgba({rgb},0.25);
-}}
-.nut-icon {{ font-size: 1.5rem; line-height: 1; }}
-.nut-val {{ font-size: 1.15rem; font-weight: 700; color: #1a1a2e; margin: 4px 0 2px; }}
-.nut-name {{ font-size: 0.65rem; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(0,0,0,0.4); }}
+.nut-cell:hover {{ border-color: {acc}; }}
+.nut-icon {{ font-size: 1.4rem; }}
+.nut-val {{ font-size: 1.05rem; font-weight: 700; color: #111; margin: 4px 0 2px; }}
+.nut-name {{ font-size: 0.6rem; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: #bbb; }}
 
-.tag-wrap {{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: 0.7rem; }}
+.tag-wrap {{ display: flex; flex-wrap: wrap; gap: 7px; margin-top: 0.7rem; }}
 .tag {{
-    background: rgba({rgb},0.08);
-    border: 1px solid rgba({rgb},0.2);
+    background: #f5f5f5;
+    border: 1px solid #e8e8e8;
     border-radius: 99px;
-    padding: 6px 18px;
-    font-size: 0.85rem;
-    color: {acc};
-    font-weight: 500;
+    padding: 5px 16px;
+    font-size: 0.83rem;
+    color: #444;
+    transition: border-color 0.2s, color 0.2s;
 }}
+.tag:hover {{ border-color: {acc}; color: {acc}; }}
 
-.donut-wrap {{
-    display: flex; align-items: center; justify-content: center;
-    gap: 2rem; margin-top: 1rem; flex-wrap: wrap;
-}}
-.donut-legend {{ display: flex; flex-direction: column; gap: 10px; }}
-.legend-item {{ display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: rgba(0,0,0,0.65); }}
-.legend-dot {{ width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }}
-.legend-pct {{ font-weight: 700; color: #1a1a2e; margin-left: auto; padding-left: 12px; }}
+.donut-wrap {{ display: flex; align-items: center; justify-content: center; gap: 2rem; margin-top: 1rem; flex-wrap: wrap; }}
+.donut-legend {{ display: flex; flex-direction: column; gap: 9px; }}
+.legend-item {{ display: flex; align-items: center; gap: 9px; font-size: 0.83rem; color: #555; }}
+.legend-dot {{ width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }}
+.legend-pct {{ font-weight: 700; color: #111; margin-left: auto; padding-left: 12px; }}
 
 [data-testid="stFileUploadDropzone"] {{
-    background: rgba({rgb},0.03) !important;
-    border: 2px dashed rgba({rgb},0.3) !important;
-    border-radius: 18px !important;
+    background: white !important;
+    border: 2px dashed #e0e0e0 !important;
+    border-radius: 16px !important;
+    transition: border-color 0.2s !important;
 }}
-[data-testid="stFileUploadDropzone"]:hover {{
-    border-color: rgba({rgb},0.55) !important;
-    background: rgba({rgb},0.06) !important;
-}}
-[data-testid="stFileUploadDropzone"] p {{ color: rgba(0,0,0,0.35) !important; }}
+[data-testid="stFileUploadDropzone"]:hover {{ border-color: {acc} !important; }}
+[data-testid="stFileUploadDropzone"] p {{ color: #bbb !important; }}
 
 [data-testid="stImage"] img {{
-    border-radius: 22px !important;
-    border: 1px solid rgba({rgb},0.15) !important;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.08) !important;
+    border-radius: 18px !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07) !important;
+    border: 1px solid #ebebeb !important;
 }}
 
 .stTextInput > div > div > input {{
-    background: rgba(255,255,255,0.9) !important;
-    border: 1px solid rgba({rgb},0.25) !important;
-    border-radius: 14px !important;
-    color: #1a1a2e !important;
+    background: white !important;
+    border: 1.5px solid #e8e8e8 !important;
+    border-radius: 12px !important;
+    color: #111 !important;
     font-family: 'Outfit', sans-serif !important;
 }}
-.stTextInput > div > div > input::placeholder {{ color: rgba(0,0,0,0.25) !important; }}
+.stTextInput > div > div > input::placeholder {{ color: #ccc !important; }}
 .stTextInput > div > div > input:focus {{
     border-color: {acc} !important;
-    box-shadow: 0 0 0 3px rgba({rgb},0.12) !important;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.04) !important;
 }}
 .stTextInput label {{
-    color: {acc} !important;
-    font-size: 0.72rem !important;
-    font-weight: 600 !important;
+    color: #aaa !important;
+    font-size: 0.68rem !important;
+    font-weight: 700 !important;
     letter-spacing: 1.8px !important;
     text-transform: uppercase !important;
-    opacity: 0.8;
 }}
 
 .stButton > button {{
-    background: rgba({rgb},0.08) !important;
-    border: 1px solid rgba({rgb},0.25) !important;
-    color: {acc} !important;
+    background: white !important;
+    border: 1.5px solid #e8e8e8 !important;
+    color: #555 !important;
     border-radius: 99px !important;
     font-family: 'Outfit', sans-serif !important;
-    font-weight: 600 !important;
+    font-weight: 500 !important;
+    font-size: 0.85rem !important;
     transition: all 0.2s !important;
 }}
 .stButton > button:hover {{
-    background: rgba({rgb},0.15) !important;
     border-color: {acc} !important;
-    box-shadow: 0 4px 12px rgba({rgb},0.2) !important;
+    color: {acc} !important;
 }}
 
 div.scan-btn > div > button {{
     background: {acc} !important;
     border: none !important;
-    border-radius: 18px !important;
+    border-radius: 14px !important;
     color: white !important;
-    font-size: 1.05rem !important;
+    font-size: 1rem !important;
     font-weight: 700 !important;
     width: 100% !important;
-    box-shadow: 0 6px 24px rgba({rgb},0.35) !important;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1) !important;
     transition: all 0.2s !important;
 }}
 div.scan-btn > div > button:hover {{
-    box-shadow: 0 8px 32px rgba({rgb},0.5) !important;
+    opacity: 0.88 !important;
     transform: translateY(-1px) !important;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.14) !important;
 }}
 
-.stProgress > div > div {{
-    background: {acc} !important;
-    border-radius: 99px !important;
-}}
-.stProgress > div {{
-    background: rgba({rgb},0.12) !important;
-    border-radius: 99px !important;
-    height: 6px !important;
-}}
+.stProgress > div > div {{ background: {acc} !important; border-radius: 99px !important; }}
+.stProgress > div {{ background: #eee !important; border-radius: 99px !important; height: 5px !important; }}
 
 .stAlert {{
-    background: rgba(239,68,68,0.06) !important;
-    border: 1px solid rgba(239,68,68,0.2) !important;
-    border-radius: 14px !important;
+    background: #fff5f5 !important;
+    border: 1px solid #fee2e2 !important;
+    border-radius: 12px !important;
     color: #dc2626 !important;
 }}
 
-.color-label {{
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: rgba(0,0,0,0.35);
-    font-weight: 500;
+.page-footer {{
     text-align: center;
-    margin-bottom: 0.8rem;
+    margin-top: 2.5rem;
+    padding-bottom: 1rem;
+    font-size: 0.72rem;
+    color: #ccc;
+    letter-spacing: 0.3px;
 }}
-.gh-link {{
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba({rgb},0.06); border: 1px solid rgba({rgb},0.2);
-    border-radius: 99px; padding: 8px 20px; font-size: 0.85rem; font-weight: 500;
-    color: {acc}; text-decoration: none;
-    transition: background 0.2s, box-shadow 0.2s;
-}}
-.gh-link:hover {{ background: rgba({rgb},0.12); box-shadow: 0 4px 12px rgba({rgb},0.15); text-decoration: none; color: {acc}; }}
-.about-footer {{ margin-top: 1rem; font-size: 0.7rem; color: rgba(0,0,0,0.25); letter-spacing: 0.5px; }}
 </style>
 """, unsafe_allow_html=True)
 
@@ -311,42 +210,38 @@ div.scan-btn > div > button:hover {{
 col_l, col_c, col_r = st.columns([1, 3, 1])
 with col_c:
     try:
-        st.image("SnackScan.jpg", width=80)
+        st.image("SnackScan.jpg", width=72)
     except:
         pass
 
 st.markdown(f"""
 <div class="hero-wrap">
-    <div class="hero-badge">✦ AI Powered · Cambodia</div>
+    <div class="hero-badge">AI Powered · Cambodia</div>
     <div class="hero-title">SnackScan<span>KH</span></div>
     <p class="hero-sub">{t("Snap a photo. Know your food.", "ថតរូបភាព។ ស្គាល់ម្ហូបរបស់អ្នក។")}</p>
 </div>
 """, unsafe_allow_html=True)
 
-# ── Lang toggle ──
 col1, col2 = st.columns([6, 1])
 with col2:
     if st.button("🇰🇭 KM" if st.session_state.lang == "en" else "🇬🇧 EN"):
         st.session_state.lang = "km" if st.session_state.lang == "en" else "en"
 
-# ── Client ──
 @st.cache_resource
 def get_client():
     return genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
 
 client = get_client()
 
-# ── Upload ──
 uploaded_file = st.file_uploader(
-    t("Drop your food photo here", "ទម្លាក់រូបភាពម្ហូបរបស់អ្នកនៅទីនេះ"),
+    t("Drop your food photo here", "ទម្លាក់រូបភាពម្ហូបរបស់អ្នក"),
     type=["jpg", "jpeg", "png", "webp"],
     label_visibility="collapsed"
 )
 
 hint = st.text_input(
     t("TELL US MORE (OPTIONAL)", "បញ្ជាក់បន្ថែម (ជាជម្រើស)"),
-    placeholder=t('e.g. "whole milk", "brown rice", "grilled chicken breast"',
-                  'ឧ. "ទឹកដោះគោទាំងមូល", "បាយស្វាយចន្ទី", "សាច់មាន់អាំង"')
+    placeholder=t('e.g. "whole milk", "brown rice"', 'ឧ. "ទឹកដោះគោ", "បាយស្វាយចន្ទី"')
 )
 
 if uploaded_file:
@@ -407,11 +302,9 @@ Return ONLY a JSON object, no markdown, no explanation:
             bar.empty()
             st.error(f"Error: {e}")
 
-# ── Results ──
 if st.session_state.result and st.session_state.image:
     data = st.session_state.result
     lang = st.session_state.lang
-
     food        = data.get("food_km" if lang == "km" else "food_en", "Unknown")
     calories    = str(data.get("calories", "?"))
     nutrition   = data.get("nutrition", {})
@@ -421,13 +314,13 @@ if st.session_state.result and st.session_state.image:
 
     st.markdown(f"""
     <div class="g-card g-card-accent">
-        <div class="chip-label">🍽 {t("Detected Food", "ម្ហូបដែលបានរកឃើញ")}</div>
+        <span class="chip-label">🍽 {t("Detected Food", "ម្ហូបដែលបានរកឃើញ")}</span>
         <div class="food-name">{food}</div>
     </div>""", unsafe_allow_html=True)
 
     st.markdown(f"""
     <div class="g-card g-card-green">
-        <div class="chip-label chip-label-green">🔥 {t("Estimated Calories", "កាឡូរីដែលប៉ាន់ស្មាន")}</div>
+        <span class="chip-label chip-label-green">🔥 {t("Estimated Calories", "កាឡូរីដែលប៉ាន់ស្មាន")}</span>
         <div><span class="cal-number">{calories}</span><span class="cal-unit">kcal</span></div>
     </div>""", unsafe_allow_html=True)
 
@@ -447,7 +340,7 @@ if st.session_state.result and st.session_state.image:
         </div>""" for icon, name, val in items)
         st.markdown(f"""
         <div class="g-card">
-            <div class="chip-label">🧬 {t("Nutrition Breakdown", "តម្លៃអាហារូបត្ថម្ភ")}</div>
+            <span class="chip-label">🧬 {t("Nutrition Breakdown", "តម្លៃអាហារូបត្ថម្ភ")}</span>
             <div class="nut-grid">{cells}</div>
         </div>""", unsafe_allow_html=True)
 
@@ -466,7 +359,7 @@ if st.session_state.result and st.session_state.image:
             t("Sugar",   "ស្ករ"):          parse_g(nutrition.get("sugar",   "0")) * 4,
         }
         total_cal = sum(macro_cals.values()) or 1
-        colors = ["#a78bfa", "#34d399", "#f97316", "#60a5fa", "#f472b6"]
+        colors = ["#7c3aed", "#34d399", "#f97316", "#60a5fa", "#f472b6"]
         slices = [(name, cal, colors[i]) for i, (name, cal) in enumerate(macro_cals.items()) if cal > 0]
 
         cx, cy, r, stroke = 90, 90, 70, 28
@@ -483,10 +376,10 @@ if st.session_state.result and st.session_state.image:
             offset += dash
 
         svg = f"""<svg width="180" height="180" viewBox="0 0 180 180">
-            <circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="rgba(0,0,0,0.06)" stroke-width="{stroke}"/>
+            <circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="#f0f0f0" stroke-width="{stroke}"/>
             {''.join(segments)}
-            <text x="{cx}" y="{cy-8}" text-anchor="middle" fill="#1a1a2e" font-size="14" font-weight="700" font-family="Outfit">{t("Macros","ម៉ាក្រូ")}</text>
-            <text x="{cx}" y="{cy+12}" text-anchor="middle" fill="rgba(0,0,0,0.4)" font-size="10" font-family="Outfit">{t("breakdown","ចំណែក")}</text>
+            <text x="{cx}" y="{cy-8}" text-anchor="middle" fill="#111" font-size="13" font-weight="700" font-family="Outfit">{t("Macros","ម៉ាក្រូ")}</text>
+            <text x="{cx}" y="{cy+10}" text-anchor="middle" fill="#bbb" font-size="10" font-family="Outfit">{t("breakdown","ចំណែក")}</text>
         </svg>"""
 
         legend = "".join(
@@ -496,7 +389,7 @@ if st.session_state.result and st.session_state.image:
         )
         st.markdown(f"""
         <div class="g-card">
-            <div class="chip-label">🥧 {t("Macro Wheel", "កង់ម៉ាក្រូ")}</div>
+            <span class="chip-label">🥧 {t("Macro Wheel", "កង់ម៉ាក្រូ")}</span>
             <div class="donut-wrap">{svg}<div class="donut-legend">{legend}</div></div>
         </div>""", unsafe_allow_html=True)
 
@@ -504,34 +397,8 @@ if st.session_state.result and st.session_state.image:
         tags = "".join(f'<span class="tag">{i}</span>' for i in ingredients)
         st.markdown(f"""
         <div class="g-card">
-            <div class="chip-label">🥬 {t("Ingredients", "គ្រឿងផ្សំ")}</div>
+            <span class="chip-label">🥬 {t("Ingredients", "គ្រឿងផ្សំ")}</span>
             <div class="tag-wrap">{tags}</div>
         </div>""", unsafe_allow_html=True)
 
-# ── Accent Picker ──
-st.markdown('<div class="color-label" style="margin-top:2rem;">✦ Choose Accent Color</div>', unsafe_allow_html=True)
-
-accent_options = {
-    "🟣 Purple":  "#7c3aed",
-    "🔵 Cyan":    "#0ea5e9",
-    "🟠 Sunset":  "#f97316",
-    "🟢 Emerald": "#10b981",
-    "🩷 Pink":    "#ec4899",
-    "🟡 Gold":    "#f59e0b",
-}
-
-cols = st.columns(len(accent_options))
-for col, (name, hex_val) in zip(cols, accent_options.items()):
-    with col:
-        label = "✓" if st.session_state.accent == hex_val else name.split()[0]
-        if st.button(label, key=f"acc_{hex_val}", help=name):
-            st.session_state.accent = hex_val
-            st.rerun()
-
-# ── Footer ──
-st.markdown(f"""
-<div style="text-align:center; margin-top:1.5rem; padding-bottom:1rem;">
-    <a class="gh-link" href="https://github.com/ReaX3ops" target="_blank">⌥ github.com/ReaX3ops</a>
-    <div class="about-footer">Made with ♥ in Phnom Penh · SnackScanKH © 2026</div>
-</div>
-""", unsafe_allow_html=True)
+st.markdown('<div class="page-footer">SnackScanKH · Made with ♥ in Phnom Penh</div>', unsafe_allow_html=True)
