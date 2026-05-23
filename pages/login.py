@@ -1,7 +1,7 @@
 import streamlit as st
 import pyrebase
 
-st.set_page_config(page_title="Sign In · SnackScanKH", page_icon="lock.png", layout="centered")
+st.set_page_config(page_title="Sign In · SnackScanKH", page_icon="favicon.png", layout="centered")
 
 firebase_config = {
     "apiKey":            st.secrets["firebase"]["apiKey"],
@@ -207,6 +207,31 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
 }}
 .stTabs [data-baseweb="tab-panel"] {{ padding-top: 1.2rem !important; }}
 
+/* Remember me checkbox */
+.stCheckbox {{
+    margin-top: 0.3rem !important;
+    margin-bottom: 0.2rem !important;
+}}
+.stCheckbox label {{
+    color: rgba(0,0,0,0.45) !important;
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+}}
+.stCheckbox [data-testid="stCheckbox"] > label > div {{
+    border-color: rgba(255,255,255,0.75) !important;
+    background: rgba(255,255,255,0.5) !important;
+    border-radius: 6px !important;
+}}
+.stCheckbox [data-testid="stCheckbox"] > label > div[data-checked="true"] {{
+    background: {acc} !important;
+    border-color: {acc} !important;
+}}
+
+</style>
+""", unsafe_allow_html=True)
+
 /* ── Background picker card ── */
 .bg-card {{
     padding: 1.6rem 2rem 1.8rem;
@@ -239,7 +264,7 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
 col_l, col_c, col_r = st.columns([1, 3, 1])
 with col_c:
     try:
-        st.image("SnackScan.jpg", width=68)
+        st.image("lock.png", width=68)
     except:
         pass
 
@@ -262,9 +287,13 @@ with tab1:
     </div>
     """, unsafe_allow_html=True)
 
+    # Pre-fill email if remembered
+    remembered_email = st.session_state.get("remembered_email", "")
+
     with st.form("signin_form"):
-        email    = st.text_input("EMAIL",    placeholder="you@example.com")
-        password = st.text_input("PASSWORD", placeholder="••••••••", type="password")
+        email     = st.text_input("EMAIL",    placeholder="you@example.com", value=remembered_email)
+        password  = st.text_input("PASSWORD", placeholder="••••••••", type="password")
+        remember  = st.checkbox("Remember me", value=bool(remembered_email))
         submitted = st.form_submit_button("Sign In →")
 
     if submitted:
@@ -284,6 +313,11 @@ with tab1:
                         "token": user["idToken"],
                         "uid":   user["localId"]
                     }
+                    # Save email if remember me checked
+                    if remember:
+                        st.session_state.remembered_email = email
+                    else:
+                        st.session_state.remembered_email = ""
                     st.switch_page("app.py")
             except Exception:
                 st.markdown('<div class="error-box">❌ Incorrect email or password.</div>', unsafe_allow_html=True)

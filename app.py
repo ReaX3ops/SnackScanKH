@@ -356,7 +356,8 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # ── Top bar ──
-col1, col2, col3, col4 = st.columns([4, 1, 1, 1])
+# ── Top bar ──
+col1, col2, col3 = st.columns([6, 1, 1])
 with col2:
     if st.button("🇰🇭 KM" if st.session_state.lang == "en" else "🇬🇧 EN"):
         st.session_state.lang = "km" if st.session_state.lang == "en" else "en"
@@ -364,15 +365,26 @@ with col3:
     if st.button("⚙️"):
         st.session_state.show_settings = not st.session_state.show_settings
         st.rerun()
-with col4:
-    if st.session_state.get("user"):
+
+# ── Auth button top right ──
+if st.session_state.get("user"):
+    email = st.session_state.user.get("email", "")
+    st.markdown(f"""
+    <div class="glass user-bar">
+        <span>👋 <span class="user-email">{email}</span></span>
+        <span style="font-size:0.78rem;color:rgba(0,0,0,0.3);">Signed in</span>
+    </div>
+    """, unsafe_allow_html=True)
+    colA, colB = st.columns([5, 1])
+    with colB:
         if st.button("Sign Out"):
             st.session_state.user = None
             st.rerun()
-    else:
-        if st.button("Login"):
+else:
+    colA, colB = st.columns([5, 1])
+    with colB:
+        if st.button("🔐 Sign In"):
             st.switch_page("pages/login.py")
-
 # ── User badge ──
 if st.session_state.get("user"):
     email = st.session_state.user.get("email", "")
