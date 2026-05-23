@@ -29,108 +29,167 @@ st.markdown(f"""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 * {{ font-family: 'Outfit', sans-serif; box-sizing: border-box; }}
-.stApp {{ background: #f7f7f7; min-height: 100vh; }}
+
+.stApp {{
+    background: linear-gradient(135deg, #dde8f5 0%, #eef2fb 40%, #e8dff5 100%);
+    min-height: 100vh;
+}}
 #MainMenu, footer, header {{ visibility: hidden; }}
-.block-container {{ padding-top: 3rem; max-width: 460px; }}
+.block-container {{ padding-top: 3.5rem; max-width: 460px; }}
+
+.glass {{
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.75);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.07), 0 1px 0 rgba(255,255,255,0.9) inset;
+    border-radius: 24px;
+}}
+
+@keyframes fadeUp {{
+    from {{ opacity: 0; transform: translateY(20px); }}
+    to   {{ opacity: 1; transform: translateY(0); }}
+}}
+@keyframes shimmer {{
+    0%   {{ background-position: -200% center; }}
+    100% {{ background-position:  200% center; }}
+}}
+@keyframes floatOrb {{
+    0%,100% {{ transform: translate(0,0); }}
+    50%     {{ transform: translate(12px, 16px); }}
+}}
 
 .auth-card {{
-    background: white;
-    border-radius: 24px;
     padding: 2.5rem 2.2rem 2rem;
-    border: 1px solid #ebebeb;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
     text-align: center;
     margin-bottom: 1.2rem;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.5s ease both;
 }}
-.auth-icon {{ font-size: 2rem; margin-bottom: 0.5rem; }}
+.auth-card::before {{
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 300%; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent);
+    animation: shimmer 4s linear infinite;
+}}
+.orb {{
+    position: absolute; border-radius: 50%; pointer-events: none;
+    animation: floatOrb 6s ease-in-out infinite;
+}}
+.orb1 {{
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(124,58,237,0.07) 0%, transparent 70%);
+    top: -60px; left: -60px;
+}}
+.orb2 {{
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(14,165,233,0.06) 0%, transparent 70%);
+    bottom: -40px; right: -40px;
+    animation-delay: -3s;
+}}
+.auth-icon {{ font-size: 2.2rem; margin-bottom: 0.5rem; }}
 .auth-title {{
-    font-size: 1.5rem; font-weight: 800; color: #111;
-    letter-spacing: -0.5px; margin: 0 0 0.3rem; line-height: 1.2;
+    font-size: 1.55rem; font-weight: 800; color: #1a1a2e;
+    letter-spacing: -0.5px; margin: 0 0 0.3rem; line-height: 1.25;
 }}
 .auth-title span {{ color: {acc}; }}
-.auth-sub {{ font-size: 0.85rem; color: #aaa; margin: 0 0 0.2rem; }}
+.auth-sub {{ font-size: 0.85rem; color: rgba(0,0,0,0.35); margin: 0; }}
 
 .success-box {{
-    background: #f0fdf4; border: 1px solid #bbf7d0;
-    border-radius: 12px; padding: 0.85rem 1rem;
+    background: rgba(240,253,244,0.8);
+    border: 1px solid rgba(187,247,208,0.9);
+    border-radius: 14px; padding: 0.85rem 1rem;
     color: #16a34a; font-size: 0.88rem; margin-bottom: 0.8rem;
-    text-align: left;
+    backdrop-filter: blur(8px); text-align: left;
+    animation: fadeUp 0.3s ease both;
 }}
 .error-box {{
-    background: #fff5f5; border: 1px solid #fee2e2;
-    border-radius: 12px; padding: 0.85rem 1rem;
+    background: rgba(255,245,245,0.8);
+    border: 1px solid rgba(254,226,226,0.9);
+    border-radius: 14px; padding: 0.85rem 1rem;
     color: #dc2626; font-size: 0.88rem; margin-bottom: 0.8rem;
-    text-align: left;
+    backdrop-filter: blur(8px); text-align: left;
+    animation: fadeUp 0.3s ease both;
 }}
 
 .stTextInput > div > div > input {{
-    background: #fafafa !important;
-    border: 1.5px solid #e8e8e8 !important;
+    background: rgba(255,255,255,0.55) !important;
+    border: 1.5px solid rgba(255,255,255,0.75) !important;
     border-radius: 12px !important;
-    color: #111 !important;
+    color: #1a1a2e !important;
     font-family: 'Outfit', sans-serif !important;
     font-size: 0.93rem !important;
+    backdrop-filter: blur(12px) !important;
+    transition: all 0.25s !important;
 }}
 .stTextInput > div > div > input:focus {{
     border-color: {acc} !important;
-    background: white !important;
-    box-shadow: 0 0 0 3px rgba(0,0,0,0.04) !important;
+    background: rgba(255,255,255,0.85) !important;
+    box-shadow: 0 0 0 3px rgba(124,58,237,0.1) !important;
 }}
-.stTextInput > div > div > input::placeholder {{ color: #ccc !important; }}
+.stTextInput > div > div > input::placeholder {{ color: rgba(0,0,0,0.25) !important; }}
 .stTextInput label {{
-    color: #aaa !important; font-size: 0.68rem !important;
+    color: rgba(0,0,0,0.38) !important; font-size: 0.68rem !important;
     font-weight: 700 !important; letter-spacing: 1.8px !important;
     text-transform: uppercase !important;
 }}
 
 .stButton > button {{
     background: {acc} !important;
-    border: none !important; border-radius: 12px !important;
+    border: none !important; border-radius: 14px !important;
     color: white !important; font-size: 0.95rem !important;
     font-weight: 700 !important; width: 100% !important;
     font-family: 'Outfit', sans-serif !important;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.08) !important;
-    transition: all 0.2s !important;
+    box-shadow: 0 6px 20px rgba(124,58,237,0.28) !important;
+    transition: all 0.25s !important;
 }}
 .stButton > button:hover {{
-    opacity: 0.88 !important;
-    transform: translateY(-1px) !important;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.12) !important;
+    opacity: 0.9 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 28px rgba(124,58,237,0.38) !important;
 }}
 
 .back-btn > div > button {{
-    background: white !important;
-    border: 1.5px solid #e8e8e8 !important;
-    color: #888 !important;
+    background: rgba(255,255,255,0.5) !important;
+    border: 1.5px solid rgba(255,255,255,0.75) !important;
+    color: rgba(0,0,0,0.45) !important;
     border-radius: 99px !important;
     font-size: 0.83rem !important;
     font-weight: 500 !important;
     width: auto !important;
     box-shadow: none !important;
+    backdrop-filter: blur(12px) !important;
     margin-bottom: 1.2rem;
+    transition: all 0.25s !important;
 }}
 .back-btn > div > button:hover {{
+    background: rgba(255,255,255,0.8) !important;
     border-color: {acc} !important;
     color: {acc} !important;
     opacity: 1 !important;
-    transform: none !important;
-    box-shadow: none !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08) !important;
 }}
 
 .stTabs [data-baseweb="tab-list"] {{
-    background: #f5f5f5 !important;
-    border-radius: 12px !important; padding: 4px !important;
-    border: 1px solid #ebebeb !important;
+    background: rgba(255,255,255,0.4) !important;
+    border-radius: 14px !important; padding: 4px !important;
+    border: 1px solid rgba(255,255,255,0.65) !important;
+    backdrop-filter: blur(16px) !important;
     gap: 4px !important;
 }}
 .stTabs [data-baseweb="tab"] {{
-    border-radius: 8px !important; font-weight: 600 !important;
-    font-size: 0.88rem !important; color: #999 !important;
+    border-radius: 10px !important; font-weight: 600 !important;
+    font-size: 0.88rem !important; color: rgba(0,0,0,0.4) !important;
     padding: 0.4rem 1.2rem !important;
+    transition: all 0.2s !important;
 }}
 .stTabs [aria-selected="true"] {{
-    background: white !important; color: {acc} !important;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08) !important;
+    background: rgba(255,255,255,0.85) !important;
+    color: {acc} !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
 }}
 .stTabs [data-baseweb="tab-panel"] {{ padding-top: 1.2rem !important; }}
 </style>
@@ -155,7 +214,8 @@ tab1, tab2 = st.tabs(["Sign In", "Create Account"])
 
 with tab1:
     st.markdown(f"""
-    <div class="auth-card">
+    <div class="glass auth-card">
+        <div class="orb orb1"></div><div class="orb orb2"></div>
         <div class="auth-icon">🔐</div>
         <div class="auth-title">Welcome back to<br><span>SnackScanKH</span></div>
         <div class="auth-sub">Sign in to start scanning</div>
@@ -182,7 +242,8 @@ with tab1:
 
 with tab2:
     st.markdown(f"""
-    <div class="auth-card">
+    <div class="glass auth-card">
+        <div class="orb orb1"></div><div class="orb orb2"></div>
         <div class="auth-icon">👋</div>
         <div class="auth-title">Join<br><span>SnackScanKH</span></div>
         <div class="auth-sub">Create your free account</div>

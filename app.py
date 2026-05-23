@@ -23,200 +23,249 @@ st.markdown(f"""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 * {{ font-family: 'Outfit', sans-serif; box-sizing: border-box; }}
-.stApp {{ background: #f7f7f7; min-height: 100vh; }}
+
+.stApp {{
+    background: linear-gradient(135deg, #dde8f5 0%, #eef2fb 40%, #e8dff5 100%);
+    min-height: 100vh;
+}}
+
 #MainMenu, footer, header {{ visibility: hidden; }}
 .block-container {{ padding-top: 2.5rem; max-width: 680px; }}
 
-.hero-wrap {{
-    background: white;
+/* ── Frosted glass base ── */
+.glass {{
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.75);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.07), 0 1px 0 rgba(255,255,255,0.9) inset;
     border-radius: 24px;
+    animation: fadeUp 0.5s ease both;
+}}
+@keyframes fadeUp {{
+    from {{ opacity: 0; transform: translateY(18px); }}
+    to   {{ opacity: 1; transform: translateY(0); }}
+}}
+@keyframes shimmer {{
+    0%   {{ background-position: -200% center; }}
+    100% {{ background-position:  200% center; }}
+}}
+
+.hero-wrap {{
     padding: 2.2rem 2rem 2rem;
     margin-bottom: 1.2rem;
     text-align: center;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
-    border: 1px solid #ebebeb;
+    position: relative;
+    overflow: hidden;
+}}
+.hero-wrap::before {{
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 300%; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
+    animation: shimmer 4s linear infinite;
 }}
 .hero-badge {{
     display: inline-block;
-    background: #f3f3f3;
+    background: rgba(255,255,255,0.4);
+    border: 1px solid rgba(255,255,255,0.6);
     border-radius: 99px;
-    padding: 3px 14px;
+    padding: 3px 16px;
     font-size: 0.68rem;
     font-weight: 600;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: #999;
-    margin-bottom: 0.6rem;
+    color: #888;
+    margin-bottom: 0.7rem;
+    backdrop-filter: blur(8px);
 }}
 .hero-title {{
-    font-size: 2.6rem;
+    font-size: 2.7rem;
     font-weight: 800;
     letter-spacing: -1.5px;
-    color: #111;
+    color: #1a1a2e;
     margin: 0 0 0.4rem;
     line-height: 1;
 }}
 .hero-title span {{ color: {acc}; }}
-.hero-sub {{ font-size: 0.88rem; color: #aaa; font-weight: 400; margin: 0; }}
+.hero-sub {{ font-size: 0.88rem; color: rgba(0,0,0,0.38); font-weight: 400; margin: 0; }}
 
+/* ── Cards ── */
 .g-card {{
-    background: white;
-    border-radius: 20px;
     padding: 1.4rem 1.8rem;
-    margin-bottom: 0.8rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 2px 12px rgba(0,0,0,0.03);
-    border: 1px solid #ebebeb;
+    margin-bottom: 0.85rem;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.5s ease both;
 }}
-.g-card-accent {{ border-left: 3px solid {acc}; }}
-.g-card-green  {{ border-left: 3px solid #10b981; }}
+.g-card::after {{
+    content: '';
+    position: absolute;
+    inset: 0; border-radius: 24px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 60%);
+    pointer-events: none;
+}}
+.g-card-accent {{ border-left: 3px solid {acc} !important; }}
+.g-card-green  {{ border-left: 3px solid #10b981 !important; }}
 
 .chip-label {{
-    font-size: 0.67rem;
-    font-weight: 700;
-    letter-spacing: 1.8px;
-    text-transform: uppercase;
-    color: {acc};
-    margin-bottom: 0.4rem;
-    display: block;
-    opacity: 0.7;
+    font-size: 0.67rem; font-weight: 700;
+    letter-spacing: 1.8px; text-transform: uppercase;
+    color: {acc}; margin-bottom: 0.4rem; display: block; opacity: 0.75;
 }}
 .chip-label-green {{ color: #10b981; opacity: 1; }}
 
-.food-name {{ font-size: 1.9rem; font-weight: 700; color: #111; letter-spacing: -0.5px; line-height: 1.2; }}
+.food-name {{ font-size: 1.9rem; font-weight: 700; color: #1a1a2e; letter-spacing: -0.5px; line-height: 1.2; }}
 .cal-number {{ font-size: 3rem; font-weight: 800; color: #10b981; letter-spacing: -2px; line-height: 1; }}
-.cal-unit {{ font-size: 0.95rem; color: #bbb; margin-left: 4px; font-weight: 300; }}
+.cal-unit {{ font-size: 0.95rem; color: rgba(0,0,0,0.3); margin-left: 4px; font-weight: 300; }}
 
+/* ── Nutrition grid ── */
 .nut-grid {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 0.8rem; }}
 .nut-cell {{
-    background: #fafafa;
-    border: 1px solid #f0f0f0;
-    border-radius: 14px;
+    background: rgba(255,255,255,0.45);
+    border: 1px solid rgba(255,255,255,0.65);
+    border-radius: 16px;
     padding: 0.9rem 0.4rem;
     text-align: center;
-    transition: border-color 0.2s;
+    backdrop-filter: blur(12px);
+    transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
 }}
-.nut-cell:hover {{ border-color: {acc}; }}
+.nut-cell:hover {{
+    background: rgba(255,255,255,0.75);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}}
 .nut-icon {{ font-size: 1.4rem; }}
-.nut-val {{ font-size: 1.05rem; font-weight: 700; color: #111; margin: 4px 0 2px; }}
-.nut-name {{ font-size: 0.6rem; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: #bbb; }}
+.nut-val {{ font-size: 1.05rem; font-weight: 700; color: #1a1a2e; margin: 4px 0 2px; }}
+.nut-name {{ font-size: 0.6rem; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(0,0,0,0.35); }}
 
+/* ── Tags ── */
 .tag-wrap {{ display: flex; flex-wrap: wrap; gap: 7px; margin-top: 0.7rem; }}
 .tag {{
-    background: #f5f5f5;
-    border: 1px solid #e8e8e8;
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.7);
     border-radius: 99px;
     padding: 5px 16px;
     font-size: 0.83rem;
     color: #444;
-    transition: border-color 0.2s, color 0.2s;
+    backdrop-filter: blur(8px);
+    transition: background 0.2s, color 0.2s, transform 0.2s;
 }}
-.tag:hover {{ border-color: {acc}; color: {acc}; }}
+.tag:hover {{ background: rgba(255,255,255,0.85); color: {acc}; transform: translateY(-2px); }}
 
+/* ── Donut ── */
 .donut-wrap {{ display: flex; align-items: center; justify-content: center; gap: 2rem; margin-top: 1rem; flex-wrap: wrap; }}
 .donut-legend {{ display: flex; flex-direction: column; gap: 9px; }}
-.legend-item {{ display: flex; align-items: center; gap: 9px; font-size: 0.83rem; color: #555; }}
+.legend-item {{ display: flex; align-items: center; gap: 9px; font-size: 0.83rem; color: rgba(0,0,0,0.55); }}
 .legend-dot {{ width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }}
-.legend-pct {{ font-weight: 700; color: #111; margin-left: auto; padding-left: 12px; }}
+.legend-pct {{ font-weight: 700; color: #1a1a2e; margin-left: auto; padding-left: 12px; }}
 
+/* ── Upload zone ── */
 [data-testid="stFileUploadDropzone"] {{
-    background: white !important;
-    border: 2px dashed #e0e0e0 !important;
-    border-radius: 16px !important;
-    transition: border-color 0.2s !important;
+    background: rgba(255,255,255,0.35) !important;
+    border: 2px dashed rgba(255,255,255,0.6) !important;
+    border-radius: 18px !important;
+    backdrop-filter: blur(12px) !important;
+    transition: all 0.25s !important;
 }}
-[data-testid="stFileUploadDropzone"]:hover {{ border-color: {acc} !important; }}
-[data-testid="stFileUploadDropzone"] p {{ color: #bbb !important; }}
+[data-testid="stFileUploadDropzone"]:hover {{
+    background: rgba(255,255,255,0.55) !important;
+    border-color: {acc} !important;
+}}
+[data-testid="stFileUploadDropzone"] p {{ color: rgba(0,0,0,0.3) !important; }}
 
 [data-testid="stImage"] img {{
-    border-radius: 18px !important;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.07) !important;
-    border: 1px solid #ebebeb !important;
+    border-radius: 20px !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1) !important;
+    border: 1px solid rgba(255,255,255,0.6) !important;
 }}
 
+/* ── Inputs ── */
 .stTextInput > div > div > input {{
-    background: white !important;
-    border: 1.5px solid #e8e8e8 !important;
+    background: rgba(255,255,255,0.55) !important;
+    border: 1.5px solid rgba(255,255,255,0.75) !important;
     border-radius: 12px !important;
-    color: #111 !important;
+    color: #1a1a2e !important;
     font-family: 'Outfit', sans-serif !important;
+    backdrop-filter: blur(12px) !important;
+    transition: all 0.25s !important;
 }}
-.stTextInput > div > div > input::placeholder {{ color: #ccc !important; }}
+.stTextInput > div > div > input::placeholder {{ color: rgba(0,0,0,0.25) !important; }}
 .stTextInput > div > div > input:focus {{
     border-color: {acc} !important;
-    box-shadow: 0 0 0 3px rgba(0,0,0,0.04) !important;
+    background: rgba(255,255,255,0.8) !important;
+    box-shadow: 0 0 0 3px rgba(124,58,237,0.1) !important;
 }}
 .stTextInput label {{
-    color: #aaa !important;
-    font-size: 0.68rem !important;
-    font-weight: 700 !important;
-    letter-spacing: 1.8px !important;
+    color: rgba(0,0,0,0.4) !important; font-size: 0.68rem !important;
+    font-weight: 700 !important; letter-spacing: 1.8px !important;
     text-transform: uppercase !important;
 }}
 
+/* ── Buttons ── */
 .stButton > button {{
-    background: white !important;
-    border: 1.5px solid #e8e8e8 !important;
+    background: rgba(255,255,255,0.5) !important;
+    border: 1.5px solid rgba(255,255,255,0.75) !important;
     color: #555 !important;
     border-radius: 99px !important;
     font-family: 'Outfit', sans-serif !important;
     font-weight: 500 !important;
     font-size: 0.85rem !important;
-    transition: all 0.2s !important;
+    backdrop-filter: blur(12px) !important;
+    transition: all 0.25s !important;
 }}
 .stButton > button:hover {{
+    background: rgba(255,255,255,0.8) !important;
     border-color: {acc} !important;
     color: {acc} !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08) !important;
 }}
 
 div.scan-btn > div > button {{
     background: {acc} !important;
     border: none !important;
-    border-radius: 14px !important;
+    border-radius: 16px !important;
     color: white !important;
     font-size: 1rem !important;
     font-weight: 700 !important;
     width: 100% !important;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.1) !important;
-    transition: all 0.2s !important;
+    box-shadow: 0 6px 24px rgba(124,58,237,0.3) !important;
+    transition: all 0.25s !important;
+    backdrop-filter: none !important;
 }}
 div.scan-btn > div > button:hover {{
-    opacity: 0.88 !important;
-    transform: translateY(-1px) !important;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.14) !important;
+    opacity: 0.9 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 32px rgba(124,58,237,0.4) !important;
 }}
 
-.stProgress > div > div {{ background: {acc} !important; border-radius: 99px !important; }}
-.stProgress > div {{ background: #eee !important; border-radius: 99px !important; height: 5px !important; }}
+/* ── Progress ── */
+.stProgress > div > div {{ background: {acc} !important; border-radius: 99px !important; transition: width 0.4s ease !important; }}
+.stProgress > div {{ background: rgba(255,255,255,0.4) !important; border-radius: 99px !important; height: 5px !important; backdrop-filter: blur(8px) !important; }}
 
 .stAlert {{
-    background: #fff5f5 !important;
-    border: 1px solid #fee2e2 !important;
-    border-radius: 12px !important;
+    background: rgba(255,245,245,0.7) !important;
+    border: 1px solid rgba(254,226,226,0.8) !important;
+    border-radius: 14px !important;
     color: #dc2626 !important;
+    backdrop-filter: blur(12px) !important;
 }}
 
+/* ── User bar ── */
 .user-bar {{
-    background: white;
     border-radius: 16px;
     padding: 0.75rem 1.2rem;
     margin-bottom: 1rem;
-    border: 1px solid #ebebeb;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 0.85rem;
-    color: #555;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 0.85rem; color: rgba(0,0,0,0.5);
+    animation: fadeUp 0.4s ease both;
 }}
-.user-email {{ font-weight: 600; color: #111; }}
+.user-email {{ font-weight: 600; color: #1a1a2e; }}
 
 .page-footer {{
-    text-align: center;
-    margin-top: 2.5rem;
-    padding-bottom: 1rem;
-    font-size: 0.72rem;
-    color: #ccc;
-    letter-spacing: 0.3px;
+    text-align: center; margin-top: 2.5rem; padding-bottom: 1rem;
+    font-size: 0.72rem; color: rgba(0,0,0,0.25); letter-spacing: 0.3px;
 }}
 </style>
 """, unsafe_allow_html=True)
@@ -230,14 +279,14 @@ with col_c:
         pass
 
 st.markdown(f"""
-<div class="hero-wrap">
+<div class="glass hero-wrap">
     <div class="hero-badge">AI Powered · Cambodia</div>
     <div class="hero-title">SnackScan<span>KH</span></div>
     <p class="hero-sub">{t("Snap a photo. Know your food.", "ថតរូបភាព។ ស្គាល់ម្ហូបរបស់អ្នក។")}</p>
 </div>
 """, unsafe_allow_html=True)
 
-# ── Top bar: lang toggle + user ──
+# ── Top bar ──
 col1, col2, col3 = st.columns([5, 1, 1])
 with col2:
     if st.button("🇰🇭 KM" if st.session_state.lang == "en" else "🇬🇧 EN"):
@@ -251,11 +300,11 @@ with col3:
         if st.button("👤 In"):
             st.switch_page("pages/login.py")
 
-# ── Logged-in user badge ──
+# ── User badge ──
 if st.session_state.get("user"):
     email = st.session_state.user.get("email", "")
     st.markdown(f"""
-    <div class="user-bar">
+    <div class="glass user-bar">
         <span>👋 Signed in as <span class="user-email">{email}</span></span>
     </div>
     """, unsafe_allow_html=True)
@@ -289,7 +338,6 @@ if uploaded_file:
     st.markdown('</div>', unsafe_allow_html=True)
 
     if scan_clicked:
-        # ── Auth gate: only fires here ──
         if not st.session_state.get("user"):
             st.switch_page("pages/login.py")
             st.stop()
@@ -354,13 +402,13 @@ if st.session_state.result and st.session_state.image:
     ingredients = [i for i in data.get(ing_key, []) if i.lower() not in ignore]
 
     st.markdown(f"""
-    <div class="g-card g-card-accent">
+    <div class="glass g-card g-card-accent">
         <span class="chip-label">🍽 {t("Detected Food", "ម្ហូបដែលបានរកឃើញ")}</span>
         <div class="food-name">{food}</div>
     </div>""", unsafe_allow_html=True)
 
     st.markdown(f"""
-    <div class="g-card g-card-green">
+    <div class="glass g-card g-card-green">
         <span class="chip-label chip-label-green">🔥 {t("Estimated Calories", "កាឡូរីដែលប៉ាន់ស្មាន")}</span>
         <div><span class="cal-number">{calories}</span><span class="cal-unit">kcal</span></div>
     </div>""", unsafe_allow_html=True)
@@ -380,7 +428,7 @@ if st.session_state.result and st.session_state.image:
             <div class="nut-name">{name}</div>
         </div>""" for icon, name, val in items)
         st.markdown(f"""
-        <div class="g-card">
+        <div class="glass g-card">
             <span class="chip-label">🧬 {t("Nutrition Breakdown", "តម្លៃអាហារូបត្ថម្ភ")}</span>
             <div class="nut-grid">{cells}</div>
         </div>""", unsafe_allow_html=True)
@@ -417,10 +465,10 @@ if st.session_state.result and st.session_state.image:
             offset += dash
 
         svg = f"""<svg width="180" height="180" viewBox="0 0 180 180">
-            <circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="#f0f0f0" stroke-width="{stroke}"/>
+            <circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="{stroke}"/>
             {''.join(segments)}
-            <text x="{cx}" y="{cy-8}" text-anchor="middle" fill="#111" font-size="13" font-weight="700" font-family="Outfit">{t("Macros","ម៉ាក្រូ")}</text>
-            <text x="{cx}" y="{cy+10}" text-anchor="middle" fill="#bbb" font-size="10" font-family="Outfit">{t("breakdown","ចំណែក")}</text>
+            <text x="{cx}" y="{cy-8}" text-anchor="middle" fill="#1a1a2e" font-size="13" font-weight="700" font-family="Outfit">{t("Macros","ម៉ាក្រូ")}</text>
+            <text x="{cx}" y="{cy+10}" text-anchor="middle" fill="rgba(0,0,0,0.3)" font-size="10" font-family="Outfit">{t("breakdown","ចំណែក")}</text>
         </svg>"""
 
         legend = "".join(
@@ -429,7 +477,7 @@ if st.session_state.result and st.session_state.image:
             for n, cal, c in slices
         )
         st.markdown(f"""
-        <div class="g-card">
+        <div class="glass g-card">
             <span class="chip-label">🥧 {t("Macro Wheel", "កង់ម៉ាក្រូ")}</span>
             <div class="donut-wrap">{svg}<div class="donut-legend">{legend}</div></div>
         </div>""", unsafe_allow_html=True)
@@ -437,7 +485,7 @@ if st.session_state.result and st.session_state.image:
     if ingredients:
         tags = "".join(f'<span class="tag">{i}</span>' for i in ingredients)
         st.markdown(f"""
-        <div class="g-card">
+        <div class="glass g-card">
             <span class="chip-label">🥬 {t("Ingredients", "គ្រឿងផ្សំ")}</span>
             <div class="tag-wrap">{tags}</div>
         </div>""", unsafe_allow_html=True)
