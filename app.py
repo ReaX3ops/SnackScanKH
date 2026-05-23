@@ -19,10 +19,6 @@ def t(en, km):
 
 acc = st.session_state.accent
 
-# ── Auth gate ──
-if not st.session_state.get("user"):
-    st.switch_page("pages/login.py")
-
 st.markdown(f"""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
@@ -199,6 +195,21 @@ div.scan-btn > div > button:hover {{
     color: #dc2626 !important;
 }}
 
+.user-bar {{
+    background: white;
+    border-radius: 16px;
+    padding: 0.75rem 1.2rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ebebeb;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: #555;
+}}
+.user-email {{ font-weight: 600; color: #111; }}
+
 .page-footer {{
     text-align: center;
     margin-top: 2.5rem;
@@ -226,17 +237,37 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-col1, col2 = st.columns([6, 1])
+# ── Top bar: lang toggle + user ──
+col1, col2, col3 = st.columns([5, 1, 1])
 with col2:
     if st.button("🇰🇭 KM" if st.session_state.lang == "en" else "🇬🇧 EN"):
         st.session_state.lang = "km" if st.session_state.lang == "en" else "en"
+with col3:
+    if st.session_state.get("user"):
+        if st.button("👤 Out"):
+            st.session_state.user = None
+            st.rerun()
+    else:
+        if st.button("👤 In"):
+            st.switch_page("pages/login.py")
 
+# ── Logged-in user badge ──
+if st.session_state.get("user"):
+    email = st.session_state.user.get("email", "")
+    st.markdown(f"""
+    <div class="user-bar">
+        <span>👋 Signed in as <span class="user-email">{email}</span></span>
+    </div>
+    """, unsafe_allow_html=True)
+
+# ── Gemini client ──
 @st.cache_resource
 def get_client():
     return genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
 
 client = get_client()
 
+# ── Upload ──
 uploaded_file = st.file_uploader(
     t("Drop your food photo here", "ទម្លាក់រូបភាពម្ហូបរបស់អ្នក"),
     type=["jpg", "jpeg", "png", "webp"],
@@ -258,6 +289,11 @@ if uploaded_file:
     st.markdown('</div>', unsafe_allow_html=True)
 
     if scan_clicked:
+        # ── Auth gate: only fires here ──
+        if not st.session_state.get("user"):
+            st.switch_page("pages/login.py")
+            st.stop()
+
         st.session_state.result = None
         bar = st.progress(0, text=t("Waking up the AI...", "កំពុងភ្ញាក់ AI..."))
         steps = [
@@ -306,6 +342,7 @@ Return ONLY a JSON object, no markdown, no explanation:
             bar.empty()
             st.error(f"Error: {e}")
 
+# ── Results ──
 if st.session_state.result and st.session_state.image:
     data = st.session_state.result
     lang = st.session_state.lang
