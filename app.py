@@ -29,6 +29,25 @@ st.markdown(f"""
     min-height: 100vh;
 }}
 
+/* Corner auth button */
+div[data-testid="column"]:last-child .stButton > button {{
+    background: rgba(255,255,255,0.6) !important;
+    border: 1.5px solid rgba(255,255,255,0.8) !important;
+    color: {acc} !important;
+    font-weight: 600 !important;
+    font-size: 0.78rem !important;
+    border-radius: 99px !important;
+    white-space: nowrap !important;
+    backdrop-filter: blur(12px) !important;
+    padding: 0.35rem 0.9rem !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07) !important;
+}}
+div[data-testid="column"]:last-child .stButton > button:hover {{
+    background: rgba(255,255,255,0.9) !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1) !important;
+    transform: translateY(-1px) !important;
+}}
+
 #MainMenu, footer, header {{ visibility: hidden; }}
 .block-container {{ padding-top: 2.5rem; max-width: 680px; }}
 
@@ -293,11 +312,11 @@ with col2:
         st.session_state.lang = "km" if st.session_state.lang == "en" else "en"
 with col3:
     if st.session_state.get("user"):
-        if st.button("👤 Out"):
+        if st.button("Sign Out"):
             st.session_state.user = None
             st.rerun()
     else:
-        if st.button("👤 In"):
+        if st.button("Login / Sign up"):
             st.switch_page("pages/login.py")
 
 # ── User badge ──

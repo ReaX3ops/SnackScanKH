@@ -56,13 +56,13 @@ st.markdown(f"""
 }}
 @keyframes floatOrb {{
     0%,100% {{ transform: translate(0,0); }}
-    50%     {{ transform: translate(12px, 16px); }}
+    50%     {{ transform: translate(12px,16px); }}
 }}
 
 .auth-card {{
-    padding: 2.5rem 2.2rem 2rem;
+    padding: 2.2rem 2.2rem 1.8rem;
     text-align: center;
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.4rem;
     position: relative;
     overflow: hidden;
     animation: fadeUp 0.5s ease both;
@@ -76,26 +76,26 @@ st.markdown(f"""
 }}
 .orb {{
     position: absolute; border-radius: 50%; pointer-events: none;
-    animation: floatOrb 6s ease-in-out infinite;
 }}
 .orb1 {{
     width: 180px; height: 180px;
     background: radial-gradient(circle, rgba(124,58,237,0.07) 0%, transparent 70%);
     top: -60px; left: -60px;
+    animation: floatOrb 6s ease-in-out infinite;
 }}
 .orb2 {{
     width: 140px; height: 140px;
     background: radial-gradient(circle, rgba(14,165,233,0.06) 0%, transparent 70%);
     bottom: -40px; right: -40px;
-    animation-delay: -3s;
+    animation: floatOrb 8s ease-in-out infinite reverse;
 }}
-.auth-icon {{ font-size: 2.2rem; margin-bottom: 0.5rem; }}
+.auth-icon {{ font-size: 2rem; margin-bottom: 0.4rem; }}
 .auth-title {{
-    font-size: 1.55rem; font-weight: 800; color: #1a1a2e;
-    letter-spacing: -0.5px; margin: 0 0 0.3rem; line-height: 1.25;
+    font-size: 1.5rem; font-weight: 800; color: #1a1a2e;
+    letter-spacing: -0.5px; margin: 0 0 0.25rem; line-height: 1.25;
 }}
 .auth-title span {{ color: {acc}; }}
-.auth-sub {{ font-size: 0.85rem; color: rgba(0,0,0,0.35); margin: 0; }}
+.auth-sub {{ font-size: 0.83rem; color: rgba(0,0,0,0.35); margin: 0; }}
 
 .success-box {{
     background: rgba(240,253,244,0.8);
@@ -114,6 +114,8 @@ st.markdown(f"""
     animation: fadeUp 0.3s ease both;
 }}
 
+/* ── Inputs ── */
+.stTextInput {{ margin-bottom: 0.6rem; }}
 .stTextInput > div > div > input {{
     background: rgba(255,255,255,0.55) !important;
     border: 1.5px solid rgba(255,255,255,0.75) !important;
@@ -121,6 +123,7 @@ st.markdown(f"""
     color: #1a1a2e !important;
     font-family: 'Outfit', sans-serif !important;
     font-size: 0.93rem !important;
+    padding: 0.65rem 0.9rem !important;
     backdrop-filter: blur(12px) !important;
     transition: all 0.25s !important;
 }}
@@ -134,16 +137,21 @@ st.markdown(f"""
     color: rgba(0,0,0,0.38) !important; font-size: 0.68rem !important;
     font-weight: 700 !important; letter-spacing: 1.8px !important;
     text-transform: uppercase !important;
+    margin-bottom: 0.3rem !important;
+    display: block !important;
 }}
 
+/* ── Buttons ── */
 .stButton > button {{
     background: {acc} !important;
     border: none !important; border-radius: 14px !important;
     color: white !important; font-size: 0.95rem !important;
     font-weight: 700 !important; width: 100% !important;
     font-family: 'Outfit', sans-serif !important;
+    padding: 0.65rem !important;
     box-shadow: 0 6px 20px rgba(124,58,237,0.28) !important;
     transition: all 0.25s !important;
+    margin-top: 0.4rem !important;
 }}
 .stButton > button:hover {{
     opacity: 0.9 !important;
@@ -161,18 +169,19 @@ st.markdown(f"""
     width: auto !important;
     box-shadow: none !important;
     backdrop-filter: blur(12px) !important;
-    margin-bottom: 1.2rem;
-    transition: all 0.25s !important;
+    margin-bottom: 1.2rem !important;
+    margin-top: 0 !important;
+    padding: 0.4rem 1.2rem !important;
 }}
 .back-btn > div > button:hover {{
     background: rgba(255,255,255,0.8) !important;
     border-color: {acc} !important;
     color: {acc} !important;
-    opacity: 1 !important;
     transform: translateY(-1px) !important;
     box-shadow: 0 4px 16px rgba(0,0,0,0.08) !important;
 }}
 
+/* ── Tabs ── */
 .stTabs [data-baseweb="tab-list"] {{
     background: rgba(255,255,255,0.4) !important;
     border-radius: 14px !important; padding: 4px !important;
@@ -192,6 +201,32 @@ st.markdown(f"""
     box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
 }}
 .stTabs [data-baseweb="tab-panel"] {{ padding-top: 1.2rem !important; }}
+
+/* ── Background picker card ── */
+.bg-card {{
+    padding: 1.6rem 2rem 1.8rem;
+    text-align: center;
+    margin-top: 1rem;
+    animation: fadeUp 0.6s ease 0.1s both;
+}}
+.section-label {{
+    font-size: 0.68rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 2px;
+    color: rgba(0,0,0,0.3); margin-bottom: 1rem; display: block;
+}}
+.bg-swatches {{
+    display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;
+    margin-bottom: 1rem;
+}}
+.bg-swatch {{
+    width: 40px; height: 40px; border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.85);
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-block;
+}}
+.bg-swatch:hover {{ transform: scale(1.15); box-shadow: 0 5px 16px rgba(0,0,0,0.18); }}
 </style>
 """, unsafe_allow_html=True)
 
@@ -222,10 +257,12 @@ with tab1:
     </div>
     """, unsafe_allow_html=True)
 
-    email    = st.text_input("EMAIL",    placeholder="you@example.com", key="si_email")
-    password = st.text_input("PASSWORD", placeholder="••••••••", type="password", key="si_pass")
+    with st.form("signin_form"):
+        email    = st.text_input("EMAIL",    placeholder="you@example.com")
+        password = st.text_input("PASSWORD", placeholder="••••••••", type="password")
+        submitted = st.form_submit_button("Sign In →")
 
-    if st.button("Sign In →", key="signin_btn"):
+    if submitted:
         if not email or not password:
             st.markdown('<div class="error-box">⚠️ Please fill in all fields.</div>', unsafe_allow_html=True)
         else:
@@ -250,11 +287,13 @@ with tab2:
     </div>
     """, unsafe_allow_html=True)
 
-    new_email    = st.text_input("EMAIL",            placeholder="you@example.com",   key="su_email")
-    new_password = st.text_input("PASSWORD",         placeholder="Min. 6 characters", type="password", key="su_pass")
-    confirm_pass = st.text_input("CONFIRM PASSWORD", placeholder="••••••••",          type="password", key="su_confirm")
+    with st.form("signup_form"):
+        new_email    = st.text_input("EMAIL",            placeholder="you@example.com")
+        new_password = st.text_input("PASSWORD",         placeholder="Min. 6 characters", type="password")
+        confirm_pass = st.text_input("CONFIRM PASSWORD", placeholder="••••••••",          type="password")
+        submitted2   = st.form_submit_button("Create Account →")
 
-    if st.button("Create Account →", key="signup_btn"):
+    if submitted2:
         if not new_email or not new_password or not confirm_pass:
             st.markdown('<div class="error-box">⚠️ Please fill in all fields.</div>', unsafe_allow_html=True)
         elif new_password != confirm_pass:
@@ -273,3 +312,39 @@ with tab2:
                 st.switch_page("app.py")
             except Exception:
                 st.markdown('<div class="error-box">❌ Email may already be in use.</div>', unsafe_allow_html=True)
+
+# ── Background customizer ──
+st.markdown("""
+<div class="glass bg-card">
+    <span class="section-label">✦ Background Style</span>
+</div>
+""", unsafe_allow_html=True)
+
+bg_options = {
+    "🫐 Frost":    "linear-gradient(135deg, #dde8f5 0%, #eef2fb 40%, #e8dff5 100%)",
+    "🌸 Blush":    "linear-gradient(135deg, #fde8f0 0%, #fdf2fb 40%, #f0e8fd 100%)",
+    "🌿 Sage":     "linear-gradient(135deg, #d8f0e8 0%, #eefbf2 40%, #e8f5d8 100%)",
+    "🌅 Sunset":   "linear-gradient(135deg, #fde8d8 0%, #fdf5eb 40%, #fdf0d8 100%)",
+    "🌊 Ocean":    "linear-gradient(135deg, #d8eef5 0%, #ebf7fd 40%, #d8e8f5 100%)",
+    "🌑 Midnight": "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
+}
+
+if "bg" not in st.session_state:
+    st.session_state.bg = "linear-gradient(135deg, #dde8f5 0%, #eef2fb 40%, #e8dff5 100%)"
+
+cols = st.columns(len(bg_options))
+swatch_colors = ["#b8d4f0", "#f0b8d4", "#b8f0d4", "#f0d4b8", "#b8e8f5", "#1a1a2e"]
+for col, ((name, grad), color) in zip(cols, zip(bg_options.items(), swatch_colors)):
+    with col:
+        if st.button(name.split()[0], key=f"bg_{name}", help=name):
+            st.session_state.bg = grad
+            st.rerun()
+
+# Apply chosen background
+st.markdown(f"""
+<style>
+.stApp {{
+    background: {st.session_state.bg} !important;
+}}
+</style>
+""", unsafe_allow_html=True)
