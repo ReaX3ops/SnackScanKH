@@ -18,14 +18,12 @@ auth     = firebase.auth()
 
 if "user" not in st.session_state:
     st.session_state.user = None
-
 if st.session_state.user:
     st.switch_page("app.py")
     st.stop()
 
 acc = st.session_state.get("accent", "#7c3aed")
-
-bg = st.session_state.get("bg", "linear-gradient(135deg, #dde8f5 0%, #eef2fb 40%, #e8dff5 100%)")
+bg  = st.session_state.get("bg", "linear-gradient(135deg, #dde8f5 0%, #eef2fb 40%, #e8dff5 100%)")
 
 st.markdown(f"""
 <style>
@@ -79,9 +77,7 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent);
     animation: shimmer 4s linear infinite;
 }}
-.orb {{
-    position: absolute; border-radius: 50%; pointer-events: none;
-}}
+.orb {{ position: absolute; border-radius: 50%; pointer-events: none; }}
 .orb1 {{
     width: 180px; height: 180px;
     background: radial-gradient(circle, rgba(124,58,237,0.07) 0%, transparent 70%);
@@ -119,7 +115,6 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
     animation: fadeUp 0.3s ease both;
 }}
 
-/* ── Inputs ── */
 .stTextInput {{ margin-bottom: 0.6rem; }}
 .stTextInput > div > div > input {{
     background: rgba(255,255,255,0.55) !important;
@@ -142,11 +137,9 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
     color: rgba(0,0,0,0.38) !important; font-size: 0.68rem !important;
     font-weight: 700 !important; letter-spacing: 1.8px !important;
     text-transform: uppercase !important;
-    margin-bottom: 0.3rem !important;
-    display: block !important;
+    margin-bottom: 0.3rem !important; display: block !important;
 }}
 
-/* ── Buttons ── */
 .stButton > button {{
     background: {acc} !important;
     border: none !important; border-radius: 14px !important;
@@ -169,36 +162,29 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
     border: 1.5px solid rgba(255,255,255,0.75) !important;
     color: rgba(0,0,0,0.45) !important;
     border-radius: 99px !important;
-    font-size: 0.83rem !important;
-    font-weight: 500 !important;
-    width: auto !important;
-    box-shadow: none !important;
+    font-size: 0.83rem !important; font-weight: 500 !important;
+    width: auto !important; box-shadow: none !important;
     backdrop-filter: blur(12px) !important;
-    margin-bottom: 1.2rem !important;
-    margin-top: 0 !important;
+    margin-bottom: 1.2rem !important; margin-top: 0 !important;
     padding: 0.4rem 1.2rem !important;
 }}
 .back-btn > div > button:hover {{
     background: rgba(255,255,255,0.8) !important;
-    border-color: {acc} !important;
-    color: {acc} !important;
+    border-color: {acc} !important; color: {acc} !important;
     transform: translateY(-1px) !important;
     box-shadow: 0 4px 16px rgba(0,0,0,0.08) !important;
 }}
 
-/* ── Tabs ── */
 .stTabs [data-baseweb="tab-list"] {{
     background: rgba(255,255,255,0.4) !important;
     border-radius: 14px !important; padding: 4px !important;
     border: 1px solid rgba(255,255,255,0.65) !important;
-    backdrop-filter: blur(16px) !important;
-    gap: 4px !important;
+    backdrop-filter: blur(16px) !important; gap: 4px !important;
 }}
 .stTabs [data-baseweb="tab"] {{
     border-radius: 10px !important; font-weight: 600 !important;
     font-size: 0.88rem !important; color: rgba(0,0,0,0.4) !important;
-    padding: 0.4rem 1.2rem !important;
-    transition: all 0.2s !important;
+    padding: 0.4rem 1.2rem !important; transition: all 0.2s !important;
 }}
 .stTabs [aria-selected="true"] {{
     background: rgba(255,255,255,0.85) !important;
@@ -207,56 +193,12 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
 }}
 .stTabs [data-baseweb="tab-panel"] {{ padding-top: 1.2rem !important; }}
 
-/* Remember me checkbox */
-.stCheckbox {{
-    margin-top: 0.3rem !important;
-    margin-bottom: 0.2rem !important;
-}}
+.stCheckbox {{ margin-top: 0.3rem !important; margin-bottom: 0.2rem !important; }}
 .stCheckbox label {{
     color: rgba(0,0,0,0.45) !important;
-    font-size: 0.85rem !important;
-    font-weight: 500 !important;
-    letter-spacing: 0 !important;
-    text-transform: none !important;
+    font-size: 0.85rem !important; font-weight: 500 !important;
+    letter-spacing: 0 !important; text-transform: none !important;
 }}
-.stCheckbox [data-testid="stCheckbox"] > label > div {{
-    border-color: rgba(255,255,255,0.75) !important;
-    background: rgba(255,255,255,0.5) !important;
-    border-radius: 6px !important;
-}}
-.stCheckbox [data-testid="stCheckbox"] > label > div[data-checked="true"] {{
-    background: {acc} !important;
-    border-color: {acc} !important;
-}}
-
-</style>
-""", unsafe_allow_html=True)
-
-/* ── Background picker card ── */
-.bg-card {{
-    padding: 1.6rem 2rem 1.8rem;
-    text-align: center;
-    margin-top: 1rem;
-    animation: fadeUp 0.6s ease 0.1s both;
-}}
-.section-label {{
-    font-size: 0.68rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 2px;
-    color: rgba(0,0,0,0.3); margin-bottom: 1rem; display: block;
-}}
-.bg-swatches {{
-    display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;
-    margin-bottom: 1rem;
-}}
-.bg-swatch {{
-    width: 40px; height: 40px; border-radius: 50%;
-    border: 3px solid rgba(255,255,255,0.85);
-    cursor: pointer;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.12);
-    transition: transform 0.2s, box-shadow 0.2s;
-    display: inline-block;
-}}
-.bg-swatch:hover {{ transform: scale(1.15); box-shadow: 0 5px 16px rgba(0,0,0,0.18); }}
 </style>
 """, unsafe_allow_html=True)
 
@@ -287,13 +229,12 @@ with tab1:
     </div>
     """, unsafe_allow_html=True)
 
-    # Pre-fill email if remembered
     remembered_email = st.session_state.get("remembered_email", "")
 
     with st.form("signin_form"):
-        email     = st.text_input("EMAIL",    placeholder="you@example.com", value=remembered_email)
-        password  = st.text_input("PASSWORD", placeholder="••••••••", type="password")
-        remember  = st.checkbox("Remember me", value=bool(remembered_email))
+        email    = st.text_input("EMAIL",    placeholder="you@example.com", value=remembered_email)
+        password = st.text_input("PASSWORD", placeholder="••••••••", type="password")
+        remember = st.checkbox("Remember me", value=bool(remembered_email))
         submitted = st.form_submit_button("Sign In →")
 
     if submitted:
@@ -302,7 +243,6 @@ with tab1:
         else:
             try:
                 user = auth.sign_in_with_email_and_password(email, password)
-                # Check if email is verified
                 user_info = auth.get_account_info(user["idToken"])
                 email_verified = user_info["users"][0]["emailVerified"]
                 if not email_verified:
@@ -313,7 +253,6 @@ with tab1:
                         "token": user["idToken"],
                         "uid":   user["localId"]
                     }
-                    # Save email if remember me checked
                     if remember:
                         st.session_state.remembered_email = email
                     else:
@@ -349,49 +288,7 @@ with tab2:
             try:
                 user = auth.create_user_with_email_and_password(new_email, new_password)
                 auth.send_email_verification(user["idToken"])
-                # Don't sign in yet — wait for email verification
                 st.markdown('<div class="success-box">🎉 Account created! Please check your email and click the verification link before signing in.</div>', unsafe_allow_html=True)
                 st.stop()
-                st.markdown('<div class="success-box">🎉 Welcome to SnackScanKH!</div>', unsafe_allow_html=True)
-                st.switch_page("app.py")
             except Exception:
                 st.markdown('<div class="error-box">❌ Email may already be in use.</div>', unsafe_allow_html=True)
-
-# ── Background customizer ──
-st.markdown("""
-<div class="glass bg-card">
-    <span class="section-label">✦ Background Style</span>
-</div>
-""", unsafe_allow_html=True)
-
-bg_options = {
-    "🫐 Frost":    "linear-gradient(135deg, #dde8f5 0%, #eef2fb 40%, #e8dff5 100%)",
-    "🌸 Blush":    "linear-gradient(135deg, #fde8f0 0%, #fdf2fb 40%, #f0e8fd 100%)",
-    "🌿 Sage":     "linear-gradient(135deg, #d8f0e8 0%, #eefbf2 40%, #e8f5d8 100%)",
-    "🌅 Sunset":   "linear-gradient(135deg, #fde8d8 0%, #fdf5eb 40%, #fdf0d8 100%)",
-    "🌊 Ocean":    "linear-gradient(135deg, #d8eef5 0%, #ebf7fd 40%, #d8e8f5 100%)",
-    "🌑 Midnight": "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
-}
-
-if "bg" not in st.session_state:
-    st.session_state.bg = "linear-gradient(135deg, #dde8f5 0%, #eef2fb 40%, #e8dff5 100%)"
-
-cols = st.columns(len(bg_options))
-swatch_colors = ["#b8d4f0", "#f0b8d4", "#b8f0d4", "#f0d4b8", "#b8e8f5", "#1a1a2e"]
-for col, ((name, grad), color) in zip(cols, zip(bg_options.items(), swatch_colors)):
-    with col:
-        if st.button(name.split()[0], key=f"bg_{name}", help=name):
-            st.session_state.bg = grad
-            st.rerun()
-
-# Apply chosen background
-st.markdown(f"""
-<style>
-.stApp {{
-    background: {bg} !important;
-    min-height: 100vh;
-}}
-html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
-    background: {bg} !important;
-}}
-""", unsafe_allow_html=True)
