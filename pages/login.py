@@ -1,7 +1,7 @@
 import streamlit as st
 import pyrebase
 
-st.set_page_config(page_title="Sign In · SnackScanKH", page_icon="favicon.png", layout="centered")
+st.set_page_config(page_title="Sign In · AhaLaor", page_icon="favicon.png", layout="centered")
 
 firebase_config = {
     "apiKey":            st.secrets["firebase"]["apiKey"],
@@ -212,7 +212,7 @@ with col_c:
 
 # ── Back button ──
 st.markdown('<div class="back-btn">', unsafe_allow_html=True)
-if st.button("← Back to SnackScanKH"):
+if st.button("← Back to AhaLaor"):
     st.switch_page("app.py")
 st.markdown('</div>', unsafe_allow_html=True)
 
@@ -224,7 +224,7 @@ with tab1:
     <div class="glass auth-card">
         <div class="orb orb1"></div><div class="orb orb2"></div>
         <div class="auth-icon">🔐</div>
-        <div class="auth-title">Welcome back to<br><span>SnackScanKH</span></div>
+        <div class="auth-title">Welcome back to<br><span>AhaLaor AI</span></div>
         <div class="auth-sub">Sign in to start scanning</div>
     </div>
     """, unsafe_allow_html=True)
@@ -266,7 +266,7 @@ with tab2:
     <div class="glass auth-card">
         <div class="orb orb1"></div><div class="orb orb2"></div>
         <div class="auth-icon">👋</div>
-        <div class="auth-title">Join<br><span>SnackScanKH</span></div>
+        <div class="auth-title">Join<br><span>AhaLaor</span></div>
         <div class="auth-sub">Create your free account</div>
     </div>
     """, unsafe_allow_html=True)

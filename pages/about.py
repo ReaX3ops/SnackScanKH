@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.set_page_config(page_title="About · SnackScanKH", page_icon="👨‍💻", layout="centered")
+st.set_page_config(page_title="About · AhaLaor", page_icon="👨‍💻", layout="centered")
 
 if "accent" not in st.session_state:
     st.session_state.accent = "#7c3aed"
@@ -187,7 +187,7 @@ st.markdown(f"""
         <div class="stat-item"><span class="stat-val">6</span><span class="stat-label">Nutrients</span></div>
     </div>
     <a class="gh-link" href="https://github.com/ReaX3ops" target="_blank">⌥ github.com/ReaX3ops</a>
-    <div class="about-footer">Made with ♥ in Phnom Penh · SnackScanKH © 2026</div>
+    <div class="about-footer">Made with ♥ in Phnom Penh · AhaLaor AI © 2026</div>
 </div>
 """, unsafe_allow_html=True)
 

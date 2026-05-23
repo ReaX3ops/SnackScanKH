@@ -5,7 +5,7 @@ import json
 import time
 
 st.set_page_config(
-    page_title="SnackScanKH",
+    page_title="AharLaor AI",
     page_icon="favicon.png",
     layout="centered"
 )
@@ -350,7 +350,7 @@ with col_c:
 st.markdown(f"""
 <div class="glass hero-wrap">
     <div class="hero-badge">AI Powered · Cambodia</div>
-    <div class="hero-title">SnackScan<span>KH</span></div>
+    <div class="hero-title">AharLaor AI<span>KH</span></div>
     <p class="hero-sub">{t("Snap a photo. Know your food.", "ថតរូបភាព។ ស្គាល់ម្ហូបរបស់អ្នក។")}</p>
 </div>
 """, unsafe_allow_html=True)
@@ -637,4 +637,4 @@ if st.session_state.result and st.session_state.image:
             <div class="tag-wrap">{tags}</div>
         </div>""", unsafe_allow_html=True)
 
-st.markdown('<div class="page-footer">SnackScanKH · Made with ♥ in Phnom Penh</div>', unsafe_allow_html=True)
+st.markdown('<div class="page-footer">AharLaor AI · Made with ♥ in Phnom Penh</div>', unsafe_allow_html=True)
