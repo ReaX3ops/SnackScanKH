@@ -7,6 +7,5 @@ __pycache__/
 *.jpg
 .streamlit/
 !SnackScan.jpg
-
 !favicon.png
-!favicon.png
+!lock.png
