@@ -273,12 +273,18 @@ with tab1:
         else:
             try:
                 user = auth.sign_in_with_email_and_password(email, password)
-                st.session_state.user = {
-                    "email": email,
-                    "token": user["idToken"],
-                    "uid":   user["localId"]
-                }
-                st.switch_page("app.py")
+                # Check if email is verified
+                user_info = auth.get_account_info(user["idToken"])
+                email_verified = user_info["users"][0]["emailVerified"]
+                if not email_verified:
+                    st.markdown('<div class="error-box">📧 Please verify your email first. Check your inbox for the verification link.</div>', unsafe_allow_html=True)
+                else:
+                    st.session_state.user = {
+                        "email": email,
+                        "token": user["idToken"],
+                        "uid":   user["localId"]
+                    }
+                    st.switch_page("app.py")
             except Exception:
                 st.markdown('<div class="error-box">❌ Incorrect email or password.</div>', unsafe_allow_html=True)
 
@@ -308,14 +314,10 @@ with tab2:
         else:
             try:
                 user = auth.create_user_with_email_and_password(new_email, new_password)
-                auth.send_email_verification(user["idToken"])  # ← added
-                st.session_state.user = {
-                    "email": new_email,
-                    "token": user["idToken"],
-                    "uid":   user["localId"]
-                }
-                st.markdown('<div class="success-box">🎉 Account created! Check your email to verify your account before signing in.</div>', unsafe_allow_html=True)
-                st.switch_page("app.py")
+                auth.send_email_verification(user["idToken"])
+                # Don't sign in yet — wait for email verification
+                st.markdown('<div class="success-box">🎉 Account created! Please check your email and click the verification link before signing in.</div>', unsafe_allow_html=True)
+                st.stop()
                 st.markdown('<div class="success-box">🎉 Welcome to SnackScanKH!</div>', unsafe_allow_html=True)
                 st.switch_page("app.py")
             except Exception:
