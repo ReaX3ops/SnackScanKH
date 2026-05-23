@@ -25,14 +25,19 @@ if st.session_state.user:
 
 acc = st.session_state.get("accent", "#7c3aed")
 
+bg = st.session_state.get("bg", "linear-gradient(135deg, #dde8f5 0%, #eef2fb 40%, #e8dff5 100%)")
+
 st.markdown(f"""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 * {{ font-family: 'Outfit', sans-serif; box-sizing: border-box; }}
 
 .stApp {{
-    background: linear-gradient(135deg, #dde8f5 0%, #eef2fb 40%, #e8dff5 100%);
+    background: {bg} !important;
     min-height: 100vh;
+}}
+html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
+    background: {bg} !important;
 }}
 #MainMenu, footer, header {{ visibility: hidden; }}
 .block-container {{ padding-top: 3.5rem; max-width: 460px; }}
@@ -344,7 +349,10 @@ for col, ((name, grad), color) in zip(cols, zip(bg_options.items(), swatch_color
 st.markdown(f"""
 <style>
 .stApp {{
-    background: {st.session_state.bg} !important;
+    background: {bg} !important;
+    min-height: 100vh;
 }}
-</style>
+html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
+    background: {bg} !important;
+}}
 """, unsafe_allow_html=True)

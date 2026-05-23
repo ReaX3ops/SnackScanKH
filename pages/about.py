@@ -7,14 +7,19 @@ if "accent" not in st.session_state:
 
 acc = st.session_state.accent
 
+bg = st.session_state.get("bg", "linear-gradient(135deg, #dde8f5 0%, #eef2fb 40%, #e8dff5 100%)")
+
 st.markdown(f"""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 * {{ font-family: 'Outfit', sans-serif; box-sizing: border-box; }}
 
 .stApp {{
-    background: linear-gradient(135deg, #dde8f5 0%, #eef2fb 40%, #e8dff5 100%);
+    background: {bg} !important;
     min-height: 100vh;
+}}
+html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
+    background: {bg} !important;
 }}
 #MainMenu, footer, header {{ visibility: hidden; }}
 .block-container {{ padding-top: 2.5rem; max-width: 600px; }}
