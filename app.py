@@ -5,7 +5,7 @@ import json
 import time
 
 st.set_page_config(
-    page_title="AharLaor AI",
+    page_title="AhaLaor AI",
     page_icon="favicon.png",
     layout="centered"
 )
@@ -40,7 +40,6 @@ st.markdown(f"""
 html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
     background: {bg} !important;
 }}
-
 #MainMenu, footer, header {{ visibility: hidden; }}
 .block-container {{ padding-top: 2.5rem; max-width: 680px; }}
 
@@ -61,12 +60,7 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
     0%   {{ background-position: -200% center; }}
     100% {{ background-position:  200% center; }}
 }}
-@keyframes floatOrb {{
-    0%,100% {{ transform: translate(0,0); }}
-    50%     {{ transform: translate(12px,16px); }}
-}}
 
-/* ── Hero ── */
 .hero-wrap {{
     padding: 2.2rem 2rem 2rem;
     margin-bottom: 1.2rem;
@@ -101,12 +95,31 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
 .hero-title span {{ color: {acc}; }}
 .hero-sub {{ font-size: 0.88rem; color: rgba(0,0,0,0.38); font-weight: 400; margin: 0; }}
 
-/* ── Cards ── */
+.topbar {{
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1rem;
+    gap: 8px;
+}}
+.topbar-left {{ display: flex; align-items: center; gap: 8px; }}
+.topbar-right {{ display: flex; align-items: center; gap: 8px; }}
+.user-pill {{
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.6);
+    border: 1px solid rgba(255,255,255,0.8);
+    border-radius: 99px; padding: 6px 14px;
+    font-size: 0.82rem; font-weight: 500; color: #1a1a2e;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}}
+.user-dot {{
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #10b981; flex-shrink: 0;
+}}
+
 .g-card {{
     padding: 1.4rem 1.8rem;
     margin-bottom: 0.85rem;
-    position: relative;
-    overflow: hidden;
+    position: relative; overflow: hidden;
     animation: fadeUp 0.5s ease both;
 }}
 .g-card::after {{
@@ -129,7 +142,6 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
 .cal-number {{ font-size: 3rem; font-weight: 800; color: #10b981; letter-spacing: -2px; line-height: 1; }}
 .cal-unit {{ font-size: 0.95rem; color: rgba(0,0,0,0.3); margin-left: 4px; font-weight: 300; }}
 
-/* ── Nutrition grid ── */
 .nut-grid {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 0.8rem; }}
 .nut-cell {{
     background: rgba(255,255,255,0.45);
@@ -147,7 +159,6 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
 .nut-val {{ font-size: 1.05rem; font-weight: 700; color: #1a1a2e; margin: 4px 0 2px; }}
 .nut-name {{ font-size: 0.6rem; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(0,0,0,0.35); }}
 
-/* ── Tags ── */
 .tag-wrap {{ display: flex; flex-wrap: wrap; gap: 7px; margin-top: 0.7rem; }}
 .tag {{
     background: rgba(255,255,255,0.5);
@@ -159,14 +170,12 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
 }}
 .tag:hover {{ background: rgba(255,255,255,0.85); color: {acc}; transform: translateY(-2px); }}
 
-/* ── Donut ── */
 .donut-wrap {{ display: flex; align-items: center; justify-content: center; gap: 2rem; margin-top: 1rem; flex-wrap: wrap; }}
 .donut-legend {{ display: flex; flex-direction: column; gap: 9px; }}
 .legend-item {{ display: flex; align-items: center; gap: 9px; font-size: 0.83rem; color: rgba(0,0,0,0.55); }}
 .legend-dot {{ width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }}
 .legend-pct {{ font-weight: 700; color: #1a1a2e; margin-left: auto; padding-left: 12px; }}
 
-/* ── Upload ── */
 [data-testid="stFileUploadDropzone"] {{
     background: rgba(255,255,255,0.35) !important;
     border: 2px dashed rgba(255,255,255,0.6) !important;
@@ -186,7 +195,6 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
     border: 1px solid rgba(255,255,255,0.6) !important;
 }}
 
-/* ── Text inputs ── */
 .stTextInput > div > div > input {{
     background: rgba(255,255,255,0.55) !important;
     border: 1.5px solid rgba(255,255,255,0.75) !important;
@@ -208,7 +216,6 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
     text-transform: uppercase !important;
 }}
 
-/* ── Buttons ── */
 .stButton > button {{
     background: rgba(255,255,255,0.5) !important;
     border: 1.5px solid rgba(255,255,255,0.75) !important;
@@ -232,15 +239,13 @@ div.scan-btn > div > button {{
     color: white !important; font-size: 1rem !important;
     font-weight: 700 !important; width: 100% !important;
     box-shadow: 0 6px 24px rgba(124,58,237,0.3) !important;
-    transition: all 0.25s !important;
-    backdrop-filter: none !important;
+    transition: all 0.25s !important; backdrop-filter: none !important;
 }}
 div.scan-btn > div > button:hover {{
     opacity: 0.9 !important; transform: translateY(-2px) !important;
     box-shadow: 0 10px 32px rgba(124,58,237,0.4) !important;
 }}
 
-/* ── Progress ── */
 .stProgress > div > div {{ background: {acc} !important; border-radius: 99px !important; transition: width 0.4s ease !important; }}
 .stProgress > div {{ background: rgba(255,255,255,0.4) !important; border-radius: 99px !important; height: 5px !important; }}
 
@@ -251,17 +256,7 @@ div.scan-btn > div > button:hover {{
     backdrop-filter: blur(12px) !important;
 }}
 
-/* ── User bar ── */
-.user-bar {{
-    border-radius: 16px; padding: 0.75rem 1.2rem;
-    margin-bottom: 1rem;
-    display: flex; align-items: center; justify-content: space-between;
-    font-size: 0.85rem; color: rgba(0,0,0,0.5);
-    animation: fadeUp 0.4s ease both;
-}}
-.user-email {{ font-weight: 600; color: #1a1a2e; }}
-
-/* ── Settings panel ── */
+/* ── Settings ── */
 .settings-wrap {{
     padding: 1.8rem 2rem 2rem;
     margin-bottom: 1rem;
@@ -284,10 +279,6 @@ div.scan-btn > div > button:hover {{
     letter-spacing: 2px; text-transform: uppercase;
     color: rgba(0,0,0,0.3); margin-bottom: 0.8rem; display: block;
 }}
-.gradient-grid {{
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
-    margin-bottom: 1.4rem;
-}}
 .gradient-swatch {{
     height: 52px; border-radius: 14px;
     border: 2px solid rgba(255,255,255,0.8);
@@ -295,7 +286,8 @@ div.scan-btn > div > button:hover {{
     box-shadow: 0 3px 12px rgba(0,0,0,0.1);
     transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.75rem; font-weight: 600; color: rgba(0,0,0,0.5);
+    font-size: 0.75rem; font-weight: 600; color: rgba(0,0,0,0.55);
+    margin-bottom: 4px;
 }}
 .gradient-swatch:hover {{
     transform: translateY(-3px);
@@ -305,10 +297,8 @@ div.scan-btn > div > button:hover {{
     border-color: {acc} !important;
     box-shadow: 0 0 0 3px rgba(124,58,237,0.2), 0 6px 20px rgba(0,0,0,0.12);
 }}
-.divider {{
-    height: 1px;
-    background: rgba(255,255,255,0.6);
-    margin: 1.2rem 0;
+.s-divider {{
+    height: 1px; background: rgba(255,255,255,0.6); margin: 1.2rem 0;
 }}
 .preview-bar {{
     height: 5px; border-radius: 99px;
@@ -350,94 +340,72 @@ with col_c:
 st.markdown(f"""
 <div class="glass hero-wrap">
     <div class="hero-badge">AI Powered · Cambodia</div>
-    <div class="hero-title">AharLaor AI<span>KH</span></div>
+    <div class="hero-title">AhaLaor <span>AI</span></div>
     <p class="hero-sub">{t("Snap a photo. Know your food.", "ថតរូបភាព។ ស្គាល់ម្ហូបរបស់អ្នក។")}</p>
 </div>
 """, unsafe_allow_html=True)
 
 # ── Top bar ──
-# ── Top bar ──
-col1, col2, col3 = st.columns([6, 1, 1])
+col1, col2, col3, col4 = st.columns([4, 1, 1, 1])
+
 with col2:
-    if st.button("🇰🇭 KM" if st.session_state.lang == "en" else "🇬🇧 EN"):
+    if st.button("🇰🇭" if st.session_state.lang == "en" else "🇬🇧"):
         st.session_state.lang = "km" if st.session_state.lang == "en" else "en"
+        st.rerun()
+
 with col3:
     if st.button("⚙️"):
         st.session_state.show_settings = not st.session_state.show_settings
         st.rerun()
 
-# ── Auth button top right ──
-if st.session_state.get("user"):
-    email = st.session_state.user.get("email", "")
-    st.markdown(f"""
-    <div class="glass user-bar">
-        <span>👋 <span class="user-email">{email}</span></span>
-        <span style="font-size:0.78rem;color:rgba(0,0,0,0.3);">Signed in</span>
-    </div>
-    """, unsafe_allow_html=True)
-    colA, colB = st.columns([5, 1])
-    with colB:
-        if st.button("Sign Out"):
+with col4:
+    if st.session_state.get("user"):
+        email_short = st.session_state.user.get("email", "").split("@")[0]
+        if st.button(f"👤 {email_short[:8]}"):
             st.session_state.user = None
             st.rerun()
-else:
-    colA, colB = st.columns([5, 1])
-    with colB:
-        if st.button("🔐 Sign In"):
+    else:
+        if st.button("🔐 Login"):
             st.switch_page("pages/login.py")
-# ── User badge ──
-if st.session_state.get("user"):
-    email = st.session_state.user.get("email", "")
-    st.markdown(f"""
-    <div class="glass user-bar">
-        <span>👋 Signed in as <span class="user-email">{email}</span></span>
-    </div>
-    """, unsafe_allow_html=True)
 
 # ── Settings panel ──
 if st.session_state.show_settings:
     st.markdown('<div class="glass settings-wrap">', unsafe_allow_html=True)
     st.markdown('<div class="settings-title">⚙️ Settings</div>', unsafe_allow_html=True)
 
-    # Background gradients
     st.markdown('<span class="settings-section">✦ Background</span>', unsafe_allow_html=True)
 
     gradients = {
-        "🫐 Frost":    ("linear-gradient(135deg, #dde8f5 0%, #eef2fb 40%, #e8dff5 100%)", "#dde8f5,#eef2fb,#e8dff5"),
-        "🌸 Blush":    ("linear-gradient(135deg, #fde8f0 0%, #fdf2fb 40%, #f0e8fd 100%)", "#fde8f0,#fdf2fb,#f0e8fd"),
-        "🌿 Sage":     ("linear-gradient(135deg, #d8f0e8 0%, #eefbf2 40%, #e8f5d8 100%)", "#d8f0e8,#eefbf2,#e8f5d8"),
-        "🌅 Sunset":   ("linear-gradient(135deg, #fde8d8 0%, #fdf5eb 40%, #fdf0d8 100%)", "#fde8d8,#fdf5eb,#fdf0d8"),
-        "🌊 Ocean":    ("linear-gradient(135deg, #d8eef5 0%, #ebf7fd 40%, #d8e8f5 100%)", "#d8eef5,#ebf7fd,#d8e8f5"),
-        "🌑 Midnight": ("linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)", "#1a1a2e,#16213e,#0f3460"),
+        "🫐 Frost":    "linear-gradient(135deg, #dde8f5 0%, #eef2fb 40%, #e8dff5 100%)",
+        "🌸 Blush":    "linear-gradient(135deg, #fde8f0 0%, #fdf2fb 40%, #f0e8fd 100%)",
+        "🌿 Sage":     "linear-gradient(135deg, #d8f0e8 0%, #eefbf2 40%, #e8f5d8 100%)",
+        "🌅 Sunset":   "linear-gradient(135deg, #fde8d8 0%, #fdf5eb 40%, #fdf0d8 100%)",
+        "🌊 Ocean":    "linear-gradient(135deg, #d8eef5 0%, #ebf7fd 40%, #d8e8f5 100%)",
+        "🌑 Midnight": "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
     }
 
     cols = st.columns(3)
-    for i, (name, (grad, _)) in enumerate(gradients.items()):
+    for i, (name, grad) in enumerate(gradients.items()):
         with cols[i % 3]:
             active = "active" if st.session_state.bg == grad else ""
-            col_a, col_b, col_c_ = grad.replace("linear-gradient(135deg, ","").replace(")","").split(" 0%, ")[0], "", ""
-            st.markdown(f"""
-            <div class="gradient-swatch {active}" style="background:{grad};">{name}</div>
-            """, unsafe_allow_html=True)
-            if st.button("✓" if st.session_state.bg == grad else "  ", key=f"grad_{name}"):
+            st.markdown(f'<div class="gradient-swatch {active}" style="background:{grad};">{name}</div>', unsafe_allow_html=True)
+            if st.button("✓" if st.session_state.bg == grad else "Select", key=f"grad_{name}"):
                 st.session_state.bg = grad
                 st.rerun()
 
-    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+    st.markdown('<div class="s-divider"></div>', unsafe_allow_html=True)
+    st.markdown('<span class="settings-section">✦ Custom Background Color</span>', unsafe_allow_html=True)
 
-    # Custom color picker for background
-    st.markdown('<span class="settings-section">✦ Custom Color</span>', unsafe_allow_html=True)
-    picked_bg = st.color_picker("Background color", value=st.session_state.bg_custom, label_visibility="collapsed", key="bg_picker")
+    picked_bg = st.color_picker("bg", value=st.session_state.bg_custom, label_visibility="collapsed", key="bg_picker")
     if picked_bg != st.session_state.bg_custom:
         st.session_state.bg_custom = picked_bg
         st.session_state.bg = f"linear-gradient(135deg, {picked_bg} 0%, {picked_bg}dd 50%, {picked_bg}bb 100%)"
         st.rerun()
     st.markdown(f'<div class="preview-bar" style="background:{picked_bg};"></div>', unsafe_allow_html=True)
 
-    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
-
-    # Accent color
+    st.markdown('<div class="s-divider"></div>', unsafe_allow_html=True)
     st.markdown('<span class="settings-section">✦ Accent Color</span>', unsafe_allow_html=True)
+
     accent_options = {
         "🟣 Purple":  "#7c3aed",
         "🔵 Cyan":    "#0ea5e9",
@@ -637,4 +605,4 @@ if st.session_state.result and st.session_state.image:
             <div class="tag-wrap">{tags}</div>
         </div>""", unsafe_allow_html=True)
 
-st.markdown('<div class="page-footer">AharLaor AI · Made with ♥ in Phnom Penh</div>', unsafe_allow_html=True)
+st.markdown('<div class="page-footer">AhaLaor AI · Made with ♥ in Phnom Penh</div>', unsafe_allow_html=True)

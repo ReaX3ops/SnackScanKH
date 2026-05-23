@@ -2,6 +2,7 @@ streamlit
 google-genai
 Pillow
 pyrebase4
-streamlit-google-auth
 google-auth
-google-auth-oauthlib
+streamlit-oauth
+PyJWT
+google-generativeai
