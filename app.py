@@ -6,7 +6,7 @@ import time
 
 st.set_page_config(
     page_title="SnackScanKH",
-    page_icon="🍱",
+    page_icon="favicon.png",
     layout="centered"
 )
 
@@ -343,7 +343,7 @@ div.scan-btn > div > button:hover {{
 col_l, col_c, col_r = st.columns([1, 3, 1])
 with col_c:
     try:
-        st.image("SnackScan.jpg", width=72)
+        st.image("favicon.jpg", width=72)
     except:
         pass
 

@@ -8,3 +8,5 @@ __pycache__/
 .streamlit/
 !SnackScan.jpg
 
+!favicon.png
+!favicon.png

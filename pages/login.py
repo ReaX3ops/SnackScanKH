@@ -1,7 +1,7 @@
 import streamlit as st
 import pyrebase
 
-st.set_page_config(page_title="Sign In · SnackScanKH", page_icon="🔐", layout="centered")
+st.set_page_config(page_title="Sign In · SnackScanKH", page_icon="lock.png", layout="centered")
 
 firebase_config = {
     "apiKey":            st.secrets["firebase"]["apiKey"],
@@ -308,11 +308,14 @@ with tab2:
         else:
             try:
                 user = auth.create_user_with_email_and_password(new_email, new_password)
+                auth.send_email_verification(user["idToken"])  # ← added
                 st.session_state.user = {
                     "email": new_email,
                     "token": user["idToken"],
                     "uid":   user["localId"]
                 }
+                st.markdown('<div class="success-box">🎉 Account created! Check your email to verify your account before signing in.</div>', unsafe_allow_html=True)
+                st.switch_page("app.py")
                 st.markdown('<div class="success-box">🎉 Welcome to SnackScanKH!</div>', unsafe_allow_html=True)
                 st.switch_page("app.py")
             except Exception:
