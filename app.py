@@ -348,20 +348,27 @@ st.markdown(f"""
 # ── Top bar ──
 col1, col2, col3, col4 = st.columns([4, 1, 1, 1])
 
+with col1:
+    st.markdown(f"""
+    <div style="display:flex; align-items:center; height:100%;">
+        <span style="font-size:1rem; font-weight:700; color:#1a1a2e; letter-spacing:-0.5px;">AhaLaor <span style="color:{acc};">AI</span></span>
+    </div>
+    """, unsafe_allow_html=True)
+
 with col2:
-    if st.button("🇰🇭" if st.session_state.lang == "en" else "🇬🇧"):
-        st.session_state.lang = "km" if st.session_state.lang == "en" else "en"
+    if st.button("⚙️", help="Settings"):
+        st.session_state.show_settings = not st.session_state.show_settings
         st.rerun()
 
 with col3:
-    if st.button("⚙️"):
-        st.session_state.show_settings = not st.session_state.show_settings
+    if st.button("🇰🇭" if st.session_state.lang == "en" else "🇬🇧"):
+        st.session_state.lang = "km" if st.session_state.lang == "en" else "en"
         st.rerun()
 
 with col4:
     if st.session_state.get("user"):
         email_short = st.session_state.user.get("email", "").split("@")[0]
-        if st.button(f"👤 {email_short[:8]}"):
+        if st.button(f"👤 {email_short[:8]}", help="Click to sign out"):
             st.session_state.user = None
             st.rerun()
     else:

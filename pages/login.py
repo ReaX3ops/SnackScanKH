@@ -253,7 +253,39 @@ with tab1:
     </div>
     """, unsafe_allow_html=True)
 
-    # ── Google button ──
+    remembered_email = st.session_state.get("remembered_email", "")
+    with st.form("signin_form"):
+        email     = st.text_input("EMAIL",    placeholder="you@example.com", value=remembered_email)
+        password  = st.text_input("PASSWORD", placeholder="••••••••", type="password")
+        remember  = st.checkbox("Remember me", value=bool(remembered_email))
+        submitted = st.form_submit_button("Sign In →")
+
+    if submitted:
+        if not email or not password:
+            st.markdown('<div class="error-box">⚠️ Please fill in all fields.</div>', unsafe_allow_html=True)
+        else:
+            try:
+                user = auth.sign_in_with_email_and_password(email, password)
+                user_info      = auth.get_account_info(user["idToken"])
+                email_verified = user_info["users"][0]["emailVerified"]
+                if not email_verified:
+                    st.markdown('<div class="error-box">📧 Please verify your email first. Check your inbox for the verification link.</div>', unsafe_allow_html=True)
+                else:
+                    st.session_state.user = {
+                        "email": email,
+                        "token": user["idToken"],
+                        "uid":   user["localId"]
+                    }
+                    if remember:
+                        st.session_state.remembered_email = email
+                    else:
+                        st.session_state.remembered_email = ""
+                    st.switch_page("app.py")
+            except Exception:
+                st.markdown('<div class="error-box">❌ Incorrect email or password.</div>', unsafe_allow_html=True)
+
+    st.markdown('<div class="or-divider">or</div>', unsafe_allow_html=True)
+
     result = oauth2.authorize_button(
         name="Continue with Google",
         icon="https://www.google.com/favicon.ico",
