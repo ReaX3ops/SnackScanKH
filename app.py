@@ -33,272 +33,378 @@ st.markdown(f"""
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 * {{ font-family: 'Outfit', sans-serif; box-sizing: border-box; }}
 
+html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
+    background: {bg} !important;
+}}
 .stApp {{
     background: {bg} !important;
     min-height: 100vh;
 }}
-html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
-    background: {bg} !important;
-}}
 #MainMenu, footer, header {{ visibility: hidden; }}
-.block-container {{ padding-top: 2.5rem; max-width: 680px; }}
-
-.glass {{
-    background: rgba(255,255,255,0.55);
-    backdrop-filter: blur(28px) saturate(180%);
-    -webkit-backdrop-filter: blur(28px) saturate(180%);
-    border: 1px solid rgba(255,255,255,0.75);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.07), 0 1px 0 rgba(255,255,255,0.9) inset;
-    border-radius: 24px;
+.block-container {{
+    padding-top: 2rem !important;
+    max-width: 680px !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
 }}
 
+/* ── Apple-grade frosted glass ── */
+.frost {{
+    background: rgba(255,255,255,0.62);
+    backdrop-filter: blur(40px) saturate(200%) brightness(105%);
+    -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(105%);
+    border: 1px solid rgba(255,255,255,0.85);
+    box-shadow:
+        0 2px 0 rgba(255,255,255,0.9) inset,
+        0 -1px 0 rgba(0,0,0,0.04) inset,
+        0 20px 60px rgba(0,0,0,0.07),
+        0 4px 16px rgba(0,0,0,0.04);
+    border-radius: 28px;
+}}
+
+/* ── Animations ── */
 @keyframes fadeUp {{
-    from {{ opacity: 0; transform: translateY(18px); }}
-    to   {{ opacity: 1; transform: translateY(0); }}
+    from {{ opacity: 0; transform: translateY(20px) scale(0.98); }}
+    to   {{ opacity: 1; transform: translateY(0) scale(1); }}
 }}
-@keyframes shimmer {{
-    0%   {{ background-position: -200% center; }}
-    100% {{ background-position:  200% center; }}
+@keyframes shimmerLine {{
+    0%   {{ transform: translateX(-100%); }}
+    100% {{ transform: translateX(400%); }}
+}}
+@keyframes floatA {{
+    0%,100% {{ transform: translate(0,0) scale(1); }}
+    33%     {{ transform: translate(18px,22px) scale(1.04); }}
+    66%     {{ transform: translate(-12px,14px) scale(0.97); }}
+}}
+@keyframes floatB {{
+    0%,100% {{ transform: translate(0,0) scale(1); }}
+    33%     {{ transform: translate(-20px,-16px) scale(1.03); }}
+    66%     {{ transform: translate(14px,-22px) scale(0.98); }}
 }}
 
+/* ── Hero ── */
 .hero-wrap {{
-    padding: 2.2rem 2rem 2rem;
-    margin-bottom: 1.2rem;
+    padding: 2.4rem 2rem 2.2rem;
+    margin-bottom: 1rem;
     text-align: center;
     position: relative;
     overflow: hidden;
-    animation: fadeUp 0.5s ease both;
+    animation: fadeUp 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
 }}
 .hero-wrap::before {{
     content: '';
     position: absolute;
-    top: 0; left: -100%; width: 300%; height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent);
-    animation: shimmer 4s linear infinite;
+    top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(255,255,255,0.95) 30%,
+        rgba(255,255,255,1) 50%,
+        rgba(255,255,255,0.95) 70%,
+        transparent 100%
+    );
+}}
+.hero-wrap::after {{
+    content: '';
+    position: absolute;
+    top: 0; left: -80%; width: 50%; height: 100%;
+    background: linear-gradient(105deg,
+        transparent 40%,
+        rgba(255,255,255,0.15) 50%,
+        transparent 60%
+    );
+    animation: shimmerLine 7s ease-in-out infinite;
+    pointer-events: none;
+}}
+.hero-orb1 {{
+    position: absolute; width: 260px; height: 260px; border-radius: 50%;
+    background: radial-gradient(circle at 40% 40%,
+        rgba(124,58,237,0.09) 0%, rgba(124,58,237,0.03) 50%, transparent 70%
+    );
+    top: -100px; left: -80px; pointer-events: none;
+    animation: floatA 10s ease-in-out infinite;
+}}
+.hero-orb2 {{
+    position: absolute; width: 200px; height: 200px; border-radius: 50%;
+    background: radial-gradient(circle at 60% 60%,
+        rgba(14,165,233,0.08) 0%, rgba(14,165,233,0.02) 50%, transparent 70%
+    );
+    bottom: -80px; right: -60px; pointer-events: none;
+    animation: floatB 12s ease-in-out infinite;
 }}
 .hero-badge {{
     display: inline-block;
-    background: rgba(255,255,255,0.4);
-    border: 1px solid rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.75);
     border-radius: 99px;
-    padding: 3px 16px;
-    font-size: 0.68rem; font-weight: 600;
+    padding: 4px 16px;
+    font-size: 0.67rem; font-weight: 600;
     letter-spacing: 2px; text-transform: uppercase;
-    color: #888; margin-bottom: 0.7rem;
-    backdrop-filter: blur(8px);
+    color: rgba(0,0,0,0.35); margin-bottom: 0.8rem;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset;
 }}
 .hero-title {{
-    font-size: 2.7rem; font-weight: 800;
+    font-size: 2.8rem; font-weight: 800;
     letter-spacing: -1.5px; color: #1a1a2e;
-    margin: 0 0 0.4rem; line-height: 1;
+    margin: 0 0 0.45rem; line-height: 1;
 }}
 .hero-title span {{ color: {acc}; }}
-.hero-sub {{ font-size: 0.88rem; color: rgba(0,0,0,0.38); font-weight: 400; margin: 0; }}
-
-.topbar {{
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 1rem;
-    gap: 8px;
-}}
-.topbar-left {{ display: flex; align-items: center; gap: 8px; }}
-.topbar-right {{ display: flex; align-items: center; gap: 8px; }}
-.user-pill {{
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(255,255,255,0.6);
-    border: 1px solid rgba(255,255,255,0.8);
-    border-radius: 99px; padding: 6px 14px;
-    font-size: 0.82rem; font-weight: 500; color: #1a1a2e;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-}}
-.user-dot {{
-    width: 8px; height: 8px; border-radius: 50%;
-    background: #10b981; flex-shrink: 0;
+.hero-sub {{
+    font-size: 0.88rem; color: rgba(0,0,0,0.35);
+    font-weight: 400; margin: 0; line-height: 1.5;
 }}
 
+/* ── Top bar buttons ── */
+.stButton > button {{
+    background: rgba(255,255,255,0.55) !important;
+    border: 1px solid rgba(255,255,255,0.85) !important;
+    color: rgba(0,0,0,0.5) !important;
+    border-radius: 99px !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 500 !important; font-size: 0.84rem !important;
+    backdrop-filter: blur(20px) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05), 0 1px 0 rgba(255,255,255,0.9) inset !important;
+    transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1) !important;
+}}
+.stButton > button:hover {{
+    background: rgba(255,255,255,0.85) !important;
+    border-color: rgba(124,58,237,0.25) !important;
+    color: {acc} !important;
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.09), 0 1px 0 rgba(255,255,255,0.9) inset !important;
+}}
+.stButton > button:active {{
+    transform: translateY(0) scale(0.98) !important;
+}}
+
+/* ── Scan button ── */
+div.scan-btn > div > button {{
+    background: {acc} !important;
+    border: none !important;
+    border-radius: 18px !important;
+    color: white !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    width: 100% !important;
+    letter-spacing: 0.2px !important;
+    box-shadow:
+        0 1px 0 rgba(255,255,255,0.2) inset,
+        0 8px 28px rgba(124,58,237,0.35),
+        0 3px 10px rgba(124,58,237,0.2) !important;
+    transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1) !important;
+    backdrop-filter: none !important;
+}}
+div.scan-btn > div > button:hover {{
+    transform: translateY(-2px) scale(1.01) !important;
+    box-shadow:
+        0 1px 0 rgba(255,255,255,0.2) inset,
+        0 12px 36px rgba(124,58,237,0.45),
+        0 5px 14px rgba(124,58,237,0.25) !important;
+}}
+div.scan-btn > div > button:active {{
+    transform: translateY(0) scale(0.99) !important;
+}}
+
+/* ── Result cards ── */
 .g-card {{
-    padding: 1.4rem 1.8rem;
-    margin-bottom: 0.85rem;
+    padding: 1.5rem 1.8rem;
+    margin-bottom: 0.9rem;
     position: relative; overflow: hidden;
-    animation: fadeUp 0.5s ease both;
+    animation: fadeUp 0.55s cubic-bezier(0.34,1.56,0.64,1) both;
+}}
+.g-card::before {{
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent);
 }}
 .g-card::after {{
     content: '';
-    position: absolute; inset: 0; border-radius: 24px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 60%);
+    position: absolute; inset: 0; border-radius: 28px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.35) 0%, transparent 55%);
     pointer-events: none;
 }}
 .g-card-accent {{ border-left: 3px solid {acc} !important; }}
 .g-card-green  {{ border-left: 3px solid #10b981 !important; }}
 
 .chip-label {{
-    font-size: 0.67rem; font-weight: 700;
+    font-size: 0.65rem; font-weight: 700;
     letter-spacing: 1.8px; text-transform: uppercase;
-    color: {acc}; margin-bottom: 0.4rem; display: block; opacity: 0.75;
+    color: {acc}; margin-bottom: 0.45rem; display: block; opacity: 0.7;
 }}
 .chip-label-green {{ color: #10b981; opacity: 1; }}
 
-.food-name {{ font-size: 1.9rem; font-weight: 700; color: #1a1a2e; letter-spacing: -0.5px; line-height: 1.2; }}
-.cal-number {{ font-size: 3rem; font-weight: 800; color: #10b981; letter-spacing: -2px; line-height: 1; }}
-.cal-unit {{ font-size: 0.95rem; color: rgba(0,0,0,0.3); margin-left: 4px; font-weight: 300; }}
+.food-name {{
+    font-size: 1.95rem; font-weight: 700; color: #1a1a2e;
+    letter-spacing: -0.5px; line-height: 1.2;
+}}
+.cal-number {{
+    font-size: 3.2rem; font-weight: 800; color: #10b981;
+    letter-spacing: -2px; line-height: 1;
+}}
+.cal-unit {{
+    font-size: 0.95rem; color: rgba(0,0,0,0.28);
+    margin-left: 5px; font-weight: 300;
+}}
 
-.nut-grid {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 0.8rem; }}
+/* ── Nutrition grid ── */
+.nut-grid {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin-top: 0.9rem; }}
 .nut-cell {{
-    background: rgba(255,255,255,0.45);
-    border: 1px solid rgba(255,255,255,0.65);
-    border-radius: 16px; padding: 0.9rem 0.4rem;
-    text-align: center; backdrop-filter: blur(12px);
-    transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.8);
+    border-radius: 18px; padding: 1rem 0.4rem;
+    text-align: center;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04), 0 1px 0 rgba(255,255,255,0.9) inset;
+    transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1);
 }}
 .nut-cell:hover {{
-    background: rgba(255,255,255,0.75);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    background: rgba(255,255,255,0.82);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.09), 0 1px 0 rgba(255,255,255,0.9) inset;
 }}
-.nut-icon {{ font-size: 1.4rem; }}
-.nut-val {{ font-size: 1.05rem; font-weight: 700; color: #1a1a2e; margin: 4px 0 2px; }}
-.nut-name {{ font-size: 0.6rem; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(0,0,0,0.35); }}
+.nut-icon {{ font-size: 1.4rem; line-height: 1; }}
+.nut-val {{ font-size: 1.05rem; font-weight: 700; color: #1a1a2e; margin: 5px 0 3px; }}
+.nut-name {{ font-size: 0.58rem; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(0,0,0,0.32); }}
 
-.tag-wrap {{ display: flex; flex-wrap: wrap; gap: 7px; margin-top: 0.7rem; }}
+/* ── Tags ── */
+.tag-wrap {{ display: flex; flex-wrap: wrap; gap: 7px; margin-top: 0.75rem; }}
 .tag {{
-    background: rgba(255,255,255,0.5);
-    border: 1px solid rgba(255,255,255,0.7);
-    border-radius: 99px; padding: 5px 16px;
-    font-size: 0.83rem; color: #444;
-    backdrop-filter: blur(8px);
-    transition: background 0.2s, color 0.2s, transform 0.2s;
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(255,255,255,0.8);
+    border-radius: 99px; padding: 6px 16px;
+    font-size: 0.83rem; color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04), 0 1px 0 rgba(255,255,255,0.9) inset;
+    transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1);
 }}
-.tag:hover {{ background: rgba(255,255,255,0.85); color: {acc}; transform: translateY(-2px); }}
+.tag:hover {{
+    background: rgba(255,255,255,0.9);
+    color: {acc};
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}}
 
+/* ── Donut ── */
 .donut-wrap {{ display: flex; align-items: center; justify-content: center; gap: 2rem; margin-top: 1rem; flex-wrap: wrap; }}
 .donut-legend {{ display: flex; flex-direction: column; gap: 9px; }}
-.legend-item {{ display: flex; align-items: center; gap: 9px; font-size: 0.83rem; color: rgba(0,0,0,0.55); }}
+.legend-item {{ display: flex; align-items: center; gap: 9px; font-size: 0.83rem; color: rgba(0,0,0,0.5); }}
 .legend-dot {{ width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }}
 .legend-pct {{ font-weight: 700; color: #1a1a2e; margin-left: auto; padding-left: 12px; }}
 
+/* ── Upload zone ── */
 [data-testid="stFileUploadDropzone"] {{
-    background: rgba(255,255,255,0.35) !important;
-    border: 2px dashed rgba(255,255,255,0.6) !important;
-    border-radius: 18px !important;
-    backdrop-filter: blur(12px) !important;
-    transition: all 0.25s !important;
+    background: rgba(255,255,255,0.4) !important;
+    border: 1.5px dashed rgba(255,255,255,0.7) !important;
+    border-radius: 20px !important;
+    backdrop-filter: blur(20px) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
+    transition: all 0.25s ease !important;
 }}
 [data-testid="stFileUploadDropzone"]:hover {{
-    background: rgba(255,255,255,0.55) !important;
-    border-color: {acc} !important;
+    background: rgba(255,255,255,0.65) !important;
+    border-color: rgba(124,58,237,0.4) !important;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.07) !important;
 }}
-[data-testid="stFileUploadDropzone"] p {{ color: rgba(0,0,0,0.3) !important; }}
+[data-testid="stFileUploadDropzone"] p {{ color: rgba(0,0,0,0.28) !important; }}
 
 [data-testid="stImage"] img {{
-    border-radius: 20px !important;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1) !important;
-    border: 1px solid rgba(255,255,255,0.6) !important;
+    border-radius: 22px !important;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06) !important;
+    border: 1px solid rgba(255,255,255,0.7) !important;
 }}
 
+/* ── Text input ── */
 .stTextInput > div > div > input {{
-    background: rgba(255,255,255,0.55) !important;
-    border: 1.5px solid rgba(255,255,255,0.75) !important;
-    border-radius: 12px !important;
+    background: rgba(255,255,255,0.6) !important;
+    border: 1px solid rgba(255,255,255,0.88) !important;
+    border-radius: 14px !important;
     color: #1a1a2e !important;
     font-family: 'Outfit', sans-serif !important;
-    backdrop-filter: blur(12px) !important;
-    transition: all 0.25s !important;
+    backdrop-filter: blur(20px) !important;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset, 0 2px 8px rgba(0,0,0,0.04) !important;
+    transition: all 0.2s ease !important;
+    padding: 0.65rem 1rem !important;
 }}
-.stTextInput > div > div > input::placeholder {{ color: rgba(0,0,0,0.25) !important; }}
+.stTextInput > div > div > input::placeholder {{ color: rgba(0,0,0,0.22) !important; }}
 .stTextInput > div > div > input:focus {{
-    border-color: {acc} !important;
-    background: rgba(255,255,255,0.85) !important;
-    box-shadow: 0 0 0 3px rgba(124,58,237,0.1) !important;
+    border-color: rgba(124,58,237,0.4) !important;
+    background: rgba(255,255,255,0.88) !important;
+    box-shadow:
+        0 1px 0 rgba(255,255,255,0.9) inset,
+        0 0 0 3px rgba(124,58,237,0.1),
+        0 4px 12px rgba(0,0,0,0.06) !important;
 }}
 .stTextInput label {{
-    color: rgba(0,0,0,0.4) !important; font-size: 0.68rem !important;
+    color: rgba(0,0,0,0.38) !important; font-size: 0.67rem !important;
     font-weight: 700 !important; letter-spacing: 1.8px !important;
     text-transform: uppercase !important;
 }}
 
-.stButton > button {{
-    background: rgba(255,255,255,0.5) !important;
-    border: 1.5px solid rgba(255,255,255,0.75) !important;
-    color: #555 !important;
-    border-radius: 99px !important;
-    font-family: 'Outfit', sans-serif !important;
-    font-weight: 500 !important; font-size: 0.85rem !important;
-    backdrop-filter: blur(12px) !important;
-    transition: all 0.25s !important;
+/* ── Progress ── */
+.stProgress > div > div {{
+    background: {acc} !important; border-radius: 99px !important;
+    transition: width 0.4s ease !important;
 }}
-.stButton > button:hover {{
-    background: rgba(255,255,255,0.8) !important;
-    border-color: {acc} !important; color: {acc} !important;
-    transform: translateY(-1px) !important;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.08) !important;
+.stProgress > div {{
+    background: rgba(255,255,255,0.45) !important;
+    border-radius: 99px !important; height: 5px !important;
+    backdrop-filter: blur(8px) !important;
 }}
 
-div.scan-btn > div > button {{
-    background: {acc} !important;
-    border: none !important; border-radius: 16px !important;
-    color: white !important; font-size: 1rem !important;
-    font-weight: 700 !important; width: 100% !important;
-    box-shadow: 0 6px 24px rgba(124,58,237,0.3) !important;
-    transition: all 0.25s !important; backdrop-filter: none !important;
-}}
-div.scan-btn > div > button:hover {{
-    opacity: 0.9 !important; transform: translateY(-2px) !important;
-    box-shadow: 0 10px 32px rgba(124,58,237,0.4) !important;
-}}
-
-.stProgress > div > div {{ background: {acc} !important; border-radius: 99px !important; transition: width 0.4s ease !important; }}
-.stProgress > div {{ background: rgba(255,255,255,0.4) !important; border-radius: 99px !important; height: 5px !important; }}
-
+/* ── Alert ── */
 .stAlert {{
-    background: rgba(255,245,245,0.7) !important;
-    border: 1px solid rgba(254,226,226,0.8) !important;
-    border-radius: 14px !important; color: #dc2626 !important;
-    backdrop-filter: blur(12px) !important;
+    background: rgba(255,245,245,0.75) !important;
+    border: 1px solid rgba(254,226,226,0.85) !important;
+    border-radius: 16px !important; color: #dc2626 !important;
+    backdrop-filter: blur(16px) !important;
+    box-shadow: 0 4px 16px rgba(239,68,68,0.08) !important;
 }}
 
-/* ── Settings ── */
+/* ── Settings panel ── */
 .settings-wrap {{
     padding: 1.8rem 2rem 2rem;
     margin-bottom: 1rem;
-    animation: fadeUp 0.4s ease both;
+    animation: fadeUp 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
     position: relative; overflow: hidden;
 }}
 .settings-wrap::before {{
     content: '';
     position: absolute;
-    top: 0; left: -100%; width: 300%; height: 1px;
+    top: 0; left: 0; right: 0; height: 1px;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent);
-    animation: shimmer 4s linear infinite;
 }}
 .settings-title {{
     font-size: 1.1rem; font-weight: 700; color: #1a1a2e;
     margin: 0 0 1.4rem; letter-spacing: -0.3px;
 }}
 .settings-section {{
-    font-size: 0.68rem; font-weight: 700;
+    font-size: 0.65rem; font-weight: 700;
     letter-spacing: 2px; text-transform: uppercase;
-    color: rgba(0,0,0,0.3); margin-bottom: 0.8rem; display: block;
+    color: rgba(0,0,0,0.28); margin-bottom: 0.8rem; display: block;
 }}
 .gradient-swatch {{
-    height: 52px; border-radius: 14px;
-    border: 2px solid rgba(255,255,255,0.8);
+    height: 54px; border-radius: 16px;
+    border: 2px solid rgba(255,255,255,0.85);
     cursor: pointer;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
-    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.09), 0 1px 0 rgba(255,255,255,0.6) inset;
+    transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1);
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.75rem; font-weight: 600; color: rgba(0,0,0,0.55);
+    font-size: 0.75rem; font-weight: 600; color: rgba(0,0,0,0.5);
     margin-bottom: 4px;
 }}
 .gradient-swatch:hover {{
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.14);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.13);
 }}
 .gradient-swatch.active {{
     border-color: {acc} !important;
-    box-shadow: 0 0 0 3px rgba(124,58,237,0.2), 0 6px 20px rgba(0,0,0,0.12);
+    box-shadow: 0 0 0 3px rgba(124,58,237,0.18), 0 8px 24px rgba(0,0,0,0.12);
 }}
 .s-divider {{
-    height: 1px; background: rgba(255,255,255,0.6); margin: 1.2rem 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
+    margin: 1.3rem 0;
 }}
 .preview-bar {{
     height: 5px; border-radius: 99px;
@@ -309,22 +415,22 @@ div.scan-btn > div > button:hover {{
 
 [data-testid="stColorPicker"] {{ display: flex; justify-content: center; }}
 [data-testid="stColorPicker"] > div {{
-    width: 56px !important; height: 56px !important;
+    width: 58px !important; height: 58px !important;
     border-radius: 50% !important;
-    border: 3px solid rgba(255,255,255,0.85) !important;
+    border: 3px solid rgba(255,255,255,0.9) !important;
     overflow: hidden !important;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.12) !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12), 0 1px 0 rgba(255,255,255,0.9) inset !important;
     cursor: pointer !important;
-    transition: transform 0.2s, box-shadow 0.2s !important;
+    transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s !important;
 }}
 [data-testid="stColorPicker"] > div:hover {{
-    transform: scale(1.08) !important;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.16) !important;
+    transform: scale(1.1) !important;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.16) !important;
 }}
 
 .page-footer {{
-    text-align: center; margin-top: 2.5rem; padding-bottom: 1rem;
-    font-size: 0.72rem; color: rgba(0,0,0,0.25); letter-spacing: 0.3px;
+    text-align: center; margin-top: 2.5rem; padding-bottom: 1.2rem;
+    font-size: 0.72rem; color: rgba(0,0,0,0.22); letter-spacing: 0.3px;
 }}
 </style>
 """, unsafe_allow_html=True)
@@ -338,7 +444,9 @@ with col_c:
         pass
 
 st.markdown(f"""
-<div class="glass hero-wrap">
+<div class="frost hero-wrap">
+    <div class="hero-orb1"></div>
+    <div class="hero-orb2"></div>
     <div class="hero-badge">AI Powered · Cambodia</div>
     <div class="hero-title">AhaLaor <span>AI</span></div>
     <p class="hero-sub">{t("Snap a photo. Know your food.", "ថតរូបភាព។ ស្គាល់ម្ហូបរបស់អ្នក។")}</p>
@@ -350,8 +458,10 @@ col1, col2, col3, col4 = st.columns([4, 1, 1, 1])
 
 with col1:
     st.markdown(f"""
-    <div style="display:flex; align-items:center; height:100%;">
-        <span style="font-size:1rem; font-weight:700; color:#1a1a2e; letter-spacing:-0.5px;">AhaLaor <span style="color:{acc};">AI</span></span>
+    <div style="display:flex;align-items:center;height:100%;padding-left:4px;">
+        <span style="font-size:0.95rem;font-weight:700;color:#1a1a2e;letter-spacing:-0.3px;">
+            AhaLaor <span style="color:{acc};">AI</span>
+        </span>
     </div>
     """, unsafe_allow_html=True)
 
@@ -377,7 +487,7 @@ with col4:
 
 # ── Settings panel ──
 if st.session_state.show_settings:
-    st.markdown('<div class="glass settings-wrap">', unsafe_allow_html=True)
+    st.markdown('<div class="frost settings-wrap">', unsafe_allow_html=True)
     st.markdown('<div class="settings-title">⚙️ Settings</div>', unsafe_allow_html=True)
 
     st.markdown('<span class="settings-section">✦ Background</span>', unsafe_allow_html=True)
@@ -524,13 +634,13 @@ if st.session_state.result and st.session_state.image:
     ingredients = [i for i in data.get(ing_key, []) if i.lower() not in ignore]
 
     st.markdown(f"""
-    <div class="glass g-card g-card-accent">
+    <div class="frost g-card g-card-accent">
         <span class="chip-label">🍽 {t("Detected Food", "ម្ហូបដែលបានរកឃើញ")}</span>
         <div class="food-name">{food}</div>
     </div>""", unsafe_allow_html=True)
 
     st.markdown(f"""
-    <div class="glass g-card g-card-green">
+    <div class="frost g-card g-card-green">
         <span class="chip-label chip-label-green">🔥 {t("Estimated Calories", "កាឡូរីដែលប៉ាន់ស្មាន")}</span>
         <div><span class="cal-number">{calories}</span><span class="cal-unit">kcal</span></div>
     </div>""", unsafe_allow_html=True)
@@ -550,7 +660,7 @@ if st.session_state.result and st.session_state.image:
             <div class="nut-name">{name}</div>
         </div>""" for icon, name, val in items)
         st.markdown(f"""
-        <div class="glass g-card">
+        <div class="frost g-card">
             <span class="chip-label">🧬 {t("Nutrition Breakdown", "តម្លៃអាហារូបត្ថម្ភ")}</span>
             <div class="nut-grid">{cells}</div>
         </div>""", unsafe_allow_html=True)
@@ -587,10 +697,10 @@ if st.session_state.result and st.session_state.image:
             offset += dash
 
         svg = f"""<svg width="180" height="180" viewBox="0 0 180 180">
-            <circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="{stroke}"/>
+            <circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="{stroke}"/>
             {''.join(segments)}
             <text x="{cx}" y="{cy-8}" text-anchor="middle" fill="#1a1a2e" font-size="13" font-weight="700" font-family="Outfit">{t("Macros","ម៉ាក្រូ")}</text>
-            <text x="{cx}" y="{cy+10}" text-anchor="middle" fill="rgba(0,0,0,0.3)" font-size="10" font-family="Outfit">{t("breakdown","ចំណែក")}</text>
+            <text x="{cx}" y="{cy+10}" text-anchor="middle" fill="rgba(0,0,0,0.28)" font-size="10" font-family="Outfit">{t("breakdown","ចំណែក")}</text>
         </svg>"""
 
         legend = "".join(
@@ -599,7 +709,7 @@ if st.session_state.result and st.session_state.image:
             for n, cal, c in slices
         )
         st.markdown(f"""
-        <div class="glass g-card">
+        <div class="frost g-card">
             <span class="chip-label">🥧 {t("Macro Wheel", "កង់ម៉ាក្រូ")}</span>
             <div class="donut-wrap">{svg}<div class="donut-legend">{legend}</div></div>
         </div>""", unsafe_allow_html=True)
@@ -607,7 +717,7 @@ if st.session_state.result and st.session_state.image:
     if ingredients:
         tags = "".join(f'<span class="tag">{i}</span>' for i in ingredients)
         st.markdown(f"""
-        <div class="glass g-card">
+        <div class="frost g-card">
             <span class="chip-label">🥬 {t("Ingredients", "គ្រឿងផ្សំ")}</span>
             <div class="tag-wrap">{tags}</div>
         </div>""", unsafe_allow_html=True)
