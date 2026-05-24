@@ -506,6 +506,51 @@ if st.session_state.show_settings:
     st.markdown('</div>', unsafe_allow_html=True)
 
 # ══════════════════════════════════════
+# ── Hero ──
+# ══════════════════════════════════════
+st.markdown(f"""
+<div class="frost" style="
+    text-align: center;
+    padding: 2.2rem 2rem 2rem;
+    margin-bottom: 1.2rem;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+">
+    <div style="
+        position: absolute; top: 0; left: -100%; width: 300%; height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent);
+        animation: shimmerLine 4s linear infinite;
+    "></div>
+    <div style="
+        display: inline-block;
+        background: rgba(255,255,255,0.4);
+        border: 1px solid rgba(255,255,255,0.6);
+        border-radius: 99px;
+        padding: 3px 16px;
+        font-size: 0.68rem; font-weight: 600;
+        letter-spacing: 2px; text-transform: uppercase;
+        color: #888; margin-bottom: 0.7rem;
+        backdrop-filter: blur(8px);
+    ">AI Powered · Cambodia 🇰🇭</div>
+    <div style="
+        font-size: 2.6rem; font-weight: 800;
+        letter-spacing: -1.5px; color: #1a1a2e;
+        margin: 0 0 0.3rem; line-height: 1;
+    ">AhaLaor <span style="color:{acc};">AI</span></div>
+    <div style="font-size: 1rem; font-weight: 500; color: rgba(0,0,0,0.3); margin: 0 0 0.4rem;">
+        អាហារល្អ
+    </div>
+    <div style="
+        font-size: 0.88rem; color: rgba(0,0,0,0.35);
+        font-weight: 400; margin: 0;
+    ">{t("Snap a photo. Know your food.", "ថតរូបភាព។ ស្គាល់ម្ហូបរបស់អ្នក។")}</div>
+</div>
+""", unsafe_allow_html=True)
+
+
+
+# ══════════════════════════════════════
 # ── Gemini client ──
 # ══════════════════════════════════════
 @st.cache_resource
