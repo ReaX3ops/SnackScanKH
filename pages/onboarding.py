@@ -1,17 +1,16 @@
 import streamlit as st
-import firebase_admin
-from firebase_admin import credentials, firestore
-import json
-from datetime import datetime
 
-st.set_page_config(page_title="History · AhaLaor AI", page_icon="favicon.png", layout="centered")
+st.set_page_config(page_title="Welcome · AhaLaor AI", page_icon="favicon.png", layout="centered")
 
-if not st.session_state.get("user"):
-    st.switch_page("pages/login.py")
-    st.stop()
+if "accent" not in st.session_state:
+    st.session_state.accent = "#7c3aed"
+if "bg" not in st.session_state:
+    st.session_state.bg = "linear-gradient(135deg, #dde8f5 0%, #eef2fb 40%, #e8dff5 100%)"
+if "onboarding_step" not in st.session_state:
+    st.session_state.onboarding_step = 0
 
-acc = st.session_state.get("accent", "#7c3aed")
-bg  = st.session_state.get("bg", "linear-gradient(135deg, #dde8f5 0%, #eef2fb 40%, #e8dff5 100%)")
+acc = st.session_state.accent
+bg  = st.session_state.bg
 
 st.markdown(f"""
 <style>
@@ -21,131 +20,132 @@ st.markdown(f"""
     background: {bg} !important; min-height: 100vh;
 }}
 #MainMenu, footer, header {{ visibility: hidden; }}
-.block-container {{ padding-top: 2rem; max-width: 680px; }}
+.block-container {{ padding-top: 4rem; max-width: 500px; }}
 
 .frost {{
     background: rgba(255,255,255,0.62);
     backdrop-filter: blur(40px) saturate(200%);
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
     border: 1px solid rgba(255,255,255,0.85);
     box-shadow: 0 20px 60px rgba(0,0,0,0.07), 0 2px 0 rgba(255,255,255,0.9) inset;
-    border-radius: 24px;
+    border-radius: 28px;
 }}
 
 @keyframes fadeUp {{
-    from {{ opacity: 0; transform: translateY(16px); }}
+    from {{ opacity: 0; transform: translateY(24px); }}
     to   {{ opacity: 1; transform: translateY(0); }}
 }}
 
-.page-title {{
-    font-size: 1.8rem; font-weight: 800;
+.ob-card {{
+    padding: 3rem 2.5rem;
+    text-align: center;
+    animation: fadeUp 0.5s ease both;
+    position: relative; overflow: hidden;
+}}
+.ob-icon {{ font-size: 4rem; margin-bottom: 1.2rem; line-height: 1; }}
+.ob-title {{
+    font-size: 1.9rem; font-weight: 800;
     color: #1a1a2e; letter-spacing: -0.5px;
-    margin: 0 0 0.3rem;
+    margin: 0 0 0.6rem; line-height: 1.2;
 }}
-.page-title span {{ color: {acc}; }}
-.page-sub {{ font-size: 0.88rem; color: rgba(0,0,0,0.35); margin: 0 0 1.5rem; }}
-
-.history-card {{
-    padding: 1.2rem 1.6rem;
-    margin-bottom: 0.8rem;
-    animation: fadeUp 0.4s ease both;
-    display: flex; align-items: center; gap: 1rem;
+.ob-title span {{ color: {acc}; }}
+.ob-desc {{
+    font-size: 0.95rem; color: rgba(0,0,0,0.45);
+    line-height: 1.7; margin: 0 0 2rem; font-weight: 400;
 }}
-.h-icon {{ font-size: 2rem; flex-shrink: 0; }}
-.h-info {{ flex: 1; }}
-.h-food {{ font-size: 1rem; font-weight: 700; color: #1a1a2e; }}
-.h-cal {{ font-size: 0.82rem; color: rgba(0,0,0,0.4); margin-top: 2px; }}
-.h-date {{ font-size: 0.75rem; color: rgba(0,0,0,0.28); margin-top: 2px; }}
-.h-rating {{ font-size: 1.4rem; flex-shrink: 0; }}
-.h-cal-badge {{
-    font-size: 0.88rem; font-weight: 700;
-    color: #10b981; flex-shrink: 0;
+.dots {{
+    display: flex; justify-content: center; gap: 8px; margin-bottom: 1.5rem;
 }}
-
-.empty-state {{
-    text-align: center; padding: 3rem 2rem;
+.dot {{
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(0,0,0,0.12); transition: all 0.3s ease;
 }}
-.empty-icon {{ font-size: 3rem; margin-bottom: 0.8rem; }}
-.empty-title {{ font-size: 1.1rem; font-weight: 700; color: #1a1a2e; }}
-.empty-sub {{ font-size: 0.88rem; color: rgba(0,0,0,0.35); margin-top: 0.3rem; }}
+.dot.active {{
+    width: 24px; border-radius: 99px;
+    background: {acc};
+}}
 
 .stButton > button {{
-    background: rgba(255,255,255,0.6) !important;
-    border: 1px solid rgba(255,255,255,0.85) !important;
-    color: rgba(0,0,0,0.5) !important;
-    border-radius: 99px !important;
+    background: {acc} !important;
+    border: none !important; border-radius: 14px !important;
+    color: white !important; font-size: 1rem !important;
+    font-weight: 700 !important; width: 100% !important;
     font-family: 'Outfit', sans-serif !important;
-    font-weight: 500 !important;
+    padding: 0.75rem !important;
+    box-shadow: 0 6px 20px rgba(124,58,237,0.3) !important;
     transition: all 0.2s !important;
 }}
 .stButton > button:hover {{
-    background: rgba(255,255,255,0.9) !important;
-    color: {acc} !important;
-    border-color: {acc} !important;
+    opacity: 0.88 !important; transform: translateY(-2px) !important;
+}}
+
+.skip-btn > div > button {{
+    background: transparent !important;
+    border: none !important;
+    color: rgba(0,0,0,0.3) !important;
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+    box-shadow: none !important;
+    width: auto !important;
+    padding: 0.3rem 0.5rem !important;
+}}
+.skip-btn > div > button:hover {{
+    color: rgba(0,0,0,0.5) !important;
+    transform: none !important;
+    background: transparent !important;
 }}
 </style>
 """, unsafe_allow_html=True)
 
-# ── Init Firestore ──
-@st.cache_resource
-def get_db():
-    if not firebase_admin._apps:
-        fa = dict(st.secrets["firebase_admin"])
-        fa["private_key"] = fa["private_key"].replace("\\n", "\n")
-        cred = credentials.Certificate(fa)
-        firebase_admin.initialize_app(cred)
-    return firestore.client()
+steps = [
+    {
+        "icon": "🍱",
+        "title": "Welcome to <span>AhaLaor AI</span>",
+        "desc": "Your smart food companion. Scan any meal and instantly get the food name, calories, and full nutrition breakdown — in English or Khmer."
+    },
+    {
+        "icon": "📸",
+        "title": "Snap. <span>Scan.</span> Know.",
+        "desc": "Just upload a photo of your food, optionally tell us more about it, then hit Scan. Our AI powered by Gemini identifies everything in seconds."
+    },
+    {
+        "icon": "📊",
+        "title": "Track your <span>Goals</span>",
+        "desc": "Set a daily calorie goal, rate your meals as 🟢 Healthy, 🟡 Okay or 🔴 Indulgent, and view your full scan history. Stay on top of what you eat every day."
+    },
+]
 
-db = get_db()
+step = st.session_state.onboarding_step
+s = steps[step]
 
-# ── Header ──
-col1, col2 = st.columns([5, 1])
-with col1:
-    st.markdown(f"""
-    <div class="page-title">Scan <span>History</span></div>
-    <div class="page-sub">Your past food scans</div>
-    """, unsafe_allow_html=True)
-with col2:
-    if st.button("← Back"):
-        st.switch_page("app.py")
+# Skip button
+st.markdown('<div class="skip-btn">', unsafe_allow_html=True)
+if st.button("Skip →"):
+    st.session_state.onboarding_done = True
+    st.switch_page("app.py")
+st.markdown('</div>', unsafe_allow_html=True)
 
-# ── Load history ──
-uid = st.session_state.user["uid"]
-try:
-    docs = db.collection("scans").where("uid", "==", uid)\
-             .order_by("timestamp", direction=firestore.Query.DESCENDING)\
-             .limit(50).stream()
-    scans = [doc.to_dict() for doc in docs]
-except Exception as e:
-    scans = []
-    st.error(f"Error loading history: {e}")
+# Dots
+dots_html = '<div class="dots">' + "".join(
+    f'<div class="dot {"active" if i == step else ""}"></div>'
+    for i in range(len(steps))
+) + '</div>'
 
-if not scans:
-    st.markdown("""
-    <div class="frost empty-state">
-        <div class="empty-icon">🍽️</div>
-        <div class="empty-title">No scans yet</div>
-        <div class="empty-sub">Start scanning food to see your history here</div>
-    </div>
-    """, unsafe_allow_html=True)
+st.markdown(f"""
+<div class="frost ob-card">
+    <div class="ob-icon">{s["icon"]}</div>
+    <div class="ob-title">{s["title"]}</div>
+    <div class="ob-desc">{s["desc"]}</div>
+    {dots_html}
+</div>
+""", unsafe_allow_html=True)
+
+if step < len(steps) - 1:
+    if st.button("Next →"):
+        st.session_state.onboarding_step += 1
+        st.rerun()
 else:
-    rating_emoji = {"healthy": "🟢", "okay": "🟡", "indulgent": "🔴", None: "⚪"}
-
-    for scan in scans:
-        food    = scan.get("food", "Unknown")
-        cal     = scan.get("calories", "?")
-        rating  = scan.get("rating", None)
-        ts      = scan.get("timestamp")
-        date_str = ts.strftime("%b %d, %Y · %I:%M %p") if ts else ""
-
-        st.markdown(f"""
-        <div class="frost history-card">
-            <div class="h-icon">🍱</div>
-            <div class="h-info">
-                <div class="h-food">{food}</div>
-                <div class="h-cal">🔥 {cal} kcal</div>
-                <div class="h-date">{date_str}</div>
-            </div>
-            <div class="h-cal-badge">{cal}</div>
-            <div class="h-rating">{rating_emoji.get(rating, "⚪")}</div>
-        </div>
-        """, unsafe_allow_html=True)
+    if st.button("Get Started 🚀"):
+        st.session_state.onboarding_done = True
+        st.session_state.onboarding_step = 0
+        st.switch_page("app.py")
