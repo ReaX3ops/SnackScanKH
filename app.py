@@ -42,7 +42,7 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
 }}
 #MainMenu, footer, header {{ visibility: hidden; }}
 .block-container {{
-    padding-top: 2rem !important;
+    padding-top: 1.5rem !important;
     max-width: 680px !important;
     padding-left: 1rem !important;
     padding-right: 1rem !important;
@@ -82,79 +82,48 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
     66%     {{ transform: translate(14px,-22px) scale(0.98); }}
 }}
 
-/* ── Hero ── */
-.hero-wrap {{
-    padding: 2.4rem 2rem 2.2rem;
-    margin-bottom: 1rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    animation: fadeUp 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+/* ── Navbar ── */
+.navbar {{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.4rem;
+    margin-bottom: 1.2rem;
+    animation: fadeUp 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+    position: relative; overflow: hidden;
 }}
-.hero-wrap::before {{
+.navbar::before {{
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; height: 1px;
-    background: linear-gradient(90deg,
-        transparent 0%,
-        rgba(255,255,255,0.95) 30%,
-        rgba(255,255,255,1) 50%,
-        rgba(255,255,255,0.95) 70%,
-        transparent 100%
-    );
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent);
 }}
-.hero-wrap::after {{
+.navbar::after {{
     content: '';
     position: absolute;
     top: 0; left: -80%; width: 50%; height: 100%;
-    background: linear-gradient(105deg,
-        transparent 40%,
-        rgba(255,255,255,0.15) 50%,
-        transparent 60%
-    );
-    animation: shimmerLine 7s ease-in-out infinite;
+    background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.12) 50%, transparent 60%);
+    animation: shimmerLine 8s ease-in-out infinite;
     pointer-events: none;
 }}
-.hero-orb1 {{
-    position: absolute; width: 260px; height: 260px; border-radius: 50%;
-    background: radial-gradient(circle at 40% 40%,
-        rgba(124,58,237,0.09) 0%, rgba(124,58,237,0.03) 50%, transparent 70%
-    );
-    top: -100px; left: -80px; pointer-events: none;
-    animation: floatA 10s ease-in-out infinite;
+.nav-brand {{
+    display: flex; align-items: center; gap: 10px;
 }}
-.hero-orb2 {{
-    position: absolute; width: 200px; height: 200px; border-radius: 50%;
-    background: radial-gradient(circle at 60% 60%,
-        rgba(14,165,233,0.08) 0%, rgba(14,165,233,0.02) 50%, transparent 70%
-    );
-    bottom: -80px; right: -60px; pointer-events: none;
-    animation: floatB 12s ease-in-out infinite;
+.nav-logo {{
+    width: 34px; height: 34px; border-radius: 10px;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid rgba(255,255,255,0.9);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; overflow: hidden;
 }}
-.hero-badge {{
-    display: inline-block;
-    background: rgba(255,255,255,0.5);
-    border: 1px solid rgba(255,255,255,0.75);
-    border-radius: 99px;
-    padding: 4px 16px;
-    font-size: 0.67rem; font-weight: 600;
-    letter-spacing: 2px; text-transform: uppercase;
-    color: rgba(0,0,0,0.35); margin-bottom: 0.8rem;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset;
+.nav-title {{
+    font-size: 1.05rem; font-weight: 800;
+    color: #1a1a2e; letter-spacing: -0.4px;
 }}
-.hero-title {{
-    font-size: 2.8rem; font-weight: 800;
-    letter-spacing: -1.5px; color: #1a1a2e;
-    margin: 0 0 0.45rem; line-height: 1;
-}}
-.hero-title span {{ color: {acc}; }}
-.hero-sub {{
-    font-size: 0.88rem; color: rgba(0,0,0,0.35);
-    font-weight: 400; margin: 0; line-height: 1.5;
-}}
+.nav-title span {{ color: {acc}; }}
 
-/* ── Top bar buttons ── */
+/* ── Buttons ── */
 .stButton > button {{
     background: rgba(255,255,255,0.55) !important;
     border: 1px solid rgba(255,255,255,0.85) !important;
@@ -435,17 +404,28 @@ div.scan-btn > div > button:active {{
 </style>
 """, unsafe_allow_html=True)
 
-# ── Top bar ── (NOW FIRST)
+# ══════════════════════════════════════
+# ── Navbar (replaces hero entirely) ──
+# ══════════════════════════════════════
 col1, col2, col3, col4 = st.columns([4, 1, 1, 1])
 
 with col1:
-    st.markdown(f"""
-    <div style="display:flex;align-items:center;height:100%;padding-left:4px;">
-        <span style="font-size:0.95rem;font-weight:700;color:#1a1a2e;letter-spacing:-0.3px;">
-            AhaLaor <span style="color:{acc};">AI</span>
-        </span>
-    </div>
-    """, unsafe_allow_html=True)
+    try:
+        ic, tx = st.columns([1, 5])
+        with ic:
+            st.image("favicon.jpg", width=34)
+        with tx:
+            st.markdown(f"""
+            <div style="display:flex;align-items:center;height:100%;margin-top:2px;">
+                <span class="nav-title">AhaLaor <span style="color:{acc};">AI</span></span>
+            </div>
+            """, unsafe_allow_html=True)
+    except:
+        st.markdown(f"""
+        <div style="display:flex;align-items:center;height:100%;">
+            <span class="nav-title">AhaLaor <span style="color:{acc};">AI</span></span>
+        </div>
+        """, unsafe_allow_html=True)
 
 with col2:
     if st.button("⚙️", help="Settings"):
@@ -467,7 +447,9 @@ with col4:
         if st.button("🔐 Login"):
             st.switch_page("pages/login.py")
 
+# ══════════════════════════════════════
 # ── Settings panel ──
+# ══════════════════════════════════════
 if st.session_state.show_settings:
     st.markdown('<div class="frost settings-wrap">', unsafe_allow_html=True)
     st.markdown('<div class="settings-title">⚙️ Settings</div>', unsafe_allow_html=True)
@@ -523,31 +505,18 @@ if st.session_state.show_settings:
 
     st.markdown('</div>', unsafe_allow_html=True)
 
-# ── Hero ── (NOW SECOND)
-col_l, col_c, col_r = st.columns([1, 3, 1])
-with col_c:
-    try:
-        st.image("favicon.jpg", width=72)
-    except:
-        pass
-
-st.markdown(f"""
-<div class="frost hero-wrap">
-    <div class="hero-orb1"></div>
-    <div class="hero-orb2"></div>
-    <div class="hero-badge">AI Powered · Cambodia</div>
-    <div class="hero-title">AhaLaor <span>AI</span></div>
-    <p class="hero-sub">{t("Snap a photo. Know your food.", "ថតរូបភាព។ ស្គាល់ម្ហូបរបស់អ្នក។")}</p>
-</div>
-""", unsafe_allow_html=True)
+# ══════════════════════════════════════
 # ── Gemini client ──
+# ══════════════════════════════════════
 @st.cache_resource
 def get_client():
     return genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
 
 client = get_client()
 
+# ══════════════════════════════════════
 # ── Upload ──
+# ══════════════════════════════════════
 uploaded_file = st.file_uploader(
     t("Drop your food photo here", "ទម្លាក់រូបភាពម្ហូបរបស់អ្នក"),
     type=["jpg", "jpeg", "png", "webp"],
@@ -621,7 +590,9 @@ Return ONLY a JSON object, no markdown, no explanation:
             bar.empty()
             st.error(f"Error: {e}")
 
+# ══════════════════════════════════════
 # ── Results ──
+# ══════════════════════════════════════
 if st.session_state.result and st.session_state.image:
     data = st.session_state.result
     lang = st.session_state.lang
