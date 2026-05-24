@@ -539,6 +539,56 @@ client = get_client()
 # ── Upload zone ──
 # ══════════════════════════════════════
 st.markdown(f"""
+<style>
+.upload-zone {{
+    background: rgba(255,255,255,0.38);
+    border: 2.5px dashed rgba(124,58,237,0.28);
+    border-radius: 26px;
+    padding: 3rem 2rem;
+    text-align: center;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 2px 16px rgba(0,0,0,0.04), 0 1px 0 rgba(255,255,255,0.8) inset;
+    margin-bottom: 0rem;
+    transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    pointer-events: none;
+    animation: fadeUp 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+}}
+.upload-icon {{
+    font-size: 3.2rem; margin-bottom: 0.7rem; display: block;
+    animation: floatA 4s ease-in-out infinite;
+}}
+.upload-title {{
+    font-size: 1.05rem; font-weight: 700;
+    color: #1a1a2e; margin-bottom: 0.3rem;
+}}
+.upload-sub {{
+    font-size: 0.8rem; color: rgba(0,0,0,0.32); font-weight: 400;
+}}
+
+/* Native uploader sits ON TOP, fully transparent but clickable */
+[data-testid="stFileUploader"] {{
+    margin-top: -13rem !important;
+    position: relative !important;
+    z-index: 10 !important;
+}}
+[data-testid="stFileUploader"] label {{
+    display: none !important;
+}}
+[data-testid="stFileUploadDropzone"] {{
+    background: transparent !important;
+    border: none !important;
+    border-radius: 26px !important;
+    min-height: 13rem !important;
+    opacity: 0.01 !important;
+    cursor: pointer !important;
+}}
+[data-testid="stFileUploadDropzone"]:hover + .upload-zone,
+[data-testid="stFileUploadDropzone"]:focus + .upload-zone {{
+    background: rgba(255,255,255,0.65) !important;
+    border-color: rgba(124,58,237,0.55) !important;
+}}
+</style>
+
 <div class="upload-zone">
     <span class="upload-icon">🍱</span>
     <div class="upload-title">{t("Drop your food photo here", "ទម្លាក់រូបភាពម្ហូបរបស់អ្នក")}</div>
@@ -551,7 +601,6 @@ uploaded_file = st.file_uploader(
     type=["jpg", "jpeg", "png", "webp"],
     label_visibility="collapsed"
 )
-
 hint = st.text_input(
     t("TELL US MORE (OPTIONAL)", "បញ្ជាក់បន្ថែម (ជាជម្រើស)"),
     placeholder=t('e.g. "whole milk", "brown rice"', 'ឧ. "ទឹកដោះគោ", "បាយស្វាយចន្ទី"')
