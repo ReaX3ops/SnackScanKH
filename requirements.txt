@@ -6,3 +6,5 @@ google-auth
 streamlit-oauth
 PyJWT
 google-generativeai
+firebase-admin
+google-genai
