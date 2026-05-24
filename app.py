@@ -136,7 +136,6 @@ div.scan-btn > div > button:active {{
     transform: translateY(0) scale(0.99) !important;
 }}
 
-/* ── Upload zone ── */
 .upload-zone {{
     background: rgba(255,255,255,0.38);
     border: 2.5px dashed rgba(124,58,237,0.28);
@@ -151,6 +150,7 @@ div.scan-btn > div > button:active {{
     animation: fadeUp 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
     position: relative;
     overflow: hidden;
+    min-height: 180px;
 }}
 .upload-zone:hover {{
     background: rgba(255,255,255,0.58);
@@ -172,16 +172,22 @@ div.scan-btn > div > button:active {{
     font-weight: 400;
 }}
 
+/* ── Make file uploader invisible but cover entire zone ── */
 [data-testid="stFileUploadDropzone"] {{
-    background: transparent !important;
-    border: none !important;
-    border-radius: 26px !important;
-    margin-top: -9.5rem !important;
-    height: 9.5rem !important;
-    opacity: 0 !important;
-    cursor: pointer !important;
     position: relative !important;
     z-index: 10 !important;
+    margin-top: -180px !important;
+    height: 180px !important;
+    min-height: 180px !important;
+    opacity: 0 !important;
+    cursor: pointer !important;
+    border: none !important;
+    background: transparent !important;
+    border-radius: 26px !important;
+}}
+[data-testid="stFileUploadDropzone"] > div {{
+    height: 180px !important;
+    min-height: 180px !important;
 }}
 
 [data-testid="stImage"] img {{
