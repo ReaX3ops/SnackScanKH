@@ -435,25 +435,7 @@ div.scan-btn > div > button:active {{
 </style>
 """, unsafe_allow_html=True)
 
-# ── Hero ──
-col_l, col_c, col_r = st.columns([1, 3, 1])
-with col_c:
-    try:
-        st.image("favicon.jpg", width=72)
-    except:
-        pass
-
-st.markdown(f"""
-<div class="frost hero-wrap">
-    <div class="hero-orb1"></div>
-    <div class="hero-orb2"></div>
-    <div class="hero-badge">AI Powered · Cambodia</div>
-    <div class="hero-title">AhaLaor <span>AI</span></div>
-    <p class="hero-sub">{t("Snap a photo. Know your food.", "ថតរូបភាព។ ស្គាល់ម្ហូបរបស់អ្នក។")}</p>
-</div>
-""", unsafe_allow_html=True)
-
-# ── Top bar ──
+# ── Top bar ── (NOW FIRST)
 col1, col2, col3, col4 = st.columns([4, 1, 1, 1])
 
 with col1:
@@ -541,6 +523,23 @@ if st.session_state.show_settings:
 
     st.markdown('</div>', unsafe_allow_html=True)
 
+# ── Hero ── (NOW SECOND)
+col_l, col_c, col_r = st.columns([1, 3, 1])
+with col_c:
+    try:
+        st.image("favicon.jpg", width=72)
+    except:
+        pass
+
+st.markdown(f"""
+<div class="frost hero-wrap">
+    <div class="hero-orb1"></div>
+    <div class="hero-orb2"></div>
+    <div class="hero-badge">AI Powered · Cambodia</div>
+    <div class="hero-title">AhaLaor <span>AI</span></div>
+    <p class="hero-sub">{t("Snap a photo. Know your food.", "ថតរូបភាព។ ស្គាល់ម្ហូបរបស់អ្នក។")}</p>
+</div>
+""", unsafe_allow_html=True)
 # ── Gemini client ──
 @st.cache_resource
 def get_client():
