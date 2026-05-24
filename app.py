@@ -526,6 +526,8 @@ if uploaded_file:
     scan_clicked = st.button(t("🔍   Scan Food", "🔍   វិភាគម្ហូប"), use_container_width=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
+    scan_placeholder = st.empty()
+
     if scan_clicked:
         if not st.session_state.get("user"):
             st.switch_page("pages/login.py")
@@ -533,6 +535,7 @@ if uploaded_file:
 
         st.session_state.result = None
         st.session_state.last_rating = None
+        scan_placeholder.empty()
         bar = st.progress(0, text=t("Waking up the AI...", "កំពុងភ្ញាក់ AI..."))
         steps = [
             (15, t("Reading your photo...",      "កំពុងអានរូបភាព...")),
