@@ -539,83 +539,28 @@ client = get_client()
 # ── Upload zone ──
 # ══════════════════════════════════════
 st.markdown(f"""
-<style>
-.upload-wrapper {{
-    position: relative;
-    margin-bottom: 1rem;
-    cursor: pointer;
-}}
-.upload-zone {{
-    background: rgba(255,255,255,0.38);
-    border: 2.5px dashed rgba(124,58,237,0.28);
-    border-radius: 26px;
-    padding: 3.5rem 2rem;
+<div class="frost" style="
+    padding: 2rem 2rem 1.5rem;
     text-align: center;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 2px 16px rgba(0,0,0,0.04), 0 1px 0 rgba(255,255,255,0.8) inset;
-    transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    margin-bottom: 0.8rem;
+    position: relative; overflow: hidden;
     animation: fadeUp 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
-    pointer-events: none;
-}}
-.upload-wrapper:hover .upload-zone {{
-    background: rgba(255,255,255,0.65);
-    border-color: rgba(124,58,237,0.55);
-    box-shadow: 0 8px 32px rgba(124,58,237,0.12), 0 1px 0 rgba(255,255,255,0.9) inset;
-    transform: translateY(-2px);
-}}
-.upload-icon {{
-    font-size: 3.2rem; margin-bottom: 0.7rem; display: block;
-    animation: floatA 4s ease-in-out infinite;
-}}
-.upload-title {{
-    font-size: 1.05rem; font-weight: 700;
-    color: #1a1a2e; margin-bottom: 0.3rem;
-}}
-.upload-sub {{
-    font-size: 0.8rem; color: rgba(0,0,0,0.32); font-weight: 400;
-}}
-
-/* Native uploader: absolute, covers entire wrapper */
-[data-testid="stFileUploader"] {{
-    position: absolute !important;
-    top: 0 !important; left: 0 !important;
-    width: 100% !important; height: 100% !important;
-    z-index: 10 !important;
-    opacity: 0 !important;
-    cursor: pointer !important;
-}}
-[data-testid="stFileUploadDropzone"] {{
-    width: 100% !important;
-    height: 100% !important;
-    min-height: 200px !important;
-    cursor: pointer !important;
-    border: none !important;
-    background: transparent !important;
-    border-radius: 26px !important;
-}}
-[data-testid="stFileUploadDropzone"] > div {{
-    width: 100% !important;
-    height: 100% !important;
-    min-height: 200px !important;
-}}
-[data-testid="stFileUploader"] label {{ display: none !important; }}
-[data-testid="stFileUploader"] section {{ display: none !important; }}
-[data-testid="stFileUploader"] button {{ display: none !important; }}
-</style>
-
-<div class="upload-wrapper">
-    <div class="upload-zone">
-        <span class="upload-icon">🍱</span>
-        <div class="upload-title">{t("Drop your food photo here", "ទម្លាក់រូបភាពម្ហូបរបស់អ្នក")}</div>
-        <div class="upload-sub">{t("Drag & drop or click to browse · JPG PNG WEBP", "អូស & ទម្លាក់ ឬចុចដើម្បីរក · JPG PNG WEBP")}</div>
+">
+    <div style="font-size:2.8rem;margin-bottom:0.5rem;
+        animation: floatA 4s ease-in-out infinite;display:block;">🍱</div>
+    <div style="font-size:1rem;font-weight:700;color:#1a1a2e;margin-bottom:0.2rem;">
+        {t("Drop your food photo here", "ទម្លាក់រូបភាពម្ហូបរបស់អ្នក")}
+    </div>
+    <div style="font-size:0.78rem;color:rgba(0,0,0,0.3);margin-bottom:1rem;">
+        {t("JPG · PNG · WEBP", "JPG · PNG · WEBP")}
     </div>
 </div>
 """, unsafe_allow_html=True)
 
 uploaded_file = st.file_uploader(
-    "upload",
+    t("Browse files", "រកឯកសារ"),
     type=["jpg", "jpeg", "png", "webp"],
-    label_visibility="collapsed"
+    label_visibility="visible"
 )
 hint = st.text_input(
     t("TELL US MORE (OPTIONAL)", "បញ្ជាក់បន្ថែម (ជាជម្រើស)"),
