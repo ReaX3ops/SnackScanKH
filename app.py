@@ -540,18 +540,28 @@ client = get_client()
 # ══════════════════════════════════════
 st.markdown(f"""
 <style>
+.upload-wrapper {{
+    position: relative;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}}
 .upload-zone {{
     background: rgba(255,255,255,0.38);
     border: 2.5px dashed rgba(124,58,237,0.28);
     border-radius: 26px;
-    padding: 3rem 2rem;
+    padding: 3.5rem 2rem;
     text-align: center;
     backdrop-filter: blur(20px);
     box-shadow: 0 2px 16px rgba(0,0,0,0.04), 0 1px 0 rgba(255,255,255,0.8) inset;
-    margin-bottom: 0rem;
     transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
-    pointer-events: none;
     animation: fadeUp 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+    pointer-events: none;
+}}
+.upload-wrapper:hover .upload-zone {{
+    background: rgba(255,255,255,0.65);
+    border-color: rgba(124,58,237,0.55);
+    box-shadow: 0 8px 32px rgba(124,58,237,0.12), 0 1px 0 rgba(255,255,255,0.9) inset;
+    transform: translateY(-2px);
 }}
 .upload-icon {{
     font-size: 3.2rem; margin-bottom: 0.7rem; display: block;
@@ -565,34 +575,40 @@ st.markdown(f"""
     font-size: 0.8rem; color: rgba(0,0,0,0.32); font-weight: 400;
 }}
 
-/* Native uploader sits ON TOP, fully transparent but clickable */
+/* Native uploader: absolute, covers entire wrapper */
 [data-testid="stFileUploader"] {{
-    margin-top: -13rem !important;
-    position: relative !important;
+    position: absolute !important;
+    top: 0 !important; left: 0 !important;
+    width: 100% !important; height: 100% !important;
     z-index: 10 !important;
-}}
-[data-testid="stFileUploader"] label {{
-    display: none !important;
-}}
-[data-testid="stFileUploadDropzone"] {{
-    background: transparent !important;
-    border: none !important;
-    border-radius: 26px !important;
-    min-height: 13rem !important;
-    opacity: 0.01 !important;
+    opacity: 0 !important;
     cursor: pointer !important;
 }}
-[data-testid="stFileUploadDropzone"]:hover + .upload-zone,
-[data-testid="stFileUploadDropzone"]:focus + .upload-zone {{
-    background: rgba(255,255,255,0.65) !important;
-    border-color: rgba(124,58,237,0.55) !important;
+[data-testid="stFileUploadDropzone"] {{
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 200px !important;
+    cursor: pointer !important;
+    border: none !important;
+    background: transparent !important;
+    border-radius: 26px !important;
 }}
+[data-testid="stFileUploadDropzone"] > div {{
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 200px !important;
+}}
+[data-testid="stFileUploader"] label {{ display: none !important; }}
+[data-testid="stFileUploader"] section {{ display: none !important; }}
+[data-testid="stFileUploader"] button {{ display: none !important; }}
 </style>
 
-<div class="upload-zone">
-    <span class="upload-icon">🍱</span>
-    <div class="upload-title">{t("Drop your food photo here", "ទម្លាក់រូបភាពម្ហូបរបស់អ្នក")}</div>
-    <div class="upload-sub">{t("Drag & drop or click to browse · JPG PNG WEBP", "អូស & ទម្លាក់ ឬចុចដើម្បីរក · JPG PNG WEBP")}</div>
+<div class="upload-wrapper">
+    <div class="upload-zone">
+        <span class="upload-icon">🍱</span>
+        <div class="upload-title">{t("Drop your food photo here", "ទម្លាក់រូបភាពម្ហូបរបស់អ្នក")}</div>
+        <div class="upload-sub">{t("Drag & drop or click to browse · JPG PNG WEBP", "អូស & ទម្លាក់ ឬចុចដើម្បីរក · JPG PNG WEBP")}</div>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
